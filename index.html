@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-escala="1" data-contraste="padrao">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elo Digital — Suporte de tecnologia para pessoas, famílias e negócios | Curitiba e remoto</title>
+<meta name="description" content="Suporte de tecnologia paciente e didático para pessoas, famílias e para quem cuida dos pais: configuração de Mac, iPhone, iPad e Android, organização de arquivos e backup, aulas individuais, proteção contra golpes e criação de sites profissionais. Diagnóstico gratuito em 2 minutos, sem cadastro.">
+<link rel="canonical" href="https://elodigital.com.br/">
+<meta name="theme-color" content="#EFEDE7">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Elo Digital">
+<meta property="og:title" content="Tecnologia que você entende, usa e transforma em resultado.">
+<meta property="og:description" content="Configuração, aulas e suporte para pessoas e famílias. Sites profissionais para quem precisa ser encontrado. Faça o diagnóstico de 2 minutos e veja o que você precisa.">
+<meta property="og:url" content="https://elodigital.com.br/">
+<meta property="og:image" content="https://elodigital.com.br/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Elo Digital — tecnologia pessoal e presença digital">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tecnologia que você entende, usa e transforma em resultado.">
+<meta name="twitter:description" content="Configuração, aulas e suporte para pessoas e famílias. Sites profissionais para negócios. Diagnóstico gratuito em 2 minutos.">
+<meta name="twitter:image" content="https://elodigital.com.br/og-image.png">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%23161A1C'/><g fill='none' stroke='%230B5D3B' stroke-width='3.4'><rect x='6.5' y='11.5' width='12' height='9' rx='4.5'/><rect x='13.5' y='11.5' width='12' height='9' rx='4.5' stroke='%23F2F1EC'/></g></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================================
+   ELO DIGITAL — DESIGN SYSTEM
+   Sistema governante: DESIGN.md `intercom` (estrutura, superfícies, raios,
+   hairlines, display em sans peso 500 com tracking negativo proporcional).
+   Voltagem adaptada: verde-sinal #0B5D3B substitui o Fin Orange e é reservada
+   a estado, medida e recomendação — nunca a CTA primária (essa é ink).
+   ========================================================================= */
+:root{
+  --canvas:#EFEDE7;
+  --surface:#FFFFFF;
+  --surface-2:#E4E1D8;
+  --ink:#16191C;
+  --ink-muted:#565B58;
+  --ink-subtle:#5C615D;
+  --hairline:#D6D2C8;
+  --hairline-soft:#E4E1D8;
+  --voltage:#0B5D3B;
+  --voltage-soft:#DDEAE0;
+  --voltage-line:#B9D3C4;
+  --inverse:#12161A;
+  --inverse-ink:#F2F1EC;
+  --inverse-muted:#A6ADA8;
+
+  /* MOTION — tokens únicos para todo o site.
+     Curva de entrada: expo-out (.16,1,.3,1) — rápida no início, pouso macio.
+     Curva de troca de estado: (.65,0,.35,1). Nada acima de 760ms. */
+  --e-out:cubic-bezier(.16,1,.3,1);
+  /* Estado (hover, foco, cor, borda): 0,33s com a curva da ficha `tesla` da
+     biblioteca — "consistência em movimento é tão importante quanto
+     consistência em cor". Um único par para TODA troca de estado do site.
+     Pressão continua em 120ms: resposta ao toque não pode esperar 330ms. */
+  --t-estado:.33s; --e-estado:cubic-bezier(.5,0,0,.75);
+  --e-inout:cubic-bezier(.65,0,.35,1);
+  --t-1:120ms; --t-2:180ms; --t-3:240ms; --t-4:380ms; --t-5:520ms; --t-6:760ms;
+
+  /* WhatsApp — verde de marca, com tinta escura por cima para passar em AA */
+  --zap:#25D366; --zap-2:#1BC257; --zap-ink:#062616; --zap-halo:rgba(37,211,102,.45);
+
+  --r-xs:4px; --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-pill:999px;
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-6:24px; --s-8:32px; --s-12:48px; --s-16:64px; --s-24:96px;
+
+  --escala:1;
+  --fs-body: calc(18px * var(--escala));
+  --fs-sm:   calc(15.5px * var(--escala));
+  --fs-lead: calc(20px * var(--escala));
+  --fs-eyebrow: calc(13px * var(--escala));
+  --maxw:1200px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+html[data-escala="1.14"]{ --escala:1.14 }
+html[data-escala="1.3"]{ --escala:1.3 }
+/* ALTO CONTRASTE
+   Não é "um branco diferente": é outro modo de renderizar a página.
+   Preto puro sobre branco puro, cinzas eliminados (todo texto vira tinta),
+   hairlines viram traços de 2px, superfícies escuras viram preto absoluto,
+   véus sobre vídeo ficam opacos e nada é transmitido só por opacidade. */
+html[data-contraste="alto"]{
+  --canvas:#FFFFFF; --surface:#FFFFFF; --surface-2:#FFFFFF;
+  --ink:#000000; --ink-muted:#000000; --ink-subtle:#000000;
+  --hairline:#000000; --hairline-soft:#000000;
+  --voltage:#00532F; --voltage-soft:#FFFFFF; --voltage-line:#00532F; --voltage-on-dark:#8CF3BE;
+  --inverse:#000000; --inverse-ink:#FFFFFF; --inverse-muted:#FFFFFF;
+  --zap:#0A7C36; --zap-2:#075E28; --zap-ink:#FFFFFF;
+}
+html[data-contraste="alto"] .serv,
+html[data-contraste="alto"] .plano,
+html[data-contraste="alto"] .p3,
+html[data-contraste="alto"] .oficina,
+html[data-contraste="alto"] .caminho,
+html[data-contraste="alto"] .op,
+html[data-contraste="alto"] .chip,
+html[data-contraste="alto"] .motor,
+html[data-contraste="alto"] .rec,
+html[data-contraste="alto"] .fecho,
+html[data-contraste="alto"] .tile__midia,
+html[data-contraste="alto"] .btn--secundaria,
+html[data-contraste="alto"] .btn--fantasma,
+html[data-contraste="alto"] .conforto{ border:2px solid #000 }
+html[data-contraste="alto"] .comp{ border:2px solid #FFF }
+html[data-contraste="alto"] .op[aria-pressed="true"]{ background:#000; color:#FFF; box-shadow:none }
+html[data-contraste="alto"] .op[aria-pressed="true"] .op__d{ color:#FFF }
+html[data-contraste="alto"] .op__marca{ border:2px solid #000 }
+html[data-contraste="alto"] .op[aria-pressed="true"] .op__marca{ background:#FFF; border-color:#FFF; color:#000 }
+html[data-contraste="alto"] .serv[data-apagado="1"]{ opacity:1 }
+html[data-contraste="alto"] .heroi-cine__scrim{ background:rgba(0,0,0,.86) }
+html[data-contraste="alto"] .heroi-cine__lead{ color:#FFF }
+html[data-contraste="alto"] .heroi-cine__nota,
+html[data-contraste="alto"] .tile .lead,
+html[data-contraste="alto"] .confianca .lead,
+html[data-contraste="alto"] .comp__d,
+html[data-contraste="alto"] .painel .mut{ color:#FFF }
+html[data-contraste="alto"] .tile__legenda{ background:#000; border:2px solid #FFF; backdrop-filter:none }
+html[data-contraste="alto"] .ponte{ background:linear-gradient(180deg,#FFF,#000) }
+html[data-contraste="alto"] .ponte--sobe,
+html[data-contraste="alto"] .ponte--escuro-papel{ background:linear-gradient(180deg,#000,#FFF) }
+html[data-contraste="alto"] .ponte--papel-escuro{ background:linear-gradient(180deg,#FFF,#000) }
+html[data-contraste="alto"] .porque{ background:#FFF; border:2px solid #00532F; color:#00532F }
+html[data-contraste="alto"] .tag{ background:#FFF; border:2px solid #000; color:#000 }
+html[data-contraste="alto"] .garantias{ background:#FFF; border-block:2px solid #000 }
+html[data-contraste="alto"] .topo{ background:#FFF; border-bottom:2px solid #000 }
+html[data-contraste="alto"] .faq details{ border-bottom:2px solid #000 }
+html[data-contraste="alto"] a:not(.btn){ text-decoration:underline; text-underline-offset:3px }
+html[data-contraste="alto"] :focus-visible{ outline:4px solid #000; outline-offset:3px }
+html[data-contraste="alto"] .barra{ background:#FFF; border:2px solid #000 }
+html[data-contraste="alto"] .btn--vidro{ background:#000; border:2px solid #FFF; backdrop-filter:none }
+html[data-contraste="alto"] .sinal__i{ background:#000; color:#FFF }
+
+*,*::before,*::after{ box-sizing:border-box }
+html{ -webkit-text-size-adjust:100% }
+body{
+  margin:0; background:var(--canvas); color:var(--ink);
+  font-family:"Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size:var(--fs-body); line-height:1.55; letter-spacing:0;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{ font-family:"Bricolage Grotesque", "Instrument Sans", ui-sans-serif, system-ui, sans-serif; font-weight:500; margin:0; }
+h1{ font-size:clamp(2.25rem, 1.4rem + 3.6vw, 4.15rem); line-height:1.03; letter-spacing:-.035em }
+h2{ font-size:clamp(1.75rem, 1.2rem + 2.1vw, 2.85rem); line-height:1.1; letter-spacing:-.027em }
+h3{ font-size:clamp(1.2rem, 1.05rem + .5vw, 1.45rem); line-height:1.22; letter-spacing:-.015em }
+h4{ font-size:1.05rem; line-height:1.3; letter-spacing:-.01em }
+p{ margin:0 }
+a{ color:inherit }
+ul{ margin:0; padding:0; list-style:none }
+button{ font:inherit; color:inherit; cursor:pointer; border:0; background:none }
+img,svg{ display:block; max-width:100% }
+:focus-visible{ outline:3px solid var(--voltage); outline-offset:3px; border-radius:var(--r-xs) }
+::selection{ background:var(--voltage); color:#fff }
+
+.wrap{ width:100%; max-width:var(--maxw); margin-inline:auto; padding-inline:clamp(18px, 4vw, 40px) }
+.secao{ padding-block:clamp(56px, 8vw, 104px) }
+.secao--fina{ padding-block:clamp(40px, 5vw, 64px) }
+.eyebrow{
+  font-family:"JetBrains Mono", ui-monospace, monospace; font-size:var(--fs-eyebrow);
+  letter-spacing:.06em; text-transform:uppercase; color:var(--voltage); margin:0 0 var(--s-3);
+  display:flex; align-items:center; gap:10px;
+}
+.eyebrow::before{ content:""; width:22px; height:1px; background:var(--voltage-line) }
+.lead{ font-size:var(--fs-lead); line-height:1.5; color:var(--ink-muted); max-width:62ch }
+.mut{ color:var(--ink-muted) }
+.sm{ font-size:var(--fs-sm) }
+.mono{ font-family:"JetBrains Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums }
+.pular{ position:absolute; left:-9999px }
+.pular:focus{ left:12px; top:12px; z-index:99; background:var(--ink); color:#fff; padding:10px 16px; border-radius:var(--r-md) }
+
+/* ---------- botões ---------- */
+.btn{
+  position:relative; isolation:isolate;
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  min-height:52px; padding:13px 22px; border-radius:var(--r-md);
+  font-weight:600; font-size:calc(16px * var(--escala)); letter-spacing:-.01em;
+  text-decoration:none;
+  transition:transform var(--t-1) var(--e-out),
+             background-color var(--t-estado) var(--e-estado),
+             border-color var(--t-estado) var(--e-estado),
+             box-shadow var(--t-estado) var(--e-estado);
+}
+/* varredura: uma lâmina de luz cruza o botão da esquerda para a direita */
+.btn::before{
+  content:""; position:absolute; inset:0; border-radius:inherit; background:currentColor; opacity:0;
+  transform:scaleX(0); transform-origin:left center;
+  transition:transform var(--t-5) var(--e-out), opacity var(--t-2) linear;
+}
+.btn:hover::before{ transform:scaleX(1); opacity:.13 }
+.btn:active{ transform:scale(.97) }
+.btn:active::before{ opacity:.2 }
+.btn__zap{ transition:transform var(--t-4) var(--e-out) }
+.btn:hover .btn__zap{ transform:rotate(-9deg) scale(1.12) }
+
+/* WhatsApp — o botão mais visível da página */
+.btn--zap{ background:var(--zap); color:var(--zap-ink); box-shadow:0 0 0 0 var(--zap-halo) }
+.btn--zap:hover{ background:var(--zap-2); box-shadow:0 6px 22px -6px var(--zap-halo) }
+.btn--zap::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; border:2px solid var(--zap);
+  opacity:0; pointer-events:none;
+}
+.btn--zap[data-chama="1"]::after{ animation:halo 2.1s var(--e-out) 3 }
+@keyframes halo{
+  0%{ opacity:.65; transform:scale(1) }
+  70%{ opacity:0; transform:scale(1.14) }
+  100%{ opacity:0; transform:scale(1.14) }
+}
+.btn--primaria{ background:var(--ink); color:#fff }
+.btn--primaria:hover{ background:#000 }
+.btn--secundaria{ background:var(--surface); color:var(--ink); border:1px solid var(--hairline) }
+.btn--secundaria:hover{ border-color:var(--ink) }
+.btn--fantasma{ background:transparent; color:var(--ink); border:1px solid var(--hairline) }
+.btn--fantasma:hover{ border-color:var(--ink) }
+.btn--bloco{ width:100% }
+.btn__zap{ width:19px; height:19px; flex:none }
+
+/* ---------- cabeçalho ---------- */
+.topo{
+  position:sticky; top:0; z-index:40; background:var(--canvas); background:color-mix(in srgb, var(--canvas) 88%, transparent);
+  backdrop-filter:blur(10px); border-bottom:1px solid var(--hairline-soft);
+}
+.topo__in{ display:flex; align-items:center; gap:var(--s-6); min-height:68px; padding-block:10px }
+.marca{ display:flex; align-items:center; gap:11px; text-decoration:none; margin-right:auto; flex:none }
+.marca__nome{ font-family:"Bricolage Grotesque",sans-serif; font-weight:600; font-size:calc(18px * var(--escala)); letter-spacing:-.03em }
+.marca__sub{ display:block; font-size:calc(11px * var(--escala)); letter-spacing:.02em; color:var(--ink-subtle); font-weight:400; font-family:"Instrument Sans",sans-serif }
+.nav{ display:flex; gap:20px; align-items:center; flex-wrap:nowrap }
+.nav a{ text-decoration:none; font-size:calc(15px * var(--escala)); color:var(--ink-muted); padding:6px 0; white-space:nowrap;
+  transition:color var(--t-estado) var(--e-estado) }
+.nav a:hover{ color:var(--ink) }
+.conforto{ display:flex; align-items:center; gap:6px; padding:4px; background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-pill) }
+.conforto__b{ min-width:34px; height:34px; border-radius:var(--r-pill); font-size:13px; font-weight:600; color:var(--ink-muted); display:flex; align-items:center; justify-content:center; padding-inline:8px }
+.conforto__b[aria-pressed="true"]{ background:var(--ink); color:#fff }
+@media (max-width:1180px){ .nav{ display:none } }
+@media (max-width:640px){ .topo__in{ gap:var(--s-3) } .topo .btn{ display:none } .marca__sub{ display:none } }
+
+/* ---------- herói ---------- */
+.heroi{ padding-top:clamp(40px, 6vw, 76px); padding-bottom:clamp(24px, 3vw, 40px) }
+.heroi__grade{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(28px, 4vw, 64px); align-items:start }
+.heroi h1 em{ font-style:normal; color:var(--voltage) }
+.heroi__lead{ margin-top:var(--s-6) }
+.heroi__acoes{ display:flex; flex-wrap:wrap; gap:var(--s-3); margin-top:var(--s-8) }
+.heroi__nota{ margin-top:var(--s-4); font-size:var(--fs-sm); color:var(--ink-subtle) }
+.caminhos{ display:grid; gap:12px }
+.caminhos--tres{ grid-template-columns:repeat(3,1fr) }
+.caminhos--tres .caminho{ grid-template-columns:auto 1fr; align-items:start; gap:14px; padding:24px }
+.caminhos--tres .caminho__seta{ display:none }
+@media (max-width:900px){ .caminhos--tres{ grid-template-columns:1fr } }
+.caminho{
+  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:16px; text-align:left;
+  background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-lg);
+  padding:20px; transition:border-color .16s var(--ease), transform .16s var(--ease);
+}
+.caminho:hover{ border-color:var(--ink); transform:translateY(-2px) }
+.caminho__ico{ width:44px; height:44px; border-radius:var(--r-md); background:var(--voltage-soft); display:grid; place-items:center; color:var(--voltage) }
+.caminho__t{ font-family:"Bricolage Grotesque",sans-serif; font-weight:500; font-size:calc(17px * var(--escala)); letter-spacing:-.02em; display:block }
+.caminho__d{ font-size:var(--fs-sm); color:var(--ink-muted) }
+.caminho__seta{ color:var(--ink-subtle) }
+@media (max-width:900px){ .heroi__grade{ grid-template-columns:1fr } }
+
+/* ---------- faixa de garantias ---------- */
+.garantias{ border-block:1px solid var(--hairline-soft); background:var(--surface-2) }
+.garantias ul{ display:flex; flex-wrap:wrap; gap:10px 28px; padding-block:16px; font-size:var(--fs-sm); color:var(--ink-muted) }
+.garantias li{ display:flex; align-items:center; gap:9px }
+.ponto{ width:7px; height:7px; border-radius:50%; background:var(--voltage); flex:none }
+
+/* ---------- motor de diagnóstico ---------- */
+.motor{ background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-xl); overflow:hidden }
+.motor__cab{ display:flex; flex-wrap:wrap; gap:var(--s-4); align-items:end; justify-content:space-between; padding:clamp(22px,3vw,34px); border-bottom:1px solid var(--hairline-soft) }
+.motor__prog{ display:flex; align-items:center; gap:10px; font-size:13px }
+.prog__t{ width:46px; height:5px; border-radius:var(--r-pill); background:var(--surface-2) }
+.prog__t[data-ativo="1"]{ background:var(--voltage) }
+.motor__corpo{ padding:clamp(22px,3vw,34px) }
+.passo[hidden]{ display:none }
+.passo__p{ font-family:"Bricolage Grotesque",sans-serif; font-weight:500; font-size:clamp(1.3rem,1.1rem + .9vw,1.75rem); letter-spacing:-.024em; line-height:1.18 }
+.passo__aj{ margin-top:8px; font-size:var(--fs-sm); color:var(--ink-muted) }
+.opcoes{ display:grid; gap:10px; margin-top:var(--s-6) }
+.opcoes--2{ grid-template-columns:repeat(2,1fr) }
+.opcoes--4{ grid-template-columns:repeat(4,1fr) }
+@media (max-width:820px){ .opcoes--4{ grid-template-columns:repeat(2,1fr) } }
+@media (max-width:520px){ .opcoes--2,.opcoes--4{ grid-template-columns:1fr } }
+.op{
+  position:relative; text-align:left; padding:16px 18px; min-height:60px;
+  border:1px solid var(--hairline); border-radius:var(--r-md); background:var(--canvas);
+  font-size:calc(16px * var(--escala)); line-height:1.35; display:flex; align-items:center; gap:12px;
+  transition:border-color .14s var(--ease), background-color .14s var(--ease);
+}
+.op:hover{ border-color:var(--ink) }
+.op[aria-pressed="true"]{ border-color:var(--voltage); background:var(--voltage-soft); box-shadow:inset 0 0 0 1px var(--voltage) }
+.op__marca{ width:22px; height:22px; border-radius:6px; border:1px solid var(--hairline); background:var(--surface); flex:none; display:grid; place-items:center; color:transparent }
+.op[aria-pressed="true"] .op__marca{ background:var(--voltage); border-color:var(--voltage); color:#fff }
+.op__t{ font-weight:500 }
+.op__d{ display:block; font-size:var(--fs-sm); color:var(--ink-muted); font-weight:400 }
+.motor__rodape{ display:flex; flex-wrap:wrap; gap:var(--s-3); align-items:center; justify-content:space-between; margin-top:var(--s-8) }
+.motor__aviso{ font-size:var(--fs-sm); color:var(--ink-subtle) }
+
+/* ---------- resultado ---------- */
+.resultado[hidden]{ display:none }
+.res__cab{ display:flex; flex-wrap:wrap; gap:var(--s-4); justify-content:space-between; align-items:baseline; margin-bottom:var(--s-6) }
+.res__grade{ display:grid; grid-template-columns:1.5fr 1fr; gap:var(--s-6) }
+@media (max-width:900px){ .res__grade{ grid-template-columns:1fr } }
+.rec{ border:1px solid var(--hairline); border-radius:var(--r-lg); padding:20px; background:var(--canvas); display:grid; gap:12px }
+.rec + .rec{ margin-top:12px }
+.rec--top{ background:var(--surface); border-color:var(--voltage-line) }
+.rec__cab{ display:flex; align-items:baseline; justify-content:space-between; gap:14px }
+.rec__pos{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--ink-subtle) }
+.rec__score{ font-family:"JetBrains Mono",monospace; font-size:calc(15px * var(--escala)); font-weight:500; color:var(--voltage); white-space:nowrap }
+.barra{ height:6px; background:var(--surface-2); border-radius:var(--r-pill); overflow:hidden }
+.barra__f{ height:100%; background:var(--voltage); border-radius:var(--r-pill); width:0; transition:width .8s var(--ease) }
+.porques{ display:flex; flex-wrap:wrap; gap:6px }
+.porque{ font-size:13px; padding:4px 10px; border-radius:var(--r-pill); background:var(--voltage-soft); color:var(--voltage); border:1px solid var(--voltage-line) }
+.painel{ background:var(--inverse); color:var(--inverse-ink); border-radius:var(--r-lg); padding:22px; display:grid; gap:16px; align-content:start }
+.painel h3{ color:#fff }
+.painel .mut{ color:var(--inverse-muted) }
+.painel__plano{ border:1px solid rgba(255,255,255,.16); border-radius:var(--r-md); padding:16px; display:grid; gap:6px }
+.painel__tag{ font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:#7FD3A8 }
+.trilha{ display:grid; gap:10px }
+.trilha li{ display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start; font-size:var(--fs-sm) }
+.trilha__n{ font-family:"JetBrains Mono",monospace; font-size:11px; color:#7FD3A8; padding-top:3px }
+.btn--zap{ background:var(--voltage); color:#fff }
+.btn--zap:hover{ background:#0a4c31 }
+.aviso{ display:none; margin-top:10px; font-size:var(--fs-sm); color:#F1C0A0 }
+.aviso[data-visivel="1"]{ display:block }
+
+/* ---------- catálogo ---------- */
+.filtros{ display:flex; flex-wrap:wrap; gap:8px; margin:var(--s-6) 0 var(--s-8) }
+.chip{ padding:9px 16px; min-height:44px; border-radius:var(--r-pill); border:1px solid var(--hairline); background:var(--surface); font-size:var(--fs-sm); font-weight:500; color:var(--ink-muted) }
+.chip[aria-pressed="true"]{ background:var(--ink); border-color:var(--ink); color:#fff }
+.catalogo{ display:grid; grid-template-columns:repeat(2,1fr); gap:14px }
+@media (max-width:820px){ .catalogo{ grid-template-columns:1fr } }
+.serv{
+  background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-lg);
+  padding:24px; display:grid; gap:12px; align-content:start; transition:opacity .3s var(--ease), border-color .16s var(--ease);
+}
+.serv[data-apagado="1"]{ opacity:.42 }
+.serv__cab{ display:flex; align-items:baseline; justify-content:space-between; gap:12px }
+.serv__num{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--ink-subtle) }
+.serv__score{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--voltage); border:1px solid var(--voltage-line); background:var(--voltage-soft); padding:3px 8px; border-radius:var(--r-pill); display:none }
+.serv[data-score]:not([data-score=""]) .serv__score{ display:inline-block }
+.serv ul{ display:grid; gap:8px; font-size:var(--fs-sm); color:var(--ink-muted) }
+.serv li{ display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start }
+.serv li::before{ content:""; width:6px; height:6px; margin-top:.55em; border-radius:50%; background:var(--voltage-line) }
+.serv__pub{ display:flex; flex-wrap:wrap; gap:6px; margin-top:2px }
+.tag{ font-size:12px; padding:3px 9px; border-radius:var(--r-pill); background:var(--surface-2); color:var(--ink-muted) }
+
+/* ---------- planos ---------- */
+.abas{ display:inline-flex; gap:4px; padding:4px; background:var(--surface-2); border-radius:var(--r-pill); margin-bottom:var(--s-8) }
+.aba{ padding:10px 20px; min-height:44px; border-radius:var(--r-pill); font-weight:500; font-size:var(--fs-sm); color:var(--ink-muted) }
+.aba[aria-selected="true"]{ background:var(--surface); color:var(--ink) }
+.planos{ display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:14px }
+@media (max-width:900px){ .planos{ grid-template-columns:1fr } }
+.plano{ background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-lg); padding:24px; display:grid; gap:12px; align-content:start }
+.plano--destaque{ background:var(--inverse); color:var(--inverse-ink); border-color:var(--inverse) }
+.plano--destaque h3{ color:#fff }
+.plano--destaque .plano__d,.plano--destaque .plano__inc li{ color:var(--inverse-muted) }
+.plano--destaque .plano__inc li::before{ background:#7FD3A8 }
+.plano__selo{ font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--voltage) }
+.plano--destaque .plano__selo{ color:#7FD3A8 }
+.plano__d{ font-size:var(--fs-sm); color:var(--ink-muted) }
+.plano__inc{ display:grid; gap:8px; font-size:var(--fs-sm); color:var(--ink-muted) }
+.plano__inc li{ display:grid; grid-template-columns:auto 1fr; gap:10px; align-items:start }
+.plano__inc li::before{ content:""; width:6px; height:6px; margin-top:.55em; border-radius:50%; background:var(--voltage-line) }
+.ancora{ margin-top:14px; background:var(--surface); border:1px solid var(--voltage-line); border-radius:var(--r-lg); padding:clamp(22px,3vw,32px); display:grid; grid-template-columns:1.4fr 1fr; gap:var(--s-6); align-items:center }
+@media (max-width:820px){ .ancora{ grid-template-columns:1fr } }
+
+/* ---------- método ---------- */
+.jornada{ display:grid; grid-template-columns:repeat(6,1fr); gap:12px; margin-top:var(--s-8); counter-reset:j }
+@media (max-width:980px){ .jornada{ grid-template-columns:repeat(3,1fr) } }
+@media (max-width:560px){ .jornada{ grid-template-columns:repeat(2,1fr) } }
+.etapa{ border-top:2px solid var(--voltage-line); padding-top:14px; display:grid; gap:6px }
+.etapa__n{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--voltage) }
+.etapa__t{ font-family:"Bricolage Grotesque",sans-serif; font-weight:500; letter-spacing:-.015em; font-size:calc(16px * var(--escala)) }
+.etapa__d{ font-size:var(--fs-sm); color:var(--ink-muted) }
+
+/* ---------- confiança ---------- */
+.confianca{ background:var(--inverse); color:var(--inverse-ink) }
+.confianca h2{ color:#fff }
+.confianca .lead{ color:var(--inverse-muted) }
+.compromissos{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:var(--s-8) }
+@media (max-width:860px){ .compromissos{ grid-template-columns:1fr } }
+.comp{ border:1px solid rgba(255,255,255,.14); border-radius:var(--r-lg); padding:22px; display:grid; gap:8px; align-content:start }
+.comp__t{ font-family:"Bricolage Grotesque",sans-serif; font-weight:500; font-size:calc(17px * var(--escala)); letter-spacing:-.02em }
+.comp__d{ font-size:var(--fs-sm); color:var(--inverse-muted) }
+.comp--regra{ border-color:#2C6A4C; background:rgba(11,93,59,.28) }
+
+/* ---------- oficinas ---------- */
+.oficinas{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:var(--s-8) }
+@media (max-width:860px){ .oficinas{ grid-template-columns:1fr } }
+.oficina{ background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-lg); padding:20px; display:grid; gap:6px }
+.oficina__t{ font-family:"Bricolage Grotesque",sans-serif; font-weight:500; letter-spacing:-.018em; font-size:calc(17px * var(--escala)) }
+.oficina__d{ font-size:var(--fs-sm); color:var(--ink-muted) }
+
+/* ---------- faq ---------- */
+.faq{ max-width:860px; margin-top:var(--s-8); border-top:1px solid var(--hairline) }
+.faq details{ border-bottom:1px solid var(--hairline) }
+.faq summary{ list-style:none; cursor:pointer; padding:22px 0; display:flex; gap:16px; align-items:baseline; justify-content:space-between; font-family:"Bricolage Grotesque",sans-serif; font-weight:500; letter-spacing:-.018em; font-size:calc(18px * var(--escala)) }
+.faq summary::-webkit-details-marker{ display:none }
+.faq summary::after{ content:"+"; font-family:"JetBrains Mono",monospace; color:var(--voltage); font-size:20px; line-height:1 }
+.faq details[open] summary::after{ content:"−" }
+.faq p{ padding:0 0 22px; color:var(--ink-muted); max-width:70ch }
+
+/* ---------- fecho + rodapé ---------- */
+.fecho{ background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-xl); padding:clamp(28px,5vw,60px); display:grid; grid-template-columns:1.3fr 1fr; gap:var(--s-8); align-items:center }
+@media (max-width:860px){ .fecho{ grid-template-columns:1fr } }
+.rodape{ border-top:1px solid var(--hairline); margin-top:var(--s-16) }
+.rodape__in{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:var(--s-8); padding-block:var(--s-12) }
+@media (max-width:820px){ .rodape__in{ grid-template-columns:1fr; gap:var(--s-6) } }
+.rodape h4{ font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-subtle); font-weight:400; margin-bottom:12px }
+.rodape ul{ display:grid; gap:9px; font-size:var(--fs-sm) }
+.rodape a{ text-decoration:none; color:var(--ink-muted) }
+.rodape a:hover{ color:var(--ink); text-decoration:underline }
+.rodape__legal{ border-top:1px solid var(--hairline-soft); padding-block:22px; font-size:13px; color:var(--ink-subtle); display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between }
+
+/* =========================================================================
+   CAMADA CINEMA — estrutura de tiles full-bleed e movimento
+   Derivada da ficha `apple` da biblioteca DESIGN.md: tiles edge-to-edge que
+   alternam claro/escuro (a troca de superfície É o divisor), fotografia em
+   movimento como protagonista, chrome que recua, press-state scale(.96).
+   Adaptações: paleta e tipografia continuam Elo Digital; a Apple usa corte
+   seco entre tiles, aqui há uma ponte de 1 gradiente porque o papel morno
+   pede transição em vez de choque.
+   ========================================================================= */
+.heroi-cine{ position:relative; min-height:100vh; min-height:100svh; display:grid; align-items:end; overflow:hidden; background:var(--inverse); isolation:isolate }
+.heroi-cine__v{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; transform:scale(1.06); transform-origin:50% 60%; will-change:transform }
+.heroi-cine__scrim{ position:absolute; inset:0; z-index:1; background:
+  linear-gradient(180deg, rgba(8,11,10,.66) 0%, rgba(8,11,10,.30) 34%, rgba(8,11,10,.74) 76%, rgba(8,11,10,.94) 100%) }
+.heroi-cine__in{ position:relative; z-index:2; color:#fff; padding-block:clamp(96px,17vh,190px) clamp(44px,8vh,92px) }
+.heroi-cine h1{ color:#fff; max-width:15ch; font-size:clamp(2.5rem,1.1rem+5.4vw,4.9rem); letter-spacing:-.04em; text-wrap:balance }
+.heroi-cine h1 em{ font-style:normal; color:#7FD3A8 }
+.heroi-cine__lead{ color:rgba(255,255,255,.84); max-width:50ch; margin-top:var(--s-6) }
+.eyebrow--claro{ color:#7FD3A8 } .eyebrow--claro::before{ background:rgba(127,211,168,.55) }
+.btn--claro{ background:#fff; color:var(--ink) } .btn--claro:hover{ background:#F2F1EC }
+.btn--vidro{ background:rgba(255,255,255,.12); color:#fff; border:1px solid rgba(255,255,255,.38); backdrop-filter:blur(8px) }
+.btn--vidro:hover{ background:rgba(255,255,255,.2) }
+.heroi-cine__nota{ margin-top:var(--s-4); font-size:var(--fs-sm); color:rgba(255,255,255,.68) }
+.rolar{ position:absolute; left:50%; bottom:18px; transform:translateX(-50%); z-index:2; display:grid; justify-items:center; gap:6px;
+  font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.6) }
+.rolar__t{ width:1px; height:34px; background:linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.7)); animation:desce 2.4s var(--ease) infinite }
+@keyframes desce{ 0%{ transform:scaleY(.2); transform-origin:top } 50%{ transform:scaleY(1); transform-origin:top } 51%{ transform:scaleY(1); transform-origin:bottom } 100%{ transform:scaleY(.2); transform-origin:bottom } }
+@media (max-width:640px){ .rolar{ display:none } }
+
+.tile{ background:var(--inverse); color:var(--inverse-ink); padding-block:clamp(64px,10vw,128px) }
+.tile h2{ color:#fff } .tile .lead{ color:var(--inverse-muted) }
+.tile--papel{ background:var(--surface); color:var(--ink) } .tile--papel h2{ color:var(--ink) } .tile--papel .lead{ color:var(--ink-muted) }
+.tile__grade{ display:grid; grid-template-columns:.92fr 1.08fr; gap:clamp(28px,5vw,72px); align-items:center }
+.tile__grade--inverso .tile__midia{ order:-1 }
+@media (max-width:900px){ .tile__grade{ grid-template-columns:1fr } .tile__grade--inverso .tile__midia{ order:0 } }
+.tile__midia{ position:relative; aspect-ratio:16/10; border-radius:var(--r-xl); overflow:hidden; background:#0d1011; box-shadow:rgba(0,0,0,.22) 3px 5px 30px 0 }
+.tile__midia video{ width:100%; height:100%; object-fit:cover; display:block; transform:scale(1.02) }
+.tile__legenda{ position:absolute; left:14px; bottom:14px; z-index:2; font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:#fff; background:rgba(12,16,14,.52); backdrop-filter:blur(8px); padding:7px 12px; border-radius:var(--r-pill) }
+.tile__lista{ display:grid; gap:14px; margin-top:var(--s-8) }
+.tile__lista li{ display:grid; grid-template-columns:auto 1fr; gap:13px; align-items:start; font-size:var(--fs-sm) }
+.tile__lista li::before{ content:""; width:7px; height:7px; margin-top:.55em; border-radius:50%; background:#7FD3A8 }
+.tile--papel .tile__lista li::before{ background:var(--voltage) }
+.tile__lista li b{ font-weight:600; color:#fff } .tile--papel .tile__lista li b{ color:var(--ink) }
+
+.ponte{ height:clamp(56px,8vw,110px); background:linear-gradient(180deg, var(--canvas) 0%, var(--inverse) 100%) }
+.ponte--sobe{ background:linear-gradient(180deg, var(--inverse) 0%, var(--canvas) 100%) }
+.ponte--papel-escuro{ background:linear-gradient(180deg, var(--surface) 0%, var(--inverse) 100%) }
+.ponte--escuro-papel{ background:linear-gradient(180deg, var(--inverse) 0%, var(--surface) 100%) }
+
+/* ---------- menu mobile + barra fixa ---------- */
+.hamb{ display:none; width:46px; height:46px; border:1px solid var(--hairline); border-radius:var(--r-md); background:var(--surface); align-items:center; justify-content:center }
+.hamb span{ display:block; width:19px; height:1.5px; background:var(--ink); position:relative }
+.hamb span::before,.hamb span::after{ content:""; position:absolute; left:0; width:19px; height:1.5px; background:var(--ink) }
+.hamb span::before{ top:-6px } .hamb span::after{ top:6px }
+.navmob{ display:none; border-top:1px solid var(--hairline-soft); background:var(--canvas) }
+.navmob[data-aberto="1"]{ display:block }
+.navmob ul{ display:grid; padding-block:10px }
+.navmob a{ display:block; padding:14px 0; text-decoration:none; border-bottom:1px solid var(--hairline-soft); font-size:calc(17px * var(--escala)) }
+.navmob a:last-child{ border-bottom:0 }
+@media (max-width:1180px){ .hamb{ display:flex } }
+.barrafixa{ display:none }
+@media (max-width:640px){
+  .barrafixa{ display:grid; grid-template-columns:1fr auto; gap:8px; position:fixed; left:0; right:0; bottom:0; z-index:50;
+    background:color-mix(in srgb, var(--canvas) 94%, transparent); backdrop-filter:blur(10px);
+    border-top:1px solid var(--hairline); padding:10px clamp(14px,4vw,20px) calc(10px + env(safe-area-inset-bottom)) }
+  .barrafixa .btn{ min-height:50px; padding-inline:16px }
+  body{ padding-bottom:78px }
+}
+
+/* ---------- como funciona ---------- */
+.passos3{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:var(--s-8) }
+@media (max-width:820px){ .passos3{ grid-template-columns:1fr } }
+.p3{ background:var(--surface); border:1px solid var(--hairline); border-radius:var(--r-lg); padding:22px; display:grid; gap:8px; align-content:start }
+.p3__n{ font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--voltage) }
+.p3__t{ font-family:"Bricolage Grotesque",sans-serif; font-weight:500; letter-spacing:-.02em; font-size:calc(18px * var(--escala)) }
+.p3__d{ font-size:var(--fs-sm); color:var(--ink-muted) }
+
+/* ---------- golpes ---------- */
+.golpes{ background:var(--surface) }
+.sinais{ display:grid; grid-template-columns:repeat(2,1fr); gap:0 34px; margin-top:var(--s-8) }
+@media (max-width:760px){ .sinais{ grid-template-columns:1fr } }
+.sinal{ display:grid; grid-template-columns:auto 1fr; gap:14px; padding:16px 0; border-bottom:1px solid var(--hairline-soft); align-items:start }
+.sinal__i{ width:26px; height:26px; border-radius:50%; background:#F6E9DC; color:#8A5220; display:grid; place-items:center; font-family:"JetBrains Mono",monospace; font-size:13px; flex:none }
+.sinal__t{ font-weight:600; font-size:calc(16.5px * var(--escala)) }
+.sinal__d{ font-size:var(--fs-sm); color:var(--ink-muted) }
+.fonte{ font-size:13px; color:var(--ink-subtle); margin-top:18px }
+
+/* ---------- presente / preço ---------- */
+.presente{ margin-top:14px; background:var(--surface-2); border:1px solid var(--hairline); border-radius:var(--r-lg); padding:clamp(22px,3vw,30px); display:grid; grid-template-columns:1.4fr 1fr; gap:var(--s-6); align-items:center }
+@media (max-width:820px){ .presente{ grid-template-columns:1fr } }
+.preco{ font-family:"JetBrains Mono",monospace; font-size:calc(14px * var(--escala)); color:var(--voltage); padding-bottom:2px }
+.plano--destaque .preco{ color:#7FD3A8 }
+
+/* ---------- estado e hover (fora do escopo da camada de motion) ---------- */
+.serv,.p3,.oficina,.plano,.comp{ transition:transform 200ms var(--e-estado), border-color 200ms var(--e-estado), box-shadow 200ms var(--e-estado) }
+.serv:hover,.p3:hover,.oficina:hover{ transform:translateY(-3px); border-color:var(--ink) }
+.plano:hover{ transform:translateY(-3px) }
+.caminho:hover .caminho__ico{ transform:scale(1.08) rotate(-4deg) }
+.caminho__ico{ transition:transform 240ms var(--e-estado) }
+.nav a{ position:relative; border-bottom:0 }
+.nav a::after{ content:""; position:absolute; left:0; right:0; bottom:0; height:1px; background:currentColor; transform:scaleX(0); transform-origin:right center; transition:transform var(--t-estado) var(--e-estado) }
+.nav a:hover::after{ transform:scaleX(1); transform-origin:left center }
+.op__marca svg{ transform:scale(.4); opacity:0; transition:transform 240ms var(--e-estado), opacity 140ms linear }
+.op[aria-pressed="true"] .op__marca svg{ transform:scale(1); opacity:1 }
+
+/* filete do eyebrow cresce quando o bloco entra */
+.js-motion .eyebrow::before{ transform:scaleX(0); transition:transform 520ms var(--e-saida) }
+.js-motion .is-dentro .eyebrow::before,
+.js-motion .is-dentro.eyebrow::before{ transform:scaleX(1) }
+
+/* varredura de luz no botão — a camada cuida da pressão, isto é o hover */
+.btn::before{ content:""; position:absolute; inset:0; border-radius:inherit; background:currentColor; opacity:0;
+  transform:scaleX(0); transform-origin:left center; transition:transform 520ms var(--e-saida), opacity 180ms linear }
+.btn:hover::before{ transform:scaleX(1); opacity:.13 }
+.btn:active::before{ opacity:.2 }
+
+/* resultado e trocas de aba */
+.rec{ animation:sobeRec 520ms var(--e-saida) both; animation-delay:var(--d,0ms) }
+@keyframes sobeRec{ from{ opacity:0; transform:translateY(22px) scale(.985) } to{ opacity:1; transform:none } }
+.barra__f{ width:100% }
+.planos{ transition:opacity 180ms linear }
+.planos[data-trocando="1"]{ opacity:0 }
+.catalogo{ transition:opacity 180ms linear }
+
+/* FAQ */
+.faq details[open] > p{ animation:abreFaq 380ms var(--e-saida) both }
+@keyframes abreFaq{ from{ opacity:0; transform:translateY(-6px) } to{ opacity:1; transform:none } }
+.faq summary::after{ transition:transform var(--t-estado) var(--e-estado) }
+.faq details[open] summary::after{ transform:rotate(180deg) }
+
+@media print{ .topo,.motor,.fecho{ position:static } }
+
+
+/* ==========================================================================
+   ELO DIGITAL — CAMADA DE MOTION  v1.0
+   Derivada do contrato de motion do DESIGN.md v1.7.
+   Cole este bloco DENTRO da <style> do index.html, no FIM do CSS existente.
+
+   Regras herdadas do DESIGN.md e obedecidas aqui:
+   · só transform e opacity (nunca width/height/margin/padding)
+   · nada acima de 760ms
+   · toda troca de estado usa --e-estado (0.33s) — vem da ficha `tesla`
+   · nenhum bloco depende de animação para existir
+   · nenhum controle de movimento exposto ao visitante
+   ========================================================================== */
+
+:root{
+  /* curvas ------------------------------------------------------------- */
+  --e-saida:    cubic-bezier(.16, 1, .3, 1);      /* entradas */
+  --e-estado:   cubic-bezier(.5, 0, 0, .75);      /* TODA troca de estado */
+  --e-inout:    cubic-bezier(.65, 0, .35, 1);
+  --e-legado:   cubic-bezier(.22, .61, .36, 1);
+  /* mola sem overshoot visual — linear() é baseline desde 2023 e substitui
+     bibliotecas de spring sem custo de JS */
+  --e-mola: linear(0, .0064 3%, .0432 6.7%, .1682 13.4%, .4344 22.7%, .6113 27.5%,
+                   .7481 32.5%, .8558 37.8%, .9354 43.5%, .9862 49.9%, 1.0075 55.3%,
+                   1.0119 61.4%, 1.0027 71.8%, .9995 85%, 1);
+
+  /* durações — teto de 760ms ------------------------------------------- */
+  --d-pressao: 120ms;
+  --d-micro:   150ms;
+  --d-1:       180ms;
+  --d-2:       240ms;
+  --d-header:  380ms;
+  --d-3:       520ms;
+  --d-flip:    620ms;
+  --d-reveal:  720ms;
+  --d-palavra: 760ms;
+
+  /* escalonamento ------------------------------------------------------ */
+  --st-filho:   70ms;   /* teto de 8 filhos  */
+  --st-palavra: 45ms;   /* teto de 14 palavras */
+  --st-flip:    28ms;
+
+  /* variáveis vivas escritas pelo JS ----------------------------------- */
+  --scrub: 0;      /* 0→1, progresso do herói */
+  --leitura: 0;    /* 0→1, progresso de leitura da página */
+}
+
+/* ==========================================================================
+   INTERRUPTOR GLOBAL
+   data-motion é escrito UMA vez no carregamento (reduced-motion, saveData, 2G).
+   Desligado = tudo em repouso, no estado final, 100% legível.
+   ========================================================================== */
+
+[data-motion="desligado"] *,
+[data-motion="desligado"] *::before,
+[data-motion="desligado"] *::after{
+  animation-duration: 1ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 1ms !important;
+  scroll-behavior: auto !important;
+}
+[data-motion="desligado"] .rev,
+[data-motion="desligado"] .pal__i{
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* ==========================================================================
+   REVELAÇÃO DE BLOCO
+   Estado inicial só é aplicado quando o JS confirma que vai animar
+   (.js-motion no <html>). Sem JS, sem erro: o conteúdo nasce visível.
+   ========================================================================== */
+
+.js-motion .rev{
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  filter: blur(5px);
+  transition:
+    opacity   var(--d-reveal) var(--e-saida) var(--rev-atraso, 0ms),
+    transform var(--d-reveal) var(--e-saida) var(--rev-atraso, 0ms),
+    filter    var(--d-reveal) var(--e-saida) var(--rev-atraso, 0ms);
+}
+.js-motion .rev.is-dentro{
+  opacity: 1;
+  transform: none;
+  filter: blur(0);
+}
+/* variações de direção — usadas com moderação, só onde a leitura pede */
+.js-motion .rev[data-rev="esq"]{ transform: translate3d(-16px, 0, 0); }
+.js-motion .rev[data-rev="dir"]{ transform: translate3d( 16px, 0, 0); }
+.js-motion .rev[data-rev="escala"]{ transform: scale(.985); filter: none; }
+
+/* ==========================================================================
+   TÍTULO FATIADO POR PALAVRA
+   .pal é a máscara (overflow oculto), .pal__i é a palavra que sobe.
+   A pontuação viaja colada à palavra anterior — caixas inline-block criam
+   ponto de quebra entre si.
+   ========================================================================== */
+
+.pal{
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: .06em;   /* impede corte de descendentes (g, p, q) */
+  margin-bottom: -.06em;
+}
+.js-motion .pal__i{
+  display: inline-block;
+  transform: translate3d(0, 115%, 0);
+  transition: transform var(--d-palavra) var(--e-saida) var(--pal-atraso, 0ms);
+}
+.js-motion .is-dentro .pal__i,
+.js-motion .pal.is-dentro .pal__i{ transform: none; }
+
+/* destaque cromático dentro do título — nunca sobre superfície escura */
+.pal--v{ color: var(--voltage, #0B5D3B); }
+.inverso .pal--v,
+[data-superficie="escura"] .pal--v{ color: var(--voltage-on-dark, #7FD3A8); }
+
+/* ==========================================================================
+   BARRA DE AFINIDADE — o gesto assinatura
+   ========================================================================== */
+
+.barra__f{
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+.js-motion .barra__f{ transition: transform 900ms var(--e-saida); }
+.barra__f.is-medida{ transform: scaleX(var(--p, 0)); }
+
+/* números contados: tabular para a largura não pular durante a contagem */
+[data-contador]{ font-variant-numeric: tabular-nums; }
+
+/* ==========================================================================
+   PRESSÃO — resposta ao toque não espera
+   ========================================================================== */
+
+/* Saida mais rapida que entrada: o cursor ja foi embora, ninguem espera
+   o botao terminar de esfriar. Regra de Emil Kowalski — o que o usuario faz
+   com frequencia tem que ser rapido. */
+.btn, .op, .chip, .caminho, .serv a, [data-pressao]{
+  transition:
+    transform    var(--d-pressao) var(--e-estado),
+    background   140ms            var(--e-estado),
+    border-color 140ms            var(--e-estado),
+    color        140ms            var(--e-estado);
+  touch-action: manipulation;
+}
+.btn:hover, .op:hover, .chip:hover, .caminho:hover, [data-pressao]:hover{
+  transition-duration: var(--d-pressao), 200ms, 200ms, 200ms;
+}
+.btn:active, .op:active, .chip:active, .caminho:active, [data-pressao]:active{
+  transform: scale(.96);
+}
+.btn--zap:active{ transform: scale(.97); }
+
+/* o foco nunca é animado: aparece instantâneo */
+:focus-visible{ transition: none !important; }
+
+/* ==========================================================================
+   CTA DE WHATSAPP — halo 3× e para. Atenção, não distração.
+   ========================================================================== */
+
+@keyframes zap-halo{
+  0%   { box-shadow: 0 0 0 0    var(--zap-halo, rgba(37,211,102,.45)); }
+  70%  { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+  100% { box-shadow: 0 0 0 0    rgba(37,211,102,0); }
+}
+.js-motion .btn--zap.is-chamando{ animation: zap-halo 2.1s var(--e-inout) 3; }
+.btn--zap svg, .btn--zap .ico{ transition: transform var(--d-2) var(--e-estado); }
+.btn--zap:hover svg, .btn--zap:hover .ico{ transform: rotate(-12deg) scale(1.06); }
+
+/* ==========================================================================
+   CABEÇALHO — recolhe ao descer, retorna ao subir
+   ========================================================================== */
+
+.cabecalho{
+  transition: transform var(--d-header) var(--e-inout);
+}
+.cabecalho.is-oculto{ transform: translate3d(0, -102%, 0); }
+
+/* barra de leitura */
+.progresso__f{
+  transform-origin: left center;
+  transform: scaleX(var(--leitura, 0));
+}
+
+/* Zero JS onde o navegador já resolve: barra de leitura por scroll-timeline */
+@supports (animation-timeline: scroll()){
+  .js-motion .progresso__f{
+    animation: leitura linear both;
+    animation-timeline: scroll(root block);
+    transform: none;
+  }
+  @keyframes leitura{ from{ transform: scaleX(0); } to{ transform: scaleX(1); } }
+}
+
+/* ==========================================================================
+   HERÓI CINEMÁTICO — escala 1.06→1.16 e saída do texto, atreladas à rolagem
+   ========================================================================== */
+
+.heroi-cine__midia{
+  transform: scale(calc(1.06 + (.10 * var(--scrub))));
+  will-change: transform;   /* exceção justificada: move em TODO quadro de rolagem */
+}
+.heroi-cine__texto{
+  transform: translate3d(0, calc(var(--scrub) * -34px), 0);
+  opacity: calc(1 - (var(--scrub) * 1.25));
+}
+
+/* ==========================================================================
+   TILES — paralaxe de ±3,5% no vídeo, sem uma linha de JavaScript
+   ========================================================================== */
+
+@supports (animation-timeline: view()){
+  .js-motion .tile__midia > video,
+  .js-motion .tile__midia > img{
+    animation: tile-paralaxe linear both;
+    animation-timeline: view();
+    animation-range: cover 0% cover 100%;
+  }
+  @keyframes tile-paralaxe{
+    from{ transform: translate3d(0, -3.5%, 0) scale(1.07); }
+    to  { transform: translate3d(0,  3.5%, 0) scale(1.07); }
+  }
+}
+
+/* ==========================================================================
+   CATÁLOGO — reordenação
+   View Transitions quando existe; o JS cai para FLIP quando não existe.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference){
+  ::view-transition-group(*){
+    animation-duration: var(--d-flip);
+    animation-timing-function: var(--e-saida);
+  }
+}
+.serv{
+  transition:
+    opacity var(--d-2) var(--e-estado),
+    transform var(--d-flip) var(--e-saida);
+}
+.serv[data-apagado="1"]{ opacity: .42; }
+[data-contraste="alto"] .serv[data-apagado="1"]{ opacity: 1; }  /* opacidade nunca é informação */
+
+/* ==========================================================================
+   DIAGNÓSTICO — troca de passo
+   ========================================================================== */
+
+.passo{ transition: transform var(--d-3) var(--e-saida), opacity var(--d-3) var(--e-saida); }
+.passo.is-saindo{ transform: translate3d(-22px, 0, 0); opacity: 0; transition-duration: 190ms; }
+.passo.is-entrando{ transform: translate3d(22px, 0, 0); opacity: 0; transition-duration: 0ms; }
+
+/* ==========================================================================
+   PREFERÊNCIA DO SISTEMA — a última palavra é sempre do visitante
+   ========================================================================== */
+
+/* "Movimento reduzido" não quer dizer "sem animação" — quer dizer sem
+   DESLOCAMENTO. Quem ativou a preferência costuma ter sensibilidade
+   vestibular; opacidade não dispara isso. Matar todo feedback tira da
+   pessoa a informação de que algo respondeu ao toque dela.
+   Aqui: fica o fade, sai o translate, a escala, o blur e o paralaxe. */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .rev{
+    transform: none !important;
+    filter: none !important;
+    transition: opacity 200ms var(--e-saida) var(--rev-atraso, 0ms) !important;
+  }
+  .pal__i{ transform: none !important; }
+  .barra__f{ transition: transform 400ms linear !important; }  /* a medida ainda precisa ser lida como medida */
+  .btn:active, .op:active, .chip:active, [data-pressao]:active{ transform: none !important; }
+  .heroi-cine__midia{ transform: scale(1.06) !important; }
+  .heroi-cine__texto{ transform: none !important; opacity: 1 !important; }
+  .cabecalho.is-oculto{ transform: none !important; }
+}
+
+/* ==========================================================================
+   APARELHO FRACO — blur em superfície grande é caro
+   `filter: blur()` força repaint em toda a área do elemento a cada quadro.
+   Num cartão de 400×300 ninguém sente; num tile full-bleed derruba o quadro
+   em aparelho de 4GB. O JS escreve data-desempenho="baixo" e o blur sai —
+   a entrada continua existindo, sem o custo.
+   ========================================================================== */
+
+[data-desempenho="baixo"] .rev{ filter: none !important; }
+[data-desempenho="baixo"] .tile__midia > video,
+[data-desempenho="baixo"] .tile__midia > img{ animation: none !important; }
+
+/* will-change é reserva de memória, não otimização: fica só enquanto dura
+   o movimento. O JS remove .is-movendo ao fim da transição. */
+.cabecalho, .barra__f, .heroi-cine__midia{ will-change: auto; }
+.is-movendo{ will-change: transform; }
+</style>
+</head>
+<body>
+<a class="pular" href="#conteudo">Pular para o conteúdo</a>
+<div class="progresso" aria-hidden="true"><span class="progresso__f"></span></div>
+
+<header class="topo cabecalho">
+  <div class="wrap topo__in">
+    <a class="marca" href="#topo" aria-label="Elo Digital — início">
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#16191C"/><g fill="none" stroke-width="3.2"><rect x="6.5" y="11.5" width="12" height="9" rx="4.5" stroke="#4FB185"/><rect x="13.5" y="11.5" width="12" height="9" rx="4.5" stroke="#F2F1EC"/></g></svg>
+      <span>
+        <span class="marca__nome">Elo Digital</span>
+        <span class="marca__sub">Tecnologia pessoal e presença digital</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Seções do site">
+      <a href="#diagnostico">Diagnóstico</a>
+      <a href="#organizacao">Para você</a>
+      <a href="#presenca">Para empresas</a>
+      <a href="#planos">Planos</a>
+      <a href="#perguntas">Dúvidas</a>
+    </nav>
+    <div class="conforto" role="group" aria-label="Conforto de leitura">
+      <button class="conforto__b" type="button" data-escala-b="1" aria-pressed="true" title="Tamanho normal do texto">A</button>
+      <button class="conforto__b" type="button" data-escala-b="1.14" aria-pressed="false" title="Texto maior">A+</button>
+      <button class="conforto__b" type="button" data-escala-b="1.3" aria-pressed="false" title="Texto bem maior">A++</button>
+      <button class="conforto__b" type="button" id="btContraste" aria-pressed="false" title="Alto contraste">◑</button>
+    </div>
+    <a class="btn btn--primaria" href="#diagnostico">Fazer o diagnóstico</a>
+    <button class="hamb" type="button" id="btMenu" aria-expanded="false" aria-controls="navmob" aria-label="Abrir menu"><span></span></button>
+  </div>
+  <div class="navmob" id="navmob">
+    <nav class="wrap" aria-label="Menu">
+      <ul>
+        <li><a href="#diagnostico">Diagnóstico</a></li>
+        <li><a href="#organizacao">Para você</a></li>
+        <li><a href="#presenca">Para empresas</a></li>
+        <li><a href="#servicos">Todos os serviços</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#golpes">Golpes: como reconhecer</a></li>
+        <li><a href="#metodo">Método</a></li>
+        <li><a href="#perguntas">Dúvidas</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="conteudo">
+<div id="topo"></div>
+
+<!-- ================= HERÓI CINEMA ================= -->
+<section class="heroi-cine" id="heroi" data-superficie="escura">
+  <video class="heroi-cine__v heroi-cine__midia" id="videoHeroi" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_2z4XZOfSY98T8colT5eiadEdzNl/hf_20260804_122745_e0eccaab-d3b2-48ca-acb5-ae62f07d6ba0.mp4" type="video/mp4">
+  </video>
+  <div class="heroi-cine__scrim" aria-hidden="true"></div>
+  <div class="wrap heroi-cine__in heroi-cine__texto" id="heroiTexto">
+    <p class="eyebrow eyebrow--claro">Consultoria de tecnologia pessoal e presença digital</p>
+    <h1 data-palavras>Tecnologia que você entende, usa e transforma <span class="pal--v">em resultado.</span></h1>
+    <p class="lead heroi-cine__lead">Configuro, organizo e ensino o uso de celulares, computadores e dispositivos conectados — e desenvolvo sites profissionais para quem precisa ser encontrado. Atendimento paciente, presencial e remoto, no ritmo de cada pessoa.</p>
+    <div class="heroi__acoes">
+      <a class="btn btn--claro" href="#diagnostico">Descobrir o que eu preciso · 2 min</a>
+      <button class="btn btn--zap" type="button" data-zap="Olá! Vim pelo site e gostaria de conversar sobre tecnologia.">
+        <svg class="btn__zap" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5l1 2.3c.1.2.1.4 0 .6l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.2Z"/></svg>
+        Falar no WhatsApp
+      </button>
+    </div>
+    <p class="heroi-cine__nota">Orçamento antes de qualquer serviço. Sem jargão, sem pressa e sem tratar ninguém como leigo.</p>
+  </div>
+  <div class="rolar" aria-hidden="true"><span class="rolar__t"></span><span>role</span></div>
+</section>
+
+<!-- ================= CAMINHOS ================= -->
+<section class="wrap secao rev" id="caminhos">
+  <p class="eyebrow">Por onde começar</p>
+  <h2 data-palavras>Três situações. Escolha a sua e o site se ajusta.</h2>
+  <div class="caminhos caminhos--tres" data-stagger style="margin-top:34px">
+    <button class="caminho" type="button" data-atalho="pessoa">
+      <span class="caminho__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Z"/><path d="M11 18h2"/></svg></span>
+      <span>
+        <span class="caminho__t">Para você e sua família</span>
+        <span class="caminho__d">Aparelho novo, arquivos organizados, aulas no seu ritmo e alguém para chamar.</span>
+      </span>
+      <span class="caminho__seta" aria-hidden="true">→</span>
+    </button>
+    <button class="caminho" type="button" data-atalho="cuidador">
+      <span class="caminho__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.2"/><path d="M17 11.5a3 3 0 1 0 0-6"/><path d="M20 20v-1.2a3 3 0 0 0-2.2-2.9"/></svg></span>
+      <span>
+        <span class="caminho__t">Para meu pai ou minha mãe</span>
+        <span class="caminho__d">Você resolve, ela usa. Suporte paciente para quem tem 60+, com você informado.</span>
+      </span>
+      <span class="caminho__seta" aria-hidden="true">→</span>
+    </button>
+    <button class="caminho" type="button" data-atalho="negocio">
+      <span class="caminho__ico" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 20h18M5 20V8l7-4 7 4v12"/><path d="M10 20v-5h4v5"/></svg></span>
+      <span>
+        <span class="caminho__t">Para o seu negócio</span>
+        <span class="caminho__d">Site profissional, modernização, manutenção e a empresa toda conectada.</span>
+      </span>
+      <span class="caminho__seta" aria-hidden="true">→</span>
+    </button>
+  </div>
+</section>
+
+<div class="garantias">
+  <div class="wrap">
+    <ul>
+      <li><span class="ponto" aria-hidden="true"></span>Atendimento presencial e remoto</li>
+      <li><span class="ponto" aria-hidden="true"></span>Especialização no ecossistema Apple e domínio de Android</li>
+      <li><span class="ponto" aria-hidden="true"></span>Nunca pedimos suas senhas</li>
+      <li><span class="ponto" aria-hidden="true"></span>Suporte depois da entrega</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= COMO FUNCIONA ================= -->
+<section class="wrap secao--fina rev" id="comofunciona">
+  <p class="eyebrow">Como funciona</p>
+  <h2 data-palavras>Três passos. Nenhuma surpresa no meio do caminho.</h2>
+  <div class="passos3" data-stagger>
+    <div class="p3"><span class="p3__n">01</span><span class="p3__t">Você conta o que está acontecendo</span><span class="p3__d">Pelo diagnóstico aqui do site, por WhatsApp ou por telefone. A conversa inicial não é cobrada — inclusive quando a conclusão for que você não precisa contratar nada.</span></div>
+    <div class="p3"><span class="p3__n">02</span><span class="p3__t">Recebe o orçamento antes de começar</span><span class="p3__d">Escopo, prazo e valor por escrito, com o que não está incluído. Se durante o serviço aparecer algo fora do combinado, eu paro e te consulto antes de seguir.</span></div>
+    <div class="p3"><span class="p3__n">03</span><span class="p3__t">Eu resolvo — e te ensino a manter</span><span class="p3__d">Presencial ou remoto. No fim, você entende o que foi feito e sabe operar sozinho. O que ficou configurado fica anotado para consulta depois.</span></div>
+  </div>
+</section>
+
+<!-- ================= DIAGNÓSTICO ================= -->
+<section class="wrap secao rev" id="diagnostico">
+  <p class="eyebrow">Diagnóstico</p>
+  <h2 data-palavras>Quatro perguntas. A resposta ordenada por afinidade&nbsp;com o seu caso.</h2>
+  <p class="lead" style="margin-top:14px">Em vez de uma lista de serviços igual para todo mundo, este site calcula quanto cada serviço combina com a sua situação — e mostra o porquê de cada recomendação. Nada é enviado enquanto você não decidir.</p>
+
+  <div class="motor" style="margin-top:32px">
+    <div class="motor__cab">
+      <div>
+        <span class="mono sm" style="color:var(--ink-subtle)">MOTOR DE RECOMENDAÇÃO</span>
+        <p class="sm mut" style="margin-top:4px">Sem cadastro. Sem e-mail. Leva cerca de 2 minutos.</p>
+      </div>
+      <div class="motor__prog" aria-hidden="true">
+        <span class="prog__t" data-prog="0" data-ativo="1"></span>
+        <span class="prog__t" data-prog="1"></span>
+        <span class="prog__t" data-prog="2"></span>
+        <span class="prog__t" data-prog="3"></span>
+        <span class="mono sm" id="progTexto" style="color:var(--ink-subtle)">1 / 4</span>
+      </div>
+    </div>
+
+    <form class="motor__corpo" id="quiz" novalidate>
+      <fieldset class="passo" data-passo="0" style="border:0;padding:0;margin:0">
+        <legend class="passo__p">Para começar: quem vai ser atendido?</legend>
+        <p class="passo__aj">Escolha uma opção.</p>
+        <div class="opcoes opcoes--2" data-grupo="perfil" data-modo="unico"></div>
+      </fieldset>
+
+      <fieldset class="passo" data-passo="1" hidden style="border:0;padding:0;margin:0">
+        <legend class="passo__p">O que está te incomodando hoje?</legend>
+        <p class="passo__aj">Pode marcar quantas quiser — quanto mais preciso, melhor o resultado.</p>
+        <div class="opcoes" data-grupo="dores" data-modo="multi"></div>
+      </fieldset>
+
+      <fieldset class="passo" data-passo="2" hidden style="border:0;padding:0;margin:0">
+        <legend class="passo__p">Com quais equipamentos você lida?</legend>
+        <p class="passo__aj">Isso muda quem consegue te atender bem — e como.</p>
+        <div class="opcoes opcoes--4" data-grupo="eco" data-modo="unico"></div>
+        <p class="passo__p" style="margin-top:34px;font-size:1.15rem">E como prefere ser atendido?</p>
+        <div class="opcoes opcoes--4" data-grupo="modo" data-modo="unico" style="margin-top:14px"></div>
+      </fieldset>
+
+      <fieldset class="passo" data-passo="3" hidden style="border:0;padding:0;margin:0">
+        <legend class="passo__p">Quando você quer isso resolvido?</legend>
+        <p class="passo__aj">Serve para eu ordenar a agenda com honestidade — e te dizer o que dá para fazer já.</p>
+        <div class="opcoes opcoes--4" data-grupo="urgencia" data-modo="unico"></div>
+        <p class="passo__p" style="margin-top:34px;font-size:1.15rem">Qual horário funciona melhor para você?</p>
+        <div class="opcoes opcoes--4" data-grupo="janela" data-modo="unico" style="margin-top:14px"></div>
+      </fieldset>
+
+      <div class="motor__rodape">
+        <p class="motor__aviso" id="quizAviso">Suas respostas ficam no seu navegador. Só saem daqui se você clicar em enviar pelo WhatsApp.</p>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn--fantasma" type="button" id="btVoltar" hidden>Voltar</button>
+          <button class="btn btn--primaria" type="button" id="btAvancar">Continuar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- resultado -->
+  <div class="resultado" id="resultado" hidden style="margin-top:32px" tabindex="-1">
+    <div class="res__cab">
+      <div>
+        <p class="eyebrow">Resultado do diagnóstico</p>
+        <h3 id="resTitulo" style="font-size:clamp(1.4rem,1.1rem + 1.2vw,2rem)">O que mais faz sentido para o seu caso</h3>
+      </div>
+      <button class="btn btn--fantasma" type="button" id="btRefazer">Refazer diagnóstico</button>
+    </div>
+    <div class="res__grade">
+      <div id="resLista"></div>
+      <aside class="painel">
+        <div>
+          <span class="painel__tag">Plano recomendado</span>
+          <h3 id="planoNome" style="margin-top:6px">—</h3>
+          <p class="sm mut" id="planoDesc" style="margin-top:6px">—</p>
+        </div>
+        <div class="painel__plano">
+          <span class="painel__tag">Trilha de continuidade</span>
+          <ul class="trilha" id="trilha"></ul>
+        </div>
+        <div>
+          <button class="btn btn--zap btn--bloco" type="button" id="btEnviar">
+            <svg class="btn__zap" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5l1 2.3c.1.2.1.4 0 .6l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.2Z"/></svg>
+            Enviar meu diagnóstico no WhatsApp
+          </button>
+          <p class="aviso" id="avisoZap">O número de WhatsApp ainda não foi configurado neste site. Preencha <span class="mono">CONFIG.whatsapp</span> no código antes de publicar.</p>
+          <p class="sm mut" style="margin-top:10px">A mensagem já vai escrita com o seu resultado. Você lê antes de enviar.</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="ponte" aria-hidden="true"></div>
+
+<!-- ================= TILE: VIDA DIGITAL ================= -->
+<section class="tile rev" id="organizacao" data-superficie="escura">
+  <div class="wrap tile__grade">
+    <div>
+      <p class="eyebrow eyebrow--claro">Vida digital organizada</p>
+      <h2 data-palavras>Suas fotos, seus arquivos e sua memória — no lugar e protegidos.</h2>
+      <p class="lead" style="margin-top:14px">A parte que ninguém vê é a que dói quando falta: doze anos de fotografias em um celular sem backup, documentos espalhados entre três nuvens, contatos duplicados. Organizar isso é devolver o acesso à própria vida.</p>
+      <ul class="tile__lista" data-stagger>
+        <li><span><b>Backup automático que funciona sozinho</b> — configurado, testado na sua frente e explicado.</span></li>
+        <li><span><b>Arquivos, fotos, contatos e calendários</b> em ordem, com a lógica que faz sentido para você.</span></li>
+        <li><span><b>Conta pessoal separada da profissional</b> — e cada aparelho conversando com o outro.</span></li>
+      </ul>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px">
+        <a class="btn btn--claro" href="#diagnostico">Ver se é isso que eu preciso</a>
+      </div>
+    </div>
+    <figure class="tile__midia" style="margin:0">
+      <video autoplay muted loop playsinline preload="none" data-video aria-hidden="true" tabindex="-1">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_2z4XZOfSY98T8colT5eiadEdzNl/hf_20260804_122745_aef3fb48-d5f9-431e-b67d-43b47f40691e.mp4" type="video/mp4">
+      </video>
+      <figcaption class="tile__legenda">Tudo no lugar, inclusive o que não se vê</figcaption>
+    </figure>
+  </div>
+</section>
+
+<div class="ponte ponte--sobe" aria-hidden="true"></div>
+
+<!-- ================= SERVIÇOS ================= -->
+<section class="wrap secao rev" id="servicos">
+  <p class="eyebrow">Portfólio</p>
+  <h2 data-palavras>Oito serviços, dois eixos: cuidar de pessoas e&nbsp;construir presença digital.</h2>
+  <p class="lead" style="margin-top:14px">O serviço não termina quando o equipamento liga. Ele termina quando você fica mais seguro, mais organizado e mais autônomo — ou quando o seu negócio passa a ser encontrado.</p>
+  <div class="filtros" role="group" aria-label="Filtrar serviços por público">
+    <button class="chip" type="button" data-filtro="todos" aria-pressed="true">Tudo</button>
+    <button class="chip" type="button" data-filtro="pessoa" aria-pressed="false">Pessoas e famílias</button>
+    <button class="chip" type="button" data-filtro="profissional" aria-pressed="false">Profissionais liberais</button>
+    <button class="chip" type="button" data-filtro="negocio" aria-pressed="false">Pequenos negócios</button>
+    <button class="chip" type="button" data-filtro="equipe" aria-pressed="false">Equipes e empresas</button>
+  </div>
+  <div class="catalogo" id="catalogo" aria-live="polite" data-stagger></div>
+  <p class="sm mut" id="notaOrdem" style="margin-top:18px">Ordem padrão do portfólio. Faça o <a href="#diagnostico" style="color:var(--voltage)">diagnóstico</a> para reordenar esta lista pela sua situação.</p>
+</section>
+
+<!-- ================= TILE: PRESENÇA DIGITAL ================= -->
+<section class="tile tile--papel rev" id="presenca">
+  <div class="wrap tile__grade tile__grade--inverso">
+    <div>
+      <p class="eyebrow">Presença digital</p>
+      <h2 data-palavras>Seu trabalho existe. Falta a internet saber disso.</h2>
+      <p class="lead" style="margin-top:14px">Vender só por rede social é alugar a própria reputação de uma plataforma que muda as regras sozinha. Um site é o endereço que é seu — e continua funcionando quando o alcance cai.</p>
+      <ul class="tile__lista" data-stagger>
+        <li><span><b>Design personalizado e rápido no celular</b> — que é onde quase todo mundo vai te encontrar.</span></li>
+        <li><span><b>Domínio, hospedagem, segurança e métricas</b> resolvidos, sem você virar administrador de servidor.</span></li>
+        <li><span><b>Manutenção depois da entrega</b>, com relatório de acesso e melhorias sugeridas.</span></li>
+      </ul>
+      <div style="margin-top:32px;display:flex;flex-wrap:wrap;gap:10px">
+        <button class="btn btn--primaria" type="button" data-zap="Olá! Quero um orçamento de site para o meu negócio.">Quero um orçamento de site</button>
+        <a class="btn btn--secundaria" href="#planos">Ver planos de site</a>
+      </div>
+    </div>
+    <figure class="tile__midia" style="margin:0">
+      <video autoplay muted loop playsinline preload="none" data-video aria-hidden="true" tabindex="-1">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_2z4XZOfSY98T8colT5eiadEdzNl/hf_20260804_122751_ff0ad7e5-335e-4047-a514-caba7af8c9de.mp4" type="video/mp4">
+      </video>
+      <figcaption class="tile__legenda">Quem procura pelo seu serviço precisa te achar</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= PLANOS ================= -->
+<section class="wrap secao rev" id="planos">
+  <p class="eyebrow">Planos</p>
+  <h2 data-palavras>Pacotes organizados por resultado — não por&nbsp;lista de tarefas técnicas.</h2>
+  <p class="lead" style="margin-top:14px">Cada plano tem escopo fechado e orçamento apresentado antes de qualquer execução. O que não está no escopo é dito na proposta, por escrito.</p>
+  <div class="abas" role="tablist" aria-label="Grupos de planos" style="margin-top:28px">
+    <button class="aba" type="button" role="tab" aria-selected="true" data-aba="pessoa">Para você e sua família</button>
+    <button class="aba" type="button" role="tab" aria-selected="false" data-aba="negocio">Para o seu negócio</button>
+  </div>
+  <div class="planos" id="planos" data-stagger></div>
+
+  <div class="ancora">
+    <div>
+      <span class="plano__selo">Plano-âncora</span>
+      <h3 style="margin-top:8px">Empresa Conectada</h3>
+      <p class="mut" style="margin-top:10px;font-size:var(--fs-sm)">Site + configuração de equipamentos + organização de e-mails e ferramentas + treinamento da equipe + suporte mensal com escopo e prazo de resposta definidos. É a oferta completa: uma única pessoa responsável por tudo que é digital no seu negócio.</p>
+    </div>
+    <div style="display:grid;gap:10px">
+      <button class="btn btn--primaria btn--bloco" type="button" data-zap="Olá! Tenho interesse no plano Empresa Conectada (site + equipamentos + e-mails + treinamento + suporte mensal).">Pedir proposta do Empresa Conectada</button>
+      <a class="btn btn--secundaria btn--bloco" href="#diagnostico">Fazer o diagnóstico antes</a>
+    </div>
+  </div>
+
+  <div class="presente">
+    <div>
+      <span class="plano__selo">Para quem cuida</span>
+      <h3 style="margin-top:8px">Contrate para outra pessoa</h3>
+      <p class="mut" style="margin-top:10px;font-size:var(--fs-sm)">Boa parte de quem me procura não é quem vai ser atendido: é o filho ou a filha que mora longe, cansou de resolver por telefone e quer que alguém paciente sente ao lado do pai ou da mãe. Você contrata, combina comigo o que precisa ser resolvido e recebe um resumo do que foi feito — sem transformar seu pai ou sua mãe em pauta de reunião familiar. Também funciona como presente: uma sessão avulsa ou um plano de acompanhamento no nome dele.</p>
+    </div>
+    <div style="display:grid;gap:10px">
+      <button class="btn btn--primaria btn--bloco" type="button" data-zap="Olá! Quero contratar um atendimento para meu pai/minha mãe. Podemos combinar?">Contratar para meu pai ou minha mãe</button>
+      <button class="btn btn--secundaria btn--bloco" type="button" data-zap="Olá! Gostaria de presentear alguém com uma sessão de tecnologia.">Presentear uma sessão</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MÉTODO ================= -->
+<section class="wrap secao rev" id="metodo">
+  <p class="eyebrow">Método</p>
+  <h2 data-palavras>A mesma jornada em todo atendimento, do primeiro contato ao acompanhamento.</h2>
+  <p class="lead" style="margin-top:14px">É uma sequência real: cada etapa depende da anterior, e nenhuma execução começa antes de um orçamento aprovado.</p>
+  <ol class="jornada" data-stagger>
+    <li class="etapa"><span class="etapa__n mono">01</span><span class="etapa__t">Contato</span><span class="etapa__d">Você conta o que está acontecendo, por WhatsApp ou telefone.</span></li>
+    <li class="etapa"><span class="etapa__n mono">02</span><span class="etapa__t">Diagnóstico</span><span class="etapa__d">Entendo o cenário, os equipamentos e o que você espera no fim.</span></li>
+    <li class="etapa"><span class="etapa__n mono">03</span><span class="etapa__t">Proposta</span><span class="etapa__d">Escopo, prazo e valor por escrito — inclusive o que não está incluso.</span></li>
+    <li class="etapa"><span class="etapa__n mono">04</span><span class="etapa__t">Execução</span><span class="etapa__d">Presencial ou remoto, com autorização expressa para qualquer acesso.</span></li>
+    <li class="etapa"><span class="etapa__n mono">05</span><span class="etapa__t">Orientação</span><span class="etapa__d">Explico o que foi feito, em português, e deixo você sabendo operar.</span></li>
+    <li class="etapa"><span class="etapa__n mono">06</span><span class="etapa__t">Acompanhamento</span><span class="etapa__d">Dúvidas depois da entrega e planos de suporte contínuo, se fizer sentido.</span></li>
+  </ol>
+</section>
+
+<div class="ponte" aria-hidden="true"></div>
+
+<!-- ================= CONFIANÇA ================= -->
+<section class="secao confianca rev" id="confianca" data-superficie="escura">
+  <div class="wrap">
+    <p class="eyebrow" style="color:#7FD3A8">Segurança e confiança</p>
+    <h2 data-palavras>Regras que valem em todo atendimento, sem exceção.</h2>
+    <p class="lead">Boa parte do medo de pedir ajuda com tecnologia vem do risco de entregar acesso à vida inteira para um desconhecido. Por isso o protocolo é fixo e vem antes do serviço.</p>
+    <div class="compromissos" data-stagger>
+      <div class="comp comp--regra">
+        <span class="comp__t">Senha bancária, código e credencial sensível: nunca comigo</span>
+        <span class="comp__d">Quem digita essas informações é sempre você. Não anoto, não guardo e não peço — em nenhuma hipótese, nem por telefone, nem por mensagem.</span>
+      </div>
+      <div class="comp comp--regra">
+        <span class="comp__t">Acesso remoto só com autorização expressa</span>
+        <span class="comp__d">Cada sessão remota começa com seu aceite, acontece com você vendo a tela e termina com o acesso encerrado na sua frente.</span>
+      </div>
+      <div class="comp comp--regra">
+        <span class="comp__t">Orçamento antes da execução</span>
+        <span class="comp__d">Escopo, prazo e valor combinados por escrito. Se durante o serviço aparecer algo fora do combinado, eu paro e te consulto.</span>
+      </div>
+      <div class="comp">
+        <span class="comp__t">Confidencialidade sobre o que eu vejo</span>
+        <span class="comp__d">Arquivos, fotos, mensagens e dados de clientes do seu negócio não são comentados, copiados nem compartilhados.</span>
+      </div>
+      <div class="comp">
+        <span class="comp__t">Sem infantilizar ninguém</span>
+        <span class="comp__d">Explico o benefício antes da especificação, no seu ritmo, quantas vezes for preciso. Não existe pergunta boba.</span>
+      </div>
+      <div class="comp">
+        <span class="comp__t">Independência de fabricante</span>
+        <span class="comp__d">Atendo Mac, iPhone, iPad, Android e Windows. Não sou assistência autorizada nem represento nenhuma marca — a recomendação é sempre pelo seu interesse.</span>
+      </div>
+    </div>
+    <!-- SLOT DE PROVA SOCIAL — inserir depoimentos REAIS aqui quando disponíveis.
+         Estrutura pronta em guia-de-implantacao.html (seção 06). Não publicar depoimento fictício. -->
+  </div>
+</section>
+
+<div class="ponte ponte--escuro-papel" aria-hidden="true"></div>
+
+<!-- ================= GOLPES ================= -->
+<section class="secao golpes rev" id="golpes" style="padding-top:clamp(28px,4vw,48px)">
+  <div class="wrap">
+    <p class="eyebrow">Segurança digital</p>
+    <h2 data-palavras>Como reconhecer um golpe de falso suporte técnico.</h2>
+    <p class="lead" style="margin-top:14px">Esta é a razão pela qual muita gente evita pedir ajuda com tecnologia — e o motivo pelo qual meu protocolo é público. Cinco sinais que aparecem em praticamente todo golpe de suporte falso:</p>
+    <div class="sinais" data-stagger>
+      <div class="sinal"><span class="sinal__i">1</span><span><span class="sinal__t">Foi ele que entrou em contato com você</span><span class="sinal__d">Ligação, SMS ou mensagem que você não pediu, avisando de um "problema grave" no seu aparelho ou na sua conta.</span></span></div>
+      <div class="sinal"><span class="sinal__i">2</span><span><span class="sinal__t">Tem pressa e cria medo</span><span class="sinal__d">Urgência é a ferramenta principal do golpista: ela impede você de pensar, conferir ou ligar para alguém de confiança.</span></span></div>
+      <div class="sinal"><span class="sinal__i">3</span><span><span class="sinal__t">Pede senha, código do SMS ou dado do cartão</span><span class="sinal__d">Nenhuma empresa legítima pede isso — nem banco, nem loja, nem suporte técnico, nem eu. Código recebido por SMS não se repassa a ninguém.</span></span></div>
+      <div class="sinal"><span class="sinal__i">4</span><span><span class="sinal__t">Manda instalar um programa para "acessar seu computador"</span><span class="sinal__d">Acesso remoto existe e é legítimo — mas só depois de você contratar, com autorização sua e com você vendo a tela do começo ao fim.</span></span></div>
+      <div class="sinal"><span class="sinal__i">5</span><span><span class="sinal__t">Manda alguém buscar cartão ou aparelho</span><span class="sinal__d">Motoboy para retirar cartão, envio de selfie com documento ou pedido de transferência imediata: encerre o contato e ligue para o número oficial impresso no seu cartão.</span></span></div>
+      <div class="sinal"><span class="sinal__i">✓</span><span><span class="sinal__t">Se já aconteceu, aja rápido</span><span class="sinal__d">Ligue para o banco pelo número oficial, troque as senhas a partir de outro aparelho, registre boletim de ocorrência e avise a família. Vergonha faz perder tempo — e tempo é o que decide a recuperação.</span></span></div>
+    </div>
+    <p class="fonte">Levantamento da Fundação Seade divulgado em junho de 2026 aponta que 82% das pessoas com 60 anos ou mais no estado de São Paulo já sofreram tentativas de golpe virtual por mensagem, e-mail ou ligação. Prevenção é conteúdo das aulas e das oficinas — e não custa nada aprender antes de precisar.</p>
+    <div style="margin-top:26px;display:flex;flex-wrap:wrap;gap:10px">
+      <button class="btn btn--primaria" type="button" data-zap="Olá! Quero uma sessão sobre segurança digital e prevenção a golpes.">Quero uma sessão sobre segurança</button>
+      <a class="btn btn--secundaria" href="#confianca">Ver meu protocolo de atendimento</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OFICINAS ================= -->
+<section class="wrap secao rev" id="oficinas">
+  <p class="eyebrow">Oficinas e conteúdo</p>
+  <h2 data-palavras>Encontros abertos para quem quer perder o medo antes de contratar.</h2>
+  <p class="lead" style="margin-top:14px">Turmas pequenas, presenciais ou online, com material de apoio. É também a porta de entrada mais tranquila para conhecer o trabalho.</p>
+  <div class="oficinas" data-stagger>
+    <div class="oficina"><span class="oficina__t">Mac para iniciantes</span><span class="oficina__d">Do primeiro login à organização de arquivos, sem decoreba de atalhos.</span></div>
+    <div class="oficina"><span class="oficina__t">Comprou um iPhone? Aprenda a configurar</span><span class="oficina__d">Contas, backup, transferência de fotos e o que fazer com o aparelho antigo.</span></div>
+    <div class="oficina"><span class="oficina__t">Tecnologia sem medo para 60+</span><span class="oficina__d">Ritmo próprio, letra grande e repetição à vontade.</span></div>
+    <div class="oficina"><span class="oficina__t">Como evitar golpes digitais</span><span class="oficina__d">Os golpes que circulam hoje, o que checar antes de clicar e o que fazer se cair.</span></div>
+    <div class="oficina"><span class="oficina__t">De rede social a presença digital</span><span class="oficina__d">Para quem vende pelo Instagram e ainda não tem um site que sustente a marca.</span></div>
+    <div class="oficina"><span class="oficina__t">Inteligência artificial no dia a dia</span><span class="oficina__d">O que dá para usar de verdade — e o que é promessa de marketing.</span></div>
+  </div>
+  <div style="margin-top:24px">
+    <button class="btn btn--zap" type="button" data-zap="Olá! Quero saber as datas das próximas oficinas."><svg class="btn__zap" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5l1 2.3c.1.2.1.4 0 .6l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.2Z"/></svg>Avise-me das próximas turmas</button>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="wrap secao rev" id="perguntas">
+  <p class="eyebrow">Dúvidas frequentes</p>
+  <h2 data-palavras>O que as pessoas perguntam antes do primeiro contato.</h2>
+  <div class="faq">
+    <details><summary>Vocês vão pedir a senha do meu banco?</summary><p>Não. Senha bancária, código de verificação e credencial sensível são digitados por você, sempre. Se alguém que presta serviço de tecnologia pedir esses dados, isso é um sinal de alerta — em qualquer empresa.</p></details>
+    <details><summary>Atende quem nunca usou computador?</summary><p>Sim, e é uma parte importante do trabalho. O atendimento é didático por definição: benefício antes de especificação, uma coisa de cada vez, repetição sem constrangimento e material de apoio para consultar depois.</p></details>
+    <details><summary>Consegue resolver sem ir até minha casa?</summary><p>Boa parte sim, por videochamada, telefone ou WhatsApp — instalação de programas, configuração de contas, dúvidas de uso e acompanhamento. Configuração inicial de vários aparelhos, redes e impressoras costuma render mais presencialmente.</p></details>
+    <details><summary>Quanto tempo leva para o meu site ficar pronto?</summary><p>Depende do escopo e, principalmente, de quando o conteúdo chega (textos, fotos, logo). Uma página única costuma ser bem mais rápida que um site de várias páginas com portfólio e integrações. O prazo entra por escrito na proposta, com as datas que dependem de você.</p></details>
+    <details><summary>Depois que o site é entregue, fico sozinho?</summary><p>Só se você quiser. Existe plano de manutenção com atualização de textos e imagens, cópias de segurança, correções e relatório de acesso. Sem plano, o site é seu, com os acessos entregues, e você pode me chamar por demanda.</p></details>
+    <details><summary>Posso contratar para meu pai ou minha mãe?</summary><p>Sim — é uma parte grande do trabalho. Você contrata, combina comigo o que precisa ser resolvido e recebe um resumo do que foi feito. O atendimento em si é com ele ou ela, no ritmo dele, sem pressa e sem constrangimento. Nada é instalado ou alterado sem que a pessoa atendida entenda e concorde.</p></details>
+    <details><summary>Como funciona o orçamento?</summary><p>Primeiro conversa e diagnóstico, sem custo. Depois, proposta por escrito com escopo, prazo, valor e o que não está incluso. Execução só começa depois da sua aprovação.</p></details>
+    <details><summary>Você é assistência técnica autorizada Apple?</summary><p>Não. Há especialização no ecossistema Apple e atendimento a Mac, iPhone e iPad, mas sem vínculo, representação ou certificação oficial da Apple. Reparo em hardware coberto por garantia deve ir à rede autorizada — e eu te oriento sobre isso.</p></details>
+  </div>
+</section>
+
+<!-- ================= FECHO ================= -->
+<section class="wrap secao--fina rev">
+  <div class="fecho">
+    <div>
+      <h2 data-palavras>Tecnologia para facilitar sua vida e fortalecer o seu negócio.</h2>
+      <p class="lead" style="margin-top:14px">Configuração de equipamentos, aulas personalizadas, suporte tecnológico e desenvolvimento de sites profissionais para pessoas e empresas.</p>
+    </div>
+    <div style="display:grid;gap:10px">
+      <a class="btn btn--primaria btn--bloco" href="#diagnostico">Fazer o diagnóstico · 2 min</a>
+      <button class="btn btn--zap btn--bloco" type="button" data-zap="Olá! Vim pelo site e gostaria de conversar."><svg class="btn__zap" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5l1 2.3c.1.2.1.4 0 .6l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.2Z"/></svg>Falar direto no WhatsApp</button>
+      <p class="sm mut">WhatsApp, telefone ou videochamada — o que for melhor para você.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<div class="barrafixa">
+  <a class="btn btn--primaria" href="#diagnostico">Fazer o diagnóstico</a>
+  <button class="btn btn--zap" type="button" data-zap="Olá! Vim pelo site e gostaria de conversar." aria-label="Falar no WhatsApp">
+    <svg class="btn__zap" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.3-.5 0-1.1.2-3.6-.8-3-1.3-4.9-4.4-5-4.6-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5l1 2.3c.1.2.1.4 0 .6l-.4.6-.3.3c-.1.2-.3.3-.1.6.1.3.7 1.2 1.5 1.9 1 .9 1.8 1.2 2.1 1.3.3.1.4.1.6-.1l.9-1c.2-.2.4-.2.6-.1l2.2 1c.2.1.4.2.5.3.1.2.1.6-.1 1.2Z"/></svg>
+  </button>
+</div>
+
+<footer class="rodape">
+  <div class="wrap rodape__in">
+    <div>
+      <a class="marca" href="#topo" aria-label="Elo Digital — início">
+        <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#16191C"/><g fill="none" stroke-width="3.2"><rect x="6.5" y="11.5" width="12" height="9" rx="4.5" stroke="#4FB185"/><rect x="13.5" y="11.5" width="12" height="9" rx="4.5" stroke="#F2F1EC"/></g></svg>
+        <span class="marca__nome">Elo Digital</span>
+      </a>
+      <p class="sm mut" style="margin-top:14px;max-width:44ch">Consultoria de tecnologia pessoal e presença digital. Atendimento presencial em Curitiba e Região Metropolitana; atendimento remoto para todo o Brasil.</p>
+    </div>
+    <div>
+      <h4>Serviços</h4>
+      <ul>
+        <li><a href="#servicos">Configuração de aparelhos</a></li>
+        <li><a href="#servicos">Vida digital organizada</a></li>
+        <li><a href="#servicos">Aulas individuais</a></li>
+        <li><a href="#servicos">Criação e manutenção de sites</a></li>
+        <li><a href="#planos">Empresa Conectada</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <ul>
+        <li><button type="button" data-zap="Olá! Vim pelo site." style="text-align:left;color:var(--ink-muted)">WhatsApp</button></li>
+        <li><a href="#diagnostico">Diagnóstico gratuito</a></li>
+        <li><a href="#perguntas">Dúvidas frequentes</a></li>
+        <li><a href="#confianca">Política de segurança</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap rodape__legal">
+    <span>© <span id="ano">2026</span> Elo Digital. Todos os direitos reservados.</span>
+    <span>Apple, Mac, iPhone, iPad e Android são marcas de seus respectivos titulares. Este site não possui vínculo, representação ou certificação oficial dessas empresas.</span>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"ProfessionalService",
+      "@id":"https://elodigital.com.br/#negocio",
+      "name":"Elo Digital",
+      "description":"Consultoria de tecnologia pessoal e presença digital: configuração de Mac, iPhone, iPad e Android, organização da vida digital, aulas individuais, suporte remoto e presencial, criação, modernização e manutenção de sites profissionais.",
+      "url":"https://elodigital.com.br/",
+      "areaServed":[{"@type":"City","name":"Curitiba"},{"@type":"Country","name":"Brasil"}],
+      "availableLanguage":"pt-BR",
+      "serviceType":["Suporte técnico domiciliar","Aulas de tecnologia","Criação de sites","Manutenção de sites","Consultoria de TI para pequenas empresas"],
+      "hasOfferCatalog":{
+        "@type":"OfferCatalog",
+        "name":"Serviços Elo Digital",
+        "itemListElement":[
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Configuração de Mac, iPhone, iPad e Android","description":"Configuração inicial, contas, e-mail, aplicativos, segurança, transferência de dados e integração entre dispositivos."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Vida digital organizada","description":"Organização de arquivos, fotos, contatos e calendários, backups, impressoras e separação de contas pessoais e profissionais."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Aulas individuais de tecnologia","description":"Aulas personalizadas de Mac, iPhone e Android, e-mail, nuvem, videochamadas, segurança digital e prevenção a golpes."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Suporte remoto e presencial","description":"Diagnóstico e orientação por videochamada, telefone ou WhatsApp, com planos recorrentes de acompanhamento."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Criação de sites profissionais","description":"Planejamento, design personalizado, desenvolvimento responsivo, domínio, hospedagem, certificado de segurança e otimização para buscas."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Modernização de sites","description":"Diagnóstico, atualização visual, adaptação para celulares, melhoria de velocidade e revisão de segurança."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Manutenção e acompanhamento de sites","description":"Atualizações de conteúdo e sistemas, cópias de segurança, correções técnicas e relatórios de acesso."}},
+          {"@type":"Offer","itemOffered":{"@type":"Service","name":"Empresa conectada","description":"Site, configuração de equipamentos, organização de e-mails e ferramentas, treinamento de equipes e suporte mensal."}}
+        ]
+      }
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://elodigital.com.br/#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"Vocês vão pedir a senha do meu banco?","acceptedAnswer":{"@type":"Answer","text":"Não. Senha bancária, código de verificação e credencial sensível são digitados sempre pelo próprio cliente."}},
+        {"@type":"Question","name":"Atende quem nunca usou computador?","acceptedAnswer":{"@type":"Answer","text":"Sim. O atendimento é didático: benefício antes de especificação, uma coisa de cada vez e material de apoio para consultar depois."}},
+        {"@type":"Question","name":"Consegue resolver sem ir até minha casa?","acceptedAnswer":{"@type":"Answer","text":"Boa parte sim, por videochamada, telefone ou WhatsApp. Configuração inicial de vários aparelhos, redes e impressoras costuma render mais presencialmente."}},
+        {"@type":"Question","name":"Quanto tempo leva para o meu site ficar pronto?","acceptedAnswer":{"@type":"Answer","text":"Depende do escopo e de quando o conteúdo é entregue. O prazo consta por escrito na proposta, com as datas que dependem do cliente."}},
+        {"@type":"Question","name":"Depois que o site é entregue, fico sozinho?","acceptedAnswer":{"@type":"Answer","text":"Existe plano de manutenção com atualizações, cópias de segurança, correções e relatório de acesso. Sem plano, o site e os acessos são entregues ao cliente e o atendimento passa a ser por demanda."}},
+        {"@type":"Question","name":"Você é assistência técnica autorizada Apple?","acceptedAnswer":{"@type":"Answer","text":"Não. Há especialização no ecossistema Apple, mas sem vínculo, representação ou certificação oficial da Apple."}}
+      ]
+    }
+  ]
+}
+</script>
+
+<script>
+(function(){
+"use strict";
+
+/* =========================================================================
+   CONFIGURAÇÃO — único bloco a editar antes de publicar
+   ========================================================================= */
+var CONFIG = {
+  whatsapp: "",                      // formato internacional só com dígitos, ex.: "5541999998888"
+  nome: "Elo Digital",
+  regiao: "Curitiba e Região Metropolitana"
+};
+
+// Preço de partida por plano. Deixe "" enquanto não definir a tabela: o cartão
+// mostra "orçamento após o diagnóstico" em vez de um número inventado.
+var PRECOS = { p1:"", p2:"", p3:"", p8:"", p4:"", p5:"", p6:"" };
+
+/* =========================================================================
+   BASE DE CONHECIMENTO DO MOTOR
+   Pesos: 0–3. Cada serviço declara afinidade por perfil, dor, ecossistema,
+   urgência e modalidade. O score é a razão entre o que a pessoa marcou e o
+   máximo que aquele serviço poderia somar com o mesmo número de dores.
+   ========================================================================= */
+var PERFIS = [
+  {id:"pessoa",       t:"Eu, minha casa ou minha família", d:"Aparelhos pessoais, fotos, contas e dúvidas do dia a dia."},
+  {id:"profissional", t:"Sou profissional liberal",        d:"Médico, advogado, psicólogo, arquiteto, corretor, terapeuta, professor."},
+  {id:"negocio",      t:"Tenho um pequeno negócio",        d:"Clínica, escritório, loja, restaurante, marca autoral."},
+  {id:"cuidador",     t:"Estou resolvendo para meu pai ou minha mãe", d:"Você contrata e acompanha; o atendimento é com ele ou ela, no ritmo dele."},
+  {id:"equipe",       t:"Tenho equipe para organizar",     d:"Vários equipamentos, e-mails, ferramentas e pessoas para treinar."}
+];
+
+var DORES = [
+  {id:"novo",     t:"Comprei um aparelho novo e não sei deixá-lo pronto", p:["pessoa","profissional","cuidador"], w:{s1:3,s2:1,s3:1}},
+  {id:"bagunca",  t:"Fotos, arquivos e contatos espalhados em tudo quanto é lugar", p:["pessoa","profissional","cuidador"], w:{s2:3,s1:1}},
+  {id:"aprender", t:"Quero aprender a usar sem depender de ninguém", p:["pessoa","profissional","cuidador"], w:{s3:3,s4:1}},
+  {id:"golpes",   t:"Tenho medo de golpes e de perder o que é meu", p:["pessoa","profissional","negocio","cuidador"], w:{s3:2,s2:2,s4:1}},
+  {id:"integrar", t:"Meus aparelhos não conversam entre si", p:["pessoa","profissional","negocio","cuidador"], w:{s1:2,s2:2}},
+  {id:"socorro",  t:"Preciso de alguém para chamar quando algo trava", p:["pessoa","profissional","negocio","equipe","cuidador"], w:{s4:3,s8:1}},
+  {id:"semsite",  t:"Não tenho site — hoje só tenho redes sociais", p:["profissional","negocio","equipe"],        w:{s5:3,s8:1}},
+  {id:"siteruim", t:"Tenho site, mas é antigo e ruim no celular", p:["profissional","negocio","equipe"],          w:{s6:3,s7:1}},
+  {id:"siteparado",t:"Meu site está parado, sem ninguém cuidando", p:["profissional","negocio","equipe"],         w:{s7:3,s6:1}},
+  {id:"google",   t:"Quero ser encontrado no Google por quem procura o que faço", p:["profissional","negocio","equipe"], w:{s5:2,s7:2}},
+  {id:"equipe",   t:"Equipamentos, e-mails e ferramentas da equipe desorganizados", p:["negocio","equipe"],       w:{s8:3,s1:1,s4:1}},
+  {id:"treinar",  t:"Preciso treinar minha equipe para usar as ferramentas", p:["negocio","equipe"],              w:{s8:2,s3:2}},
+  {id:"distancia",t:"Moro longe e hoje resolvo tudo por telefone", p:["cuidador"],                                w:{s4:3,s2:1}},
+  {id:"autonomia",t:"Quero que ele(a) não dependa da família para cada dúvida", p:["cuidador","pessoa"],          w:{s3:3,s4:1}}
+];
+
+var ECO = [
+  {id:"apple",  t:"Apple", d:"Mac, iPhone, iPad"},
+  {id:"android",t:"Android", d:"Samsung, Motorola, Xiaomi…"},
+  {id:"windows",t:"Windows", d:"PC ou notebook"},
+  {id:"misto",  t:"De tudo um pouco", d:"Marcas misturadas em casa ou no trabalho"}
+];
+
+var MODOS = [
+  {id:"presencial", t:"Presencial", d:"Prefiro alguém aqui"},
+  {id:"remoto",     t:"Remoto",     d:"Videochamada ou WhatsApp"},
+  {id:"tanto",      t:"Tanto faz",  d:"O que for mais rápido"}
+];
+
+var URGENCIAS = [
+  {id:"hoje",       t:"É urgente", d:"Hoje ou amanhã", peso:3},
+  {id:"semana",     t:"Esta semana", d:"Já incomoda", peso:2},
+  {id:"mes",        t:"Este mês", d:"Quero organizar", peso:1},
+  {id:"planejando", t:"Estou pesquisando", d:"Sem pressa", peso:0}
+];
+
+var JANELAS = [
+  {id:"manha", t:"Manhã"}, {id:"tarde", t:"Tarde"}, {id:"noite", t:"Fim do dia"}, {id:"fds", t:"Fim de semana"}
+];
+
+var SERVICOS = [
+  {id:"s1", n:"01", t:"Configuração de Mac, iPhone, iPad e Android",
+   d:"Deixo o aparelho pronto para usar — não só ligado.",
+   b:["Configuração inicial, contas, e-mail, aplicativos e recursos de segurança","Transferência de contatos, fotos e arquivos do aparelho antigo","Integração entre dispositivos e orientação sobre a nuvem"],
+   pub:["pessoa","profissional","negocio"],
+   perfil:{pessoa:2,cuidador:2,profissional:1.5,negocio:1,equipe:1}, eco:{apple:1,android:.8,windows:.5,misto:.8},
+   urg:{hoje:1,semana:1,mes:.5,planejando:0}, modo:{presencial:.5,remoto:.2,tanto:.3}},
+
+  {id:"s2", n:"02", t:"Vida digital organizada",
+   d:"Fotos, arquivos, contatos e backup no lugar — e continuando no lugar.",
+   b:["Organização de arquivos, fotografias, contatos e calendários","Backup automático, impressoras, TVs e dispositivos conectados","Separação entre conta pessoal e conta profissional"],
+   pub:["pessoa","profissional","negocio"],
+   perfil:{pessoa:2,cuidador:1.8,profissional:1.5,negocio:1,equipe:.8}, eco:{apple:.8,android:.6,windows:.6,misto:1},
+   urg:{hoje:.4,semana:.8,mes:1,planejando:.5}, modo:{presencial:.5,remoto:.3,tanto:.4}},
+
+  {id:"s3", n:"03", t:"Aulas individuais de tecnologia",
+   d:"Aprender no seu ritmo, com repetição à vontade e material para consultar.",
+   b:["Mac, iPhone e Android para iniciantes, do zero","E-mail, calendário, videochamadas, nuvem, WhatsApp e redes sociais","Segurança digital, prevenção a golpes e inteligência artificial no cotidiano"],
+   pub:["pessoa","profissional","equipe"],
+   perfil:{pessoa:2,cuidador:2.2,profissional:1.2,negocio:.8,equipe:1.2}, eco:{apple:.8,android:.8,windows:.6,misto:.8},
+   urg:{hoje:.3,semana:.7,mes:1,planejando:.8}, modo:{presencial:.5,remoto:.4,tanto:.4}},
+
+  {id:"s4", n:"04", t:"Suporte remoto e presencial",
+   d:"Alguém para chamar quando trava — com resposta em prazo combinado.",
+   b:["Diagnóstico e orientação por videochamada, telefone ou WhatsApp","Instalação de programas, configuração de contas e dúvidas do dia a dia","Planos recorrentes de acompanhamento para famílias e profissionais"],
+   pub:["pessoa","profissional","negocio","equipe"],
+   perfil:{pessoa:1.6,cuidador:2.4,profissional:1.8,negocio:1.5,equipe:1.5}, eco:{apple:.6,android:.6,windows:.6,misto:.8},
+   urg:{hoje:1,semana:.9,mes:.5,planejando:.2}, modo:{presencial:.4,remoto:.5,tanto:.4}},
+
+  {id:"s5", n:"05", t:"Criação de sites profissionais",
+   d:"Um site que apresenta o seu trabalho e conduz quem chega até o contato.",
+   b:["Planejamento de estrutura, design personalizado e desenvolvimento responsivo","Institucional, serviços, portfólio, contato e integração com WhatsApp","Domínio, hospedagem, certificado de segurança, métricas e SEO básico"],
+   pub:["profissional","negocio","equipe"],
+   perfil:{pessoa:.2,cuidador:.2,profissional:2,negocio:2,equipe:1.6}, eco:{apple:.3,android:.3,windows:.3,misto:.3},
+   urg:{hoje:.3,semana:.6,mes:1,planejando:.9}, modo:{presencial:.2,remoto:.5,tanto:.4}},
+
+  {id:"s6", n:"06", t:"Modernização de sites",
+   d:"Seu site atual, rápido, atual e funcionando bem no celular.",
+   b:["Diagnóstico, atualização visual e adaptação para telas pequenas","Reorganização de páginas, correção de informações e revisão de segurança","Migração para plataforma mais adequada quando necessário"],
+   pub:["profissional","negocio","equipe"],
+   perfil:{pessoa:.2,cuidador:.2,profissional:1.8,negocio:1.8,equipe:1.4}, eco:{apple:.3,android:.3,windows:.3,misto:.3},
+   urg:{hoje:.4,semana:.7,mes:1,planejando:.7}, modo:{presencial:.2,remoto:.5,tanto:.4}},
+
+  {id:"s7", n:"07", t:"Manutenção e acompanhamento",
+   d:"Site atualizado, seguro e com relatório — sem você precisar lembrar disso.",
+   b:["Atualização de textos, imagens, páginas, sistemas e componentes","Cópias de segurança, correções técnicas e suporte continuado","Relatórios de acesso e recomendações de melhoria"],
+   pub:["profissional","negocio","equipe"],
+   perfil:{pessoa:.1,cuidador:.1,profissional:1.6,negocio:1.8,equipe:1.6}, eco:{apple:.2,android:.2,windows:.2,misto:.2},
+   urg:{hoje:.5,semana:.8,mes:1,planejando:.6}, modo:{presencial:.1,remoto:.5,tanto:.4}},
+
+  {id:"s8", n:"08", t:"Empresa conectada",
+   d:"Uma pessoa responsável por tudo que é digital no seu negócio.",
+   b:["Site, configuração de equipamentos e organização de e-mails e ferramentas","Integração de soluções digitais e treinamento da equipe","Suporte mensal com escopo e prazo de resposta definidos"],
+   pub:["negocio","equipe"],
+   perfil:{pessoa:0,cuidador:.2,profissional:.8,negocio:2,equipe:2.4}, eco:{apple:.4,android:.4,windows:.4,misto:.8},
+   urg:{hoje:.6,semana:.8,mes:1,planejando:.8}, modo:{presencial:.5,remoto:.4,tanto:.5}}
+];
+
+var PLANOS = [
+  {id:"p1", grupo:"pessoa", nome:"Primeiros Passos", claim:"Equipamento novo pronto para usar",
+   d:"Configuração inicial, aplicativos essenciais, e-mail, transferência básica, segurança e uma aula de introdução.",
+   inc:["Configuração completa do aparelho novo","Transferência de contatos, fotos e arquivos","Contas, e-mail e recursos de segurança ativos","Aula de introdução ao final"], serv:["s1","s3"]},
+  {id:"p2", grupo:"pessoa", nome:"Vida Digital Organizada", claim:"Tudo conectado e no lugar", destaque:true,
+   d:"Integração de aparelhos, organização de arquivos e fotos, nuvem, contatos, calendários e rotina de backup.",
+   inc:["Aparelhos integrados entre si","Arquivos, fotos e contatos organizados","Backup automático configurado e testado","Impressora, TV e dispositivos conectados"], serv:["s2","s1","s4"]},
+  {id:"p3", grupo:"pessoa", nome:"Tecnologia Sem Medo", claim:"Aprendizado no seu próprio ritmo",
+   d:"Ciclo de encontros individuais, conteúdo personalizado, material de apoio e orientação sobre segurança digital.",
+   inc:["Encontros individuais com plano de aula seu","Material de apoio para consultar depois","Prevenção a golpes na prática","Dúvidas entre os encontros"], serv:["s3","s4"]},
+  {id:"p8", grupo:"pessoa", nome:"Sempre Conectado", claim:"Alguém para chamar o ano inteiro",
+   d:"Plano recorrente de acompanhamento: suporte por WhatsApp e videochamada, revisão periódica dos aparelhos e prioridade no atendimento.",
+   inc:["Suporte por WhatsApp e videochamada","Check-up anual dos aparelhos, do backup e da rede","Resumo por escrito para quem acompanha de longe","Prioridade de agenda e aparelhos novos configurados"], serv:["s4","s3","s2"]},
+  {id:"p4", grupo:"negocio", nome:"Site Essencial", claim:"Presença digital objetiva",
+   d:"Página única profissional com apresentação, serviços, contato, WhatsApp, domínio e adaptação para celulares.",
+   inc:["Página única com design personalizado","Integração com WhatsApp","Domínio, hospedagem e certificado de segurança","Adaptação completa para celular"], serv:["s5"]},
+  {id:"p5", grupo:"negocio", nome:"Site Profissional", claim:"Marca estruturada na internet", destaque:true,
+   d:"Site com múltiplas páginas, design personalizado, portfólio, métricas, SEO básico e treinamento para você atualizar.",
+   inc:["Múltiplas páginas com portfólio","Métricas de acesso configuradas","SEO básico para ser encontrado","Treinamento de atualização"], serv:["s5","s7","s6"]},
+  {id:"p6", grupo:"negocio", nome:"Site Estratégico", claim:"Plataforma para crescer",
+   d:"Arquitetura completa, conteúdo, integrações, automação, otimização e acompanhamento de desempenho.",
+   inc:["Arquitetura e conteúdo planejados","Integrações e automações","Otimização contínua de desempenho","Acompanhamento com relatórios"], serv:["s5","s7","s8"]},
+  {id:"p7", grupo:"negocio", nome:"Empresa Conectada", claim:"A operação digital inteira sob um responsável", ancora:true,
+   d:"Site, equipamentos, e-mails, integração de ferramentas, treinamento e suporte mensal com prazo de resposta definido.",
+   inc:["Site + equipamentos + e-mails integrados","Treinamento da equipe","Suporte mensal com SLA combinado","Um único responsável por tudo"], serv:["s8","s5","s4","s7"]}
+];
+
+/* ---------- estado ---------- */
+function anima(){ return document.documentElement.classList.contains("js-motion") }
+function irAte(el){ if(el && el.scrollIntoView){ el.scrollIntoView({behavior:"smooth", block:"start"}) } }
+
+var estado = { perfil:null, dores:[], eco:null, modo:null, urgencia:null, janela:null, passo:0, calculado:false };
+var $  = function(s,e){ return (e||document).querySelector(s) };
+var $$ = function(s,e){ return Array.prototype.slice.call((e||document).querySelectorAll(s)) };
+
+/* ---------- conforto de leitura ---------- */
+$$(".conforto__b[data-escala-b]").forEach(function(b){
+  b.addEventListener("click", function(){
+    $$(".conforto__b[data-escala-b]").forEach(function(o){ o.setAttribute("aria-pressed","false") });
+    b.setAttribute("aria-pressed","true");
+    document.documentElement.setAttribute("data-escala", b.getAttribute("data-escala-b"));
+  });
+});
+$("#btContraste").addEventListener("click", function(){
+  var on = this.getAttribute("aria-pressed") === "true";
+  this.setAttribute("aria-pressed", on ? "false" : "true");
+  document.documentElement.setAttribute("data-contraste", on ? "padrao" : "alto");
+});
+
+/* ---------- WhatsApp ---------- */
+function abrirZap(texto){
+  if(!CONFIG.whatsapp){
+    var av = $("#avisoZap");
+    if(av){ av.setAttribute("data-visivel","1") }
+    else { console.warn("CONFIG.whatsapp não configurado."); }
+    return;
+  }
+  window.open("https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
+}
+$$("[data-zap]").forEach(function(b){
+  b.addEventListener("click", function(){ abrirZap(b.getAttribute("data-zap")) });
+});
+
+/* ---------- render do catálogo ---------- */
+var rotulos = {pessoa:"Pessoas e famílias", profissional:"Profissionais liberais", negocio:"Pequenos negócios", equipe:"Equipes e empresas"};
+function aplicarFiltro(){
+  var ativo = document.querySelector('.chip[aria-pressed="true"]');
+  var f = ativo ? ativo.getAttribute("data-filtro") : "todos";
+  $$(".serv").forEach(function(card){
+    var ok = f === "todos" || card.getAttribute("data-pub").indexOf(f) > -1;
+    card.style.display = ok ? "" : "none";
+  });
+}
+function renderCatalogo(lista){
+  var alvo = $("#catalogo");
+  alvo.innerHTML = "";
+  lista.forEach(function(s){
+    var el = document.createElement("article");
+    el.className = "serv";
+    el.setAttribute("data-serv", s.id);
+    el.setAttribute("data-pub", s.pub.join(" "));
+    if(s.score){ el.setAttribute("data-score", s.score) }
+    el.innerHTML =
+      '<div class="serv__cab"><span class="serv__num mono">' + s.n + '</span>' +
+      '<span class="serv__score mono">' + (s.score ? s.score + "% de afinidade" : "") + '</span></div>' +
+      '<h3>' + s.t + '</h3>' +
+      '<p class="sm mut">' + s.d + '</p>' +
+      '<ul>' + s.b.map(function(x){ return "<li><span>" + x + "</span></li>" }).join("") + '</ul>' +
+      '<div class="serv__pub">' + s.pub.map(function(p){ return '<span class="tag">' + rotulos[p] + '</span>' }).join("") + '</div>';
+    alvo.appendChild(el);
+  });
+  aplicarFiltro();
+}
+renderCatalogo(SERVICOS);
+
+$$(".chip").forEach(function(c){
+  c.addEventListener("click", function(){
+    $$(".chip").forEach(function(o){ o.setAttribute("aria-pressed","false") });
+    c.setAttribute("aria-pressed","true");
+    if(window.ELOMotion){ ELOMotion.reordenar(aplicarFiltro) } else { aplicarFiltro() }
+  });
+});
+
+/* ---------- render dos planos ---------- */
+function renderPlanos(grupo){
+  var alvo = $("#planos");
+  alvo.innerHTML = "";
+  PLANOS.filter(function(p){ return p.grupo === grupo && !p.ancora }).forEach(function(p){
+    var el = document.createElement("article");
+    el.className = "plano" + (p.destaque ? " plano--destaque" : "");
+    el.innerHTML =
+      '<span class="plano__selo">' + (p.destaque ? "Mais procurado" : "Plano") + '</span>' +
+      '<h3>' + p.nome + '</h3>' +
+      '<p class="preco">' + (PRECOS[p.id] ? "a partir de " + PRECOS[p.id] : "orçamento após o diagnóstico") + '</p>' +
+      '<p class="plano__d">' + p.claim + ". " + p.d + '</p>' +
+      '<ul class="plano__inc">' + p.inc.map(function(i){ return "<li><span>" + i + "</span></li>" }).join("") + '</ul>' +
+      '<button class="btn ' + (p.destaque ? "btn--zap" : "btn--secundaria") + ' btn--bloco" type="button" data-plano="' + p.nome + '" style="margin-top:8px">Pedir orçamento</button>';
+    alvo.appendChild(el);
+  });
+  $$("[data-plano]", alvo).forEach(function(b){
+    b.addEventListener("click", function(){
+      abrirZap("Olá! Vim pelo site e quero um orçamento do plano " + b.getAttribute("data-plano") + ".");
+    });
+  });
+}
+renderPlanos("pessoa");
+$$(".aba").forEach(function(a){
+  a.addEventListener("click", function(){
+    $$(".aba").forEach(function(o){ o.setAttribute("aria-selected","false") });
+    a.setAttribute("aria-selected","true");
+    var caixa = $("#planos");
+    if(!anima()){ renderPlanos(a.getAttribute("data-aba")); return }
+    caixa.setAttribute("data-trocando","1");
+    setTimeout(function(){
+      renderPlanos(a.getAttribute("data-aba"));
+      Array.prototype.forEach.call(caixa.children, function(c, i){
+        c.style.animation = "sobeRec var(--t-5) var(--e-out) both"; c.style.animationDelay = (i * 70) + "ms";
+      });
+      caixa.setAttribute("data-trocando","0");
+    }, 190);
+  });
+});
+
+/* ---------- render das opções do quiz ---------- */
+function opcaoHTML(id, titulo, desc){
+  return '<span class="op__marca" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M2 6.4 4.7 9 10 3.4"/></svg></span>' +
+         '<span><span class="op__t">' + titulo + '</span>' + (desc ? '<span class="op__d">' + desc + '</span>' : '') + '</span>';
+}
+function montarGrupo(grupo, itens){
+  var box = $('[data-grupo="' + grupo + '"]');
+  box.innerHTML = "";
+  itens.forEach(function(i){
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "op"; b.setAttribute("data-valor", i.id);
+    b.setAttribute("aria-pressed","false");
+    b.innerHTML = opcaoHTML(i.id, i.t, i.d || "");
+    b.addEventListener("click", function(){ escolher(grupo, i.id, b) });
+    box.appendChild(b);
+  });
+}
+function montarDores(){
+  var lista = DORES.filter(function(d){ return d.p.indexOf(estado.perfil) > -1 });
+  montarGrupo("dores", lista.map(function(d){ return {id:d.id, t:d.t} }));
+  estado.dores = [];
+}
+montarGrupo("perfil", PERFIS);
+montarGrupo("eco", ECO);
+montarGrupo("modo", MODOS);
+montarGrupo("urgencia", URGENCIAS);
+montarGrupo("janela", JANELAS);
+
+function escolher(grupo, valor, botao){
+  var multi = botao.parentNode.getAttribute("data-modo") === "multi";
+  if(multi){
+    var i = estado.dores.indexOf(valor);
+    if(i > -1){ estado.dores.splice(i,1); botao.setAttribute("aria-pressed","false") }
+    else { estado.dores.push(valor); botao.setAttribute("aria-pressed","true") }
+  } else {
+    $$(".op", botao.parentNode).forEach(function(o){ o.setAttribute("aria-pressed","false") });
+    botao.setAttribute("aria-pressed","true");
+    if(grupo === "perfil"){ estado.perfil = valor; montarDores() }
+    if(grupo === "eco"){ estado.eco = valor }
+    if(grupo === "modo"){ estado.modo = valor }
+    if(grupo === "urgencia"){ estado.urgencia = valor }
+    if(grupo === "janela"){ estado.janela = valor }
+  }
+  atualizarBotoes();
+}
+
+/* ---------- navegação do quiz ---------- */
+function passoValido(p){
+  if(p === 0) return !!estado.perfil;
+  if(p === 1) return estado.dores.length > 0;
+  if(p === 2) return !!estado.eco && !!estado.modo;
+  if(p === 3) return !!estado.urgencia && !!estado.janela;
+  return false;
+}
+function atualizarBotoes(){
+  var ok = passoValido(estado.passo);
+  var bt = $("#btAvancar");
+  bt.disabled = !ok;
+  bt.style.opacity = ok ? "1" : ".45";
+  bt.textContent = estado.passo === 3 ? "Ver meu resultado" : "Continuar";
+  $("#btVoltar").hidden = estado.passo === 0;
+  $$(".prog__t").forEach(function(t,i){ t.setAttribute("data-ativo", i <= estado.passo ? "1" : "0") });
+  $("#progTexto").textContent = (estado.passo + 1) + " / 4";
+}
+function irPara(p){
+  var atual = $(".passo:not([hidden])");
+  var alvo = $('.passo[data-passo="' + p + '"]');
+  estado.passo = p;
+  if(window.ELOMotion && atual !== alvo){
+    ELOMotion.passo(atual, alvo);          /* WAAPI: interrompível se clicarem rápido */
+  } else {
+    $$(".passo").forEach(function(f){ f.hidden = Number(f.getAttribute("data-passo")) !== p });
+  }
+  atualizarBotoes();
+}
+$("#btAvancar").addEventListener("click", function(){
+  if(!passoValido(estado.passo)) return;
+  if(estado.passo < 3){ irPara(estado.passo + 1) } else { calcular() }
+});
+$("#btVoltar").addEventListener("click", function(){ if(estado.passo > 0) irPara(estado.passo - 1) });
+$("#btRefazer").addEventListener("click", function(){
+  estado = { perfil:null, dores:[], eco:null, modo:null, urgencia:null, janela:null, passo:0, calculado:false };
+  $$(".op").forEach(function(o){ o.setAttribute("aria-pressed","false") });
+  montarGrupo("perfil", PERFIS);
+  $('[data-grupo="dores"]').innerHTML = "";
+  $("#resultado").hidden = true;
+  renderCatalogo(SERVICOS);
+  $("#notaOrdem").innerHTML = 'Ordem padrão do portfólio. Faça o <a href="#diagnostico" style="color:var(--voltage)">diagnóstico</a> para reordenar esta lista pela sua situação.';
+  irPara(0);
+  irAte(document.getElementById("diagnostico"));
+});
+
+/* ---------- atalhos do herói ---------- */
+$$("[data-atalho]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var a = b.getAttribute("data-atalho");
+    irAte(document.getElementById("diagnostico"));
+    if(a === "ver") return;
+    var alvo = a === "pessoa" ? "pessoa" : "negocio";
+    var op = $('[data-grupo="perfil"] [data-valor="' + alvo + '"]');
+    if(op){ setTimeout(function(){ op.click() }, 380) }
+  });
+});
+
+/* ---------- o motor ---------- */
+function calcularServico(s){
+  var bruto = 0.5;
+  var ideal = 0.5;
+  bruto += (s.perfil[estado.perfil] || 0);
+  ideal += 2.4;
+  var pesosDores = [];
+  DORES.forEach(function(d){
+    var w = d.w[s.id] || 0;
+    if(w > 0) pesosDores.push(w);
+    if(estado.dores.indexOf(d.id) > -1) bruto += w;
+  });
+  pesosDores.sort(function(a,b){ return b - a });
+  var n = Math.min(estado.dores.length, pesosDores.length);
+  for(var i = 0; i < n; i++){ ideal += pesosDores[i] }
+  if(n === 0){ ideal += 1 }
+  bruto += (s.eco[estado.eco] || 0);   ideal += 1;
+  bruto += (s.urg[estado.urgencia] || 0); ideal += 1;
+  bruto += (s.modo[estado.modo] || 0);    ideal += .5;
+  var pct = Math.round((bruto / ideal) * 100);
+  return Math.max(18, Math.min(97, pct));
+}
+function porques(s){
+  var out = [];
+  var perfilTxt = {pessoa:"pessoas e famílias", cuidador:"quem cuida de pais e avós", profissional:"profissionais liberais", negocio:"pequenos negócios", equipe:"equipes"};
+  if((s.perfil[estado.perfil] || 0) >= 1.5) out.push("Feito para " + perfilTxt[estado.perfil]);
+  DORES.forEach(function(d){
+    if(estado.dores.indexOf(d.id) > -1 && (d.w[s.id] || 0) >= 2){
+      out.push("Resolve: " + d.t.charAt(0).toLowerCase() + d.t.slice(1)); }
+  });
+  if((s.eco[estado.eco] || 0) >= .8) out.push("Forte no seu ecossistema");
+  if(estado.urgencia === "hoje" && (s.urg.hoje || 0) >= .9) out.push("Dá para começar já");
+  if(estado.modo === "remoto" && (s.modo.remoto || 0) >= .5) out.push("Funciona bem à distância");
+  return out.slice(0,4);
+}
+function prioridade(){
+  var u = URGENCIAS.filter(function(x){ return x.id === estado.urgencia })[0];
+  var p = (u ? u.peso : 0) + Math.min(estado.dores.length, 3) + (["negocio","equipe"].indexOf(estado.perfil) > -1 ? 1 : 0);
+  if(p >= 6) return "A"; if(p >= 4) return "B"; return "C";
+}
+function escolherPlano(ranking){
+  var top = ranking.slice(0,3).map(function(s){ return s.id });
+  var melhor = null, melhorNota = -1;
+  PLANOS.forEach(function(p){
+    var nota = 0;
+    p.serv.forEach(function(sid, idx){
+      var pos = top.indexOf(sid);
+      if(pos > -1) nota += (3 - pos) * (idx === 0 ? 1.8 : 1);
+    });
+    if(p.serv[0] === top[0]) nota += 2;
+    var domestico = (estado.perfil === "pessoa" || estado.perfil === "cuidador");
+    if(p.grupo === "pessoa" && !domestico) nota -= 1.2;
+    if(p.grupo === "negocio" && domestico) nota -= 3;
+    if(p.id === "p8" && estado.perfil === "cuidador") nota += 1.8;
+    if(p.ancora && (estado.perfil === "equipe" || (estado.perfil === "negocio" && estado.dores.length >= 3))) nota += 1.6;
+    if(nota > melhorNota){ melhorNota = nota; melhor = p }
+  });
+  return melhor;
+}
+function trilhaDe(ranking){
+  var agora = ranking[0], depois = ranking[1], continuo = null;
+  var recorrentes = {s4:"Suporte contínuo por WhatsApp e videochamada", s7:"Manutenção mensal do site com relatório", s8:"Suporte mensal da operação digital", s3:"Encontros de acompanhamento no seu ritmo"};
+  for(var i = 0; i < ranking.length; i++){ if(recorrentes[ranking[i].id]){ continuo = ranking[i]; break } }
+  return [
+    {n:"Agora", t:agora.t},
+    {n:"Depois", t:depois ? depois.t : "Ajustes finos conforme o uso"},
+    {n:"Contínuo", t:continuo ? recorrentes[continuo.id] : "Acompanhamento por demanda, sem mensalidade"}
+  ];
+}
+
+function calcular(){
+  var ranking = SERVICOS.map(function(s){
+    var c = {}; for(var k in s){ c[k] = s[k] }
+    c.score = calcularServico(s);
+    return c;
+  }).sort(function(a,b){ return b.score - a.score });
+
+  var lista = $("#resLista");
+  lista.innerHTML = "";
+  ranking.slice(0,3).forEach(function(s, i){
+    var el = document.createElement("article");
+    el.className = "rec" + (i === 0 ? " rec--top" : "");
+    var pq = porques(s);
+    el.innerHTML =
+      '<div class="rec__cab"><span class="rec__pos mono">' + (i+1) + "º · SERVIÇO " + s.n + '</span>' +
+      '<span class="rec__score"><span data-contador="' + s.score + '">0</span>% de afinidade</span></div>' +
+      '<h4 style="font-size:calc(19px * var(--escala))">' + s.t + '</h4>' +
+      '<div class="barra"><span class="barra__f" data-score="' + s.score + '"></span></div>' +
+      '<p class="sm mut">' + s.d + '</p>' +
+      (pq.length ? '<div class="porques">' + pq.map(function(p){ return '<span class="porque">' + p + '</span>' }).join("") + '</div>' : "");
+    lista.appendChild(el);
+  });
+  $$(".rec").forEach(function(el, i){ el.style.setProperty("--d", i * 90 + "ms") });
+  requestAnimationFrame(function(){
+    if(window.ELOMotion) ELOMotion.medir($("#resultado"));   /* barras crescem e números contam juntos */
+  });
+
+  var plano = escolherPlano(ranking);
+  $("#planoNome").textContent = plano.nome;
+  $("#planoDesc").textContent = plano.claim + ". " + plano.d;
+  var tr = trilhaDe(ranking);
+  $("#trilha").innerHTML = tr.map(function(t){ return '<li><span class="trilha__n">' + t.n + '</span><span>' + t.t + '</span></li>' }).join("");
+
+  var perfilTxt = PERFIS.filter(function(p){ return p.id === estado.perfil })[0].t;
+  var doresTxt = DORES.filter(function(d){ return estado.dores.indexOf(d.id) > -1 }).map(function(d){ return "• " + d.t }).join("\n");
+  var urgTxt = URGENCIAS.filter(function(u){ return u.id === estado.urgencia })[0].t;
+  var ecoTxt = ECO.filter(function(e){ return e.id === estado.eco })[0].t;
+  var modoTxt = MODOS.filter(function(m){ return m.id === estado.modo })[0].t;
+  var janelaTxt = JANELAS.filter(function(j){ return j.id === estado.janela })[0].t;
+  var abertura = estado.perfil === "cuidador"
+    ? "Olá! Fiz o diagnóstico no site da " + CONFIG.nome + ". É para meu pai/minha mãe."
+    : "Olá! Fiz o diagnóstico no site da " + CONFIG.nome + ".";
+  var msg =
+    abertura + "\n\n" +
+    "PERFIL: " + perfilTxt + "\n" +
+    "SITUAÇÃO:\n" + doresTxt + "\n" +
+    "EQUIPAMENTOS: " + ecoTxt + " · ATENDIMENTO: " + modoTxt + "\n" +
+    "PRAZO: " + urgTxt + " · MELHOR HORÁRIO: " + janelaTxt + "\n\n" +
+    "O site indicou:\n" +
+    ranking.slice(0,3).map(function(s,i){ return (i+1) + ". " + s.t + " (" + s.score + "%)" }).join("\n") + "\n" +
+    "Plano sugerido: " + plano.nome + "\n" +
+    "[prioridade " + prioridade() + "]\n\n" +
+    "Podemos conversar?";
+  $("#btEnviar").onclick = function(){ abrirZap(msg) };
+
+  if(window.ELOMotion){ ELOMotion.reordenar(function(){ renderCatalogo(ranking) }) } else { renderCatalogo(ranking) }
+  $("#notaOrdem").textContent = "Portfólio reordenado pela sua situação. A porcentagem é a afinidade calculada com o que você respondeu — não um preço nem uma promessa de resultado.";
+
+  $("#resultado").hidden = false;
+  estado.calculado = true;
+  irAte($("#resultado"));
+  $("#resultado").focus({preventScroll:true});
+}
+
+/* Movimento: ver a camada ELOMotion, carregada logo abaixo deste script. */
+
+var btMenu = $("#btMenu"), navmob = $("#navmob");
+btMenu.addEventListener("click", function(){
+  var aberto = navmob.getAttribute("data-aberto") === "1";
+  navmob.setAttribute("data-aberto", aberto ? "0" : "1");
+  btMenu.setAttribute("aria-expanded", aberto ? "false" : "true");
+  btMenu.setAttribute("aria-label", aberto ? "Abrir menu" : "Fechar menu");
+});
+$$("#navmob a").forEach(function(a){
+  a.addEventListener("click", function(){
+    navmob.setAttribute("data-aberto","0");
+    btMenu.setAttribute("aria-expanded","false");
+  });
+});
+
+$("#ano").textContent = new Date().getFullYear();
+irPara(0);
+})();
+</script>
+<script>
+/* ==========================================================================
+   ELO DIGITAL — MOTOR DE MOTION  v1.0
+   Cole DENTRO da <script> do index.html, ou como <script defer> antes de </body>.
+
+   Arquitetura: UM requestAnimationFrame para o site inteiro.
+   Cada motor é um assinante do mesmo quadro. Loops concorrentes são a
+   causa nº 1 de INP ruim em site animado — aqui existe um só, ele lê
+   todas as geometrias antes de escrever qualquer estilo (evita layout
+   thrash) e dorme quando não há nada em movimento.
+
+   Contrato herdado do DESIGN.md v1.7:
+   · revelação por POSIÇÃO NA TELA, não IntersectionObserver
+     (em moldura alta o IO dispara para a página toda de uma vez)
+   · blocos que saem de cena REARMAM — entrada de uso único deixa o
+     site parado para sempre num painel alto
+   · varredura de segurança aos 4s e aos 8s revela o que sobrou
+   · nenhum controle de movimento exposto ao visitante
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  var raiz = document.documentElement;
+
+  /* ---------------------------------------------------------------------
+     1. DECISÃO DE MOVIMENTO — escrita uma única vez, no carregamento
+     --------------------------------------------------------------------- */
+  var conexao = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+  var param   = new URLSearchParams(location.search).get('movimento'); // teste, não interface
+
+  /* Guarda: um ambiente sem matchMedia (webview antiga, motor de
+     pré-visualização, teste automatizado) lançava exceção na primeira linha
+     e matava a camada inteira — o modo de falha mais caro possível. */
+  function prefereMenos(){
+    try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) }
+    catch (e) { return false }
+  }
+
+  var animar =
+    !prefereMenos() &&
+    !conexao.saveData &&
+    !/^(slow-2g|2g)$/.test(conexao.effectiveType || '');
+
+  if (param === '1') animar = true;
+  if (param === '0') animar = false;
+
+  raiz.setAttribute('data-motion', animar ? 'ligado' : 'desligado');
+  if (animar) raiz.classList.add('js-motion');
+
+  /* Aparelho fraco: o movimento continua, o que é caro sai.
+     Blur em superfície grande e paralaxe de vídeo são as duas contas altas. */
+  /* WAAPI (Element.animate) move os passos do diagnóstico e o FLIP do
+     catálogo. Onde ele não existe, o movimento cai fora — mas a navegação
+     precisa continuar: sem esta guarda, o passo nunca avança e o formulário
+     fica inutilizável. Movimento é enfeite; o diagnóstico é o produto. */
+  var temWAAPI = typeof Element !== 'undefined' && typeof Element.prototype.animate === 'function';
+
+  var fraco =
+    (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+    (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4);
+  if (fraco) raiz.setAttribute('data-desempenho', 'baixo');
+
+  /* ---------------------------------------------------------------------
+     2. ALTURA VISÍVEL CONFIÁVEL
+     Moldura ajustada ao conteúdo mente sobre o que está em cena.
+     --------------------------------------------------------------------- */
+  var alturaVisivel = 800;
+  function medirAltura() {
+    var h = Math.min(
+      window.innerHeight || 800,
+      (window.visualViewport && window.visualViewport.height) || Infinity
+    );
+    var fisica = (window.screen && window.screen.height) || h;
+    alturaVisivel = h > fisica * 1.3 ? fisica : h;
+  }
+  medirAltura();
+
+  /* ---------------------------------------------------------------------
+     3. QUADRO ÚNICO
+     --------------------------------------------------------------------- */
+  var leitores = [];   // fase de LEITURA  (getBoundingClientRect)
+  var escritores = []; // fase de ESCRITA  (style / class)
+  var sujo = true, rodando = false;
+
+  function marcar() {
+    sujo = true;
+    if (!rodando) { rodando = true; requestAnimationFrame(quadro); }
+  }
+  function quadro() {
+    sujo = false;
+    for (var i = 0; i < leitores.length; i++) leitores[i]();
+    for (var j = 0; j < escritores.length; j++) escritores[j]();
+    if (sujo) requestAnimationFrame(quadro); else rodando = false;
+  }
+
+  addEventListener('scroll', marcar, { passive: true });
+  addEventListener('resize', function () { medirAltura(); marcar(); }, { passive: true });
+  addEventListener('orientationchange', function () { medirAltura(); marcar(); }, { passive: true });
+  if (window.visualViewport) {
+    visualViewport.addEventListener('resize', function () { medirAltura(); marcar(); }, { passive: true });
+  }
+
+  /* ---------------------------------------------------------------------
+     4. REVELAÇÃO DE BLOCOS
+     Ajuste ALVOS para o markup real: qualquer seletor listado aqui ganha
+     entrada. Elementos com [data-rev] já entram sozinhos.
+     --------------------------------------------------------------------- */
+  /* AJUSTADO AO MARKUP DO ELO DIGITAL — este é o único lugar a editar
+     quando um bloco novo precisar entrar na rolagem. '.rev' está aqui porque
+     as seções já vêm marcadas assim no HTML; sem isso elas ficariam ocultas. */
+  var ALVOS = [
+    '[data-rev]', '.rev',
+    '.serv', '.p3', '.plano', '.oficina', '.comp', '.etapa', '.sinal',
+    '.caminho', '.tile__midia', '.tile__lista li', '.faq details'
+  ].join(',');
+
+  var blocos = [];
+  document.querySelectorAll(ALVOS).forEach(function (el) {
+    if (el.closest('.heroi-cine')) return;              // o herói tem coreografia própria
+    el.classList.add('rev');
+    blocos.push({ el: el, dentro: false, rect: null });
+  });
+
+  // escalonamento por irmãos, teto de 8 — atraso é dado, não é loteria
+  var porPai = new Map();
+  blocos.forEach(function (b) {
+    var pai = b.el.parentElement;
+    var n = porPai.get(pai) || 0;
+    porPai.set(pai, n + 1);
+    b.el.style.setProperty('--rev-atraso', Math.min(n, 7) * 70 + 'ms');
+  });
+
+  leitores.push(function () {
+    for (var i = 0; i < blocos.length; i++) blocos[i].rect = blocos[i].el.getBoundingClientRect();
+  });
+
+  escritores.push(function () {
+    for (var i = 0; i < blocos.length; i++) {
+      var b = blocos[i], r = b.rect;
+      if (!r) continue;
+      var entrou = r.top < alturaVisivel * 0.88 && r.bottom > alturaVisivel * 0.04;
+      // rearma só quando o bloco sai BEM para fora — evita piscar na borda
+      var saiu = r.bottom < -alturaVisivel * 0.25 || r.top > alturaVisivel * 1.35;
+
+      if (entrou && !b.dentro) { b.el.classList.add('is-dentro'); b.dentro = true; }
+      else if (saiu && b.dentro) { b.el.classList.remove('is-dentro'); b.dentro = false; }
+    }
+  });
+
+  // cascata inicial de 110ms, teto de 3s: o topo da página não espera rolagem
+  if (animar) {
+    var acima = blocos.filter(function (b) { return b.el.getBoundingClientRect().top < alturaVisivel; });
+    acima.forEach(function (b, i) {
+      var t = Math.min(i * 110, 3000);
+      setTimeout(function () { b.el.classList.add('is-dentro'); b.dentro = true; }, t);
+    });
+  }
+
+  // varredura de segurança — nenhum bloco depende de animação para existir
+  function varrer(tudo) {
+    blocos.forEach(function (b) {
+      if (b.dentro) return;
+      var r = b.el.getBoundingClientRect();
+      if (tudo || (r.top < alturaVisivel * 1.2 && r.bottom > 0)) {
+        b.el.classList.add('is-dentro'); b.dentro = true;
+      }
+    });
+  }
+  setTimeout(function () { varrer(false); }, 4000);
+  setTimeout(function () { varrer(true); }, 8000);
+
+  /* ---------------------------------------------------------------------
+     5. TÍTULO FATIADO POR PALAVRA
+     Marque o título com data-palavras. A pontuação cola na palavra anterior.
+     --------------------------------------------------------------------- */
+  document.querySelectorAll('[data-palavras]').forEach(function (titulo) {
+    if (titulo.dataset.fatiado) return;
+    var indice = 0;
+
+    (function percorrer(no) {
+      Array.prototype.slice.call(no.childNodes).forEach(function (filho) {
+        if (filho.nodeType === 3) {
+          var texto = filho.textContent;
+          if (!texto.trim()) return;
+          var frag = document.createDocumentFragment();
+          // pontuação viaja junto: "resultado." é UMA palavra, nunca duas caixas
+          texto.trim().split(/\s+/).forEach(function (palavra, k, arr) {
+            var mascara = document.createElement('span');
+            mascara.className = 'pal';
+            var interior = document.createElement('span');
+            interior.className = 'pal__i';
+            interior.textContent = palavra;
+            interior.style.setProperty('--pal-atraso', Math.min(indice, 13) * 45 + 'ms');
+            indice++;
+            mascara.appendChild(interior);
+            frag.appendChild(mascara);
+            if (k < arr.length - 1) frag.appendChild(document.createTextNode(' '));
+          });
+          no.replaceChild(frag, filho);
+        } else if (filho.nodeType === 1 && !filho.classList.contains('pal')) {
+          percorrer(filho);
+        }
+      });
+    })(titulo);
+
+    titulo.dataset.fatiado = '1';
+    titulo.classList.add('rev');
+    if (!blocos.some(function (b) { return b.el === titulo; })) {
+      blocos.push({ el: titulo, dentro: false, rect: null });
+    }
+  });
+
+  /* ---------------------------------------------------------------------
+     6. HERÓI — scrub atrelado à rolagem
+     --------------------------------------------------------------------- */
+  var heroi = document.querySelector('.heroi-cine');
+  if (heroi) {
+    var hRect = null;
+    leitores.push(function () { hRect = heroi.getBoundingClientRect(); });
+    escritores.push(function () {
+      if (!hRect) return;
+      var p = Math.min(1, Math.max(0, -hRect.top / Math.max(1, hRect.height)));
+      raiz.style.setProperty('--scrub', p.toFixed(4));
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     7. BARRA DE LEITURA — só se o navegador não tiver scroll-timeline
+     --------------------------------------------------------------------- */
+  var barraLeitura = document.querySelector('.progresso__f');
+  if (barraLeitura && !CSS.supports('animation-timeline: scroll()')) {
+    escritores.push(function () {
+      var max = document.documentElement.scrollHeight - alturaVisivel;
+      var p = max > 0 ? Math.min(1, scrollY / max) : 0;
+      raiz.style.setProperty('--leitura', p.toFixed(4));
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     8. CABEÇALHO — recolhe ao descer, retorna ao subir
+     --------------------------------------------------------------------- */
+  var cabecalho = document.querySelector('.cabecalho');
+  if (cabecalho) {
+    var ultimo = 0;
+    escritores.push(function () {
+      var y = scrollY;
+      var menuAberto = document.querySelector('.navmob.is-aberta, [aria-expanded="true"]');
+      var moveu = false;
+      if (y > 120 && y > ultimo + 4 && !menuAberto) { cabecalho.classList.add('is-oculto'); moveu = true; }
+      else if (y < ultimo - 4 || y <= 120) { cabecalho.classList.remove('is-oculto'); moveu = true; }
+      if (moveu) {
+        cabecalho.classList.add('is-movendo');
+        clearTimeout(cabecalho._wc);
+        // will-change e reserva de memoria: sai assim que o movimento acaba
+        cabecalho._wc = setTimeout(function () { cabecalho.classList.remove('is-movendo'); }, 420);
+      }
+      ultimo = y;
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     9. BARRAS DE AFINIDADE + CONTAGEM NUMÉRICA
+     A barra e o número contam JUNTOS, 900ms. O número é a legenda da barra.
+     --------------------------------------------------------------------- */
+  function medir(escopo) {
+    (escopo || document).querySelectorAll('.barra__f').forEach(function (barra) {
+      var alvo = parseFloat(barra.dataset.score || barra.style.getPropertyValue('--p') || 0);
+      var p = alvo > 1 ? alvo / 100 : alvo;
+      barra.style.setProperty('--p', p);
+      barra.classList.add('is-movendo');
+      requestAnimationFrame(function () { barra.classList.add('is-medida'); });
+      barra.addEventListener('transitionend', function () {
+        barra.classList.remove('is-movendo');
+      }, { once: true });
+    });
+
+    (escopo || document).querySelectorAll('[data-contador]').forEach(function (n) {
+      var fim = parseFloat(n.dataset.contador);
+      if (isNaN(fim)) return;
+      if (!animar) { n.textContent = Math.round(fim); return; }
+      var t0 = performance.now(), dur = 900;
+      (function passo(t) {
+        var k = Math.min(1, (t - t0) / dur);
+        var eased = 1 - Math.pow(1 - k, 3);         // ease-out-cubic
+        n.textContent = Math.round(fim * eased);
+        if (k < 1) requestAnimationFrame(passo);
+      })(t0);
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     10. VÍDEO — toca só em cena, nunca carrega fora dela
+     --------------------------------------------------------------------- */
+  document.querySelectorAll('video').forEach(function (v) {
+    v.muted = true; v.playsInline = true; v.loop = true;
+    v.setAttribute('playsinline', ''); v.setAttribute('muted', '');
+    if (!v.hasAttribute('preload')) v.preload = animar ? 'metadata' : 'none';
+    if (!animar) { v.removeAttribute('autoplay'); v.pause(); }
+  });
+
+  if (animar && 'IntersectionObserver' in window) {
+    // IO é ruim para revelação, mas é a ferramenta certa para custo de mídia
+    var olho = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else v.pause();
+      });
+    }, { rootMargin: '120px 0px', threshold: 0.15 });
+    document.querySelectorAll('video').forEach(function (v) { olho.observe(v); });
+  }
+
+  /* ---------------------------------------------------------------------
+     11. CTA DE WHATSAPP — halo 3× ao entrar em cena, uma única vez
+     --------------------------------------------------------------------- */
+  document.querySelectorAll('.btn--zap').forEach(function (btn) {
+    var chamado = false;
+    escritores.push(function () {
+      if (chamado || !animar) return;
+      var r = btn.getBoundingClientRect();
+      if (r.top < alturaVisivel * 0.9 && r.bottom > 0) {
+        btn.classList.add('is-chamando');
+        chamado = true;
+      }
+    });
+  });
+
+  /* ---------------------------------------------------------------------
+     12. API PÚBLICA — reordenação do catálogo e passos do diagnóstico
+     --------------------------------------------------------------------- */
+  var API = {};
+
+  /* Chame API.reordenar(function(){ ...mexe no DOM/filtros... })
+     Usa View Transitions onde existe; cai para FLIP onde não existe. */
+  API.reordenar = function (mutacao, seletor) {
+    seletor = seletor || '.serv';
+    if (!animar) { mutacao(); return; }
+    if (!temWAAPI) { mutacao(); return; }
+
+    if (document.startViewTransition) {
+      document.startViewTransition(mutacao);
+      return;
+    }
+
+    var itens = Array.prototype.slice.call(document.querySelectorAll(seletor));
+    var antes = new Map();
+    itens.forEach(function (el) { antes.set(el, el.getBoundingClientRect()); });
+
+    mutacao();
+
+    itens.forEach(function (el, i) {
+      var a = antes.get(el); if (!a) return;
+      var d = el.getBoundingClientRect();
+      var dx = a.left - d.left, dy = a.top - d.top;
+      if (!dx && !dy) return;
+      el.animate(
+        [{ transform: 'translate3d(' + dx + 'px,' + dy + 'px,0)' }, { transform: 'none' }],
+        { duration: 620, delay: Math.min(i, 8) * 28, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' }
+      );
+    });
+  };
+
+  /* Chame API.passo(elSaindo, elEntrando) na troca de pergunta do diagnóstico.
+     WAAPI em vez de classe + setTimeout: quem clica rápido em três opções
+     seguidas interrompe a transição no meio, e uma animação interrompida
+     precisa retomar do estado atual — não pular para o começo. `.cancel()`
+     na anterior faz isso; um setTimeout pendente, não. */
+  var animAtual = null;
+
+  function focar(escopo) {
+    var alvo = escopo.querySelector('h2, h3, legend, [autofocus], button, input');
+    if (!alvo) return;
+    alvo.setAttribute('tabindex', '-1');
+    alvo.focus({ preventScroll: true });
+  }
+
+  API.passo = function (sai, entra) {
+    if (animAtual) { animAtual.cancel(); animAtual = null; }
+
+    if (!animar || !temWAAPI) {
+      if (sai) sai.hidden = true;
+      if (entra) { entra.hidden = false; focar(entra); }
+      return;
+    }
+
+    var entrar = function () {
+      if (!entra) return;
+      entra.hidden = false;
+      animAtual = entra.animate(
+        [{ transform: 'translate3d(22px,0,0)', opacity: 0 },
+         { transform: 'none',                  opacity: 1 }],
+        { duration: 520, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'both' }
+      );
+      animAtual.finished.then(function () {
+        entra.style.transform = ''; entra.style.opacity = '';
+      }).catch(function () {});   // cancelamento não é erro
+      focar(entra);               // o foco não espera a animação
+    };
+
+    if (!sai) { entrar(); return; }
+
+    // saída em 190ms: mais curta que a entrada, porque a pergunta antiga
+    // já não interessa a ninguém
+    var fora = sai.animate(
+      [{ transform: 'none', opacity: 1 },
+       { transform: 'translate3d(-22px,0,0)', opacity: 0 }],
+      { duration: 190, easing: 'cubic-bezier(.5,0,0,.75)', fill: 'both' }
+    );
+    animAtual = fora;
+    fora.finished.then(function () { sai.hidden = true; entrar(); }).catch(function () {});
+  };
+
+  API.medir = medir;   // chame ao exibir o resultado do diagnóstico
+  API.marcar = marcar;
+  window.ELOMotion = API;
+
+  /* ---------------------------------------------------------------------
+     13. Primeiro quadro
+     --------------------------------------------------------------------- */
+  marcar();
+  addEventListener('load', function () { medirAltura(); marcar(); medir(document); });
+})();
+</script>
+</body>
+</html>

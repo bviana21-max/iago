@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elo Digital — Guia de implantação, motor de recomendação e precificação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#EFEDE7; --surface:#FFFFFF; --surface-2:#E4E1D8;
+  --ink:#16191C; --mut:#565B58; --sub:#5C615D;
+  --hair:#D6D2C8; --hair-soft:#E4E1D8;
+  --volt:#0B5D3B; --volt-soft:#DDEAE0; --volt-line:#B9D3C4;
+  --inv:#12161A; --inv-ink:#F2F1EC; --inv-mut:#A6ADA8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--ink);
+ font-family:"Instrument Sans",ui-sans-serif,system-ui,sans-serif;font-size:16.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:500;margin:0;letter-spacing:-.025em}
+h1{font-size:clamp(2.2rem,1.4rem+3vw,3.6rem);line-height:1.04}
+h2{font-size:clamp(1.5rem,1.2rem+1.4vw,2.1rem);line-height:1.12}
+h3{font-size:1.18rem;line-height:1.25;letter-spacing:-.015em}
+h4{font-size:1rem;letter-spacing:-.01em}
+p,ul,ol,table{margin:0}
+a{color:var(--volt)}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.wrap{max-width:940px;margin-inline:auto;padding-inline:clamp(20px,5vw,48px)}
+.mut{color:var(--mut)} .sm{font-size:14.5px}
+
+/* capa */
+.capa{min-height:100vh;display:grid;align-content:space-between;padding-block:clamp(40px,7vw,80px);border-bottom:1px solid var(--hair)}
+.marca{display:flex;align-items:center;gap:12px}
+.marca__n{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:19px;letter-spacing:-.03em}
+.capa__t{margin-top:28px;max-width:20ch}
+.capa__s{margin-top:22px;font-size:20px;color:var(--mut);max-width:56ch}
+.capa__meta{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;border-top:1px solid var(--hair);padding-top:22px}
+.capa__meta span{display:block}
+.rot{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--sub)}
+
+/* sumário */
+.sumario ol{list-style:none;padding:0;margin-top:26px;border-top:1px solid var(--hair)}
+.sumario li{border-bottom:1px solid var(--hair-soft)}
+.sumario a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;padding:15px 0;text-decoration:none;color:var(--ink);align-items:baseline}
+.sumario a:hover{color:var(--volt)}
+.sumario .n{font-family:"JetBrains Mono",monospace;font-size:12.5px;color:var(--volt)}
+.sumario .d{font-size:14.5px;color:var(--sub);text-align:right}
+
+section.bloco{padding-block:clamp(46px,6vw,76px);border-bottom:1px solid var(--hair-soft)}
+.abre{display:grid;grid-template-columns:72px 1fr;gap:16px;align-items:start;margin-bottom:22px}
+.abre .n{font-family:"JetBrains Mono",monospace;font-size:13px;color:var(--volt);padding-top:9px}
+.lead{font-size:18.5px;color:var(--mut);max-width:66ch;margin-top:12px}
+.corpo>*+*{margin-top:16px}
+.corpo ul{padding-left:0;list-style:none}
+.corpo ul li{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start}
+.corpo ul li+li{margin-top:9px}
+.corpo ul li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--volt-line);margin-top:.62em}
+
+table{width:100%;border-collapse:collapse;font-size:14.8px;margin-top:8px}
+th,td{text-align:left;padding:11px 12px 11px 0;border-bottom:1px solid var(--hair-soft);vertical-align:top}
+th{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--sub);font-weight:400;border-bottom-color:var(--hair)}
+td.num{font-family:"JetBrains Mono",monospace;white-space:nowrap}
+
+.cx{background:var(--surface);border:1px solid var(--hair);border-radius:12px;padding:22px}
+.cx--volt{background:var(--volt-soft);border-color:var(--volt-line)}
+.cx--esc{background:var(--inv);color:var(--inv-ink);border-color:var(--inv)}
+.cx--esc h3,.cx--esc h4{color:#fff}
+.cx--esc .mut{color:var(--inv-mut)}
+.grade2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grade3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:760px){.grade2,.grade3{grid-template-columns:1fr}.capa__meta{grid-template-columns:1fr}}
+code,pre{font-family:"JetBrains Mono",monospace;font-size:13.5px}
+pre{background:var(--inv);color:#E9E7E0;padding:18px;border-radius:10px;overflow-x:auto;line-height:1.6}
+pre .c{color:#7FD3A8}
+.selo{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--volt-soft);color:var(--volt);border:1px solid var(--volt-line)}
+.selo--alerta{background:#F6E9DC;border-color:#E0C4A6;color:#8A5220}
+.rodape{padding-block:34px;font-size:13px;color:var(--sub);display:flex;flex-wrap:wrap;gap:10px 24px;justify-content:space-between}
+
+@media print{
+  @page{size:A4;margin:16mm}
+  body{background:#fff;font-size:10.5pt}
+  .capa{min-height:auto;page-break-after:always;border:0}
+  section.bloco{page-break-inside:avoid;border-bottom:0;padding-block:18pt}
+  .cx,.cx--esc{break-inside:avoid}
+  .cx--esc{background:#fff;color:#000;border:1px solid #999}
+  .cx--esc h3,.cx--esc h4{color:#000}.cx--esc .mut{color:#444}
+  pre{background:#f2f2f2;color:#111;border:1px solid #ccc}
+  a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap capa">
+  <div>
+    <div class="marca">
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#16191C"/><g fill="none" stroke-width="3.2"><rect x="6.5" y="11.5" width="12" height="9" rx="4.5" stroke="#4FB185"/><rect x="13.5" y="11.5" width="12" height="9" rx="4.5" stroke="#F2F1EC"/></g></svg>
+      <span class="marca__n">Elo Digital</span>
+    </div>
+  </div>
+  <div>
+    <span class="selo">Documento técnico · Uso interno</span>
+    <h1 class="capa__t">Guia de implantação do site inteligente.</h1>
+    <p class="capa__s">Como o motor de recomendação funciona, o que precisa ser preenchido antes de publicar, o sistema de design que sustenta a marca e o benchmark de preços verificado na data desta entrega.</p>
+  </div>
+  <div class="capa__meta">
+    <div><span class="rot">Preparado por</span><span>CLAU ELITE OS</span></div>
+    <div><span class="rot">Base</span><span>Proposta de Serviços — Tecnologia e Sites</span></div>
+    <div><span class="rot">Data</span><span class="mono">03.08.2026</span></div>
+  </div>
+</header>
+
+<nav class="wrap bloco sumario" aria-label="Sumário">
+  <h2>Sumário</h2>
+  <ol>
+    <li><a href="#s01"><span class="n">01</span><span>Premissas assumidas</span><span class="d">o que precisa da sua confirmação</span></a></li>
+    <li><a href="#s02"><span class="n">02</span><span>Tese do site e arquitetura de conversão</span><span class="d">uma ação primária</span></a></li>
+    <li><a href="#s03"><span class="n">03</span><span>O motor de recomendação</span><span class="d">fórmula, pesos e edição</span></a></li>
+    <li><a href="#s04"><span class="n">04</span><span>Ciência comportamental aplicada</span><span class="d">e os limites que respeitamos</span></a></li>
+    <li><a href="#s05"><span class="n">05</span><span>Publicação: configuração, deploy e SEO</span><span class="d">passo a passo</span></a></li>
+    <li><a href="#s06"><span class="n">06</span><span>O que ainda depende de você</span><span class="d">conteúdo pendente</span></a></li>
+    <li><a href="#s07"><span class="n">07</span><span>Precificação: benchmark de mercado</span><span class="d">verificado em 03.08.2026</span></a></li>
+    <li><a href="#s08"><span class="n">08</span><span>Indicadores e próximos passos</span><span class="d">como saber se está funcionando</span></a></li>
+    <li><a href="#s09"><span class="n">09</span><span>Benchmark de referências e o que mudou</span><span class="d">HelloTech, Candoo, Geek Squad</span></a></li>
+    <li><a href="#s10"><span class="n">10</span><span>Camada cinema: vídeo e movimento</span><span class="d">o que hospedar antes de publicar</span></a></li>
+    <li><a href="#s11"><span class="n">11</span><span>Sistema de motion</span><span class="d">tokens, inventário e contrato</span></a></li>
+  </ol>
+</nav>
+
+<!-- 01 -->
+<section class="wrap bloco" id="s01">
+  <div class="abre"><span class="n">01</span><div><h2>Premissas assumidas</h2>
+  <p class="lead">A proposta original não fecha nome, região nem contato. Para entregar um site funcionando, assumi as decisões abaixo — todas trocáveis em um único lugar do código, sem mexer no layout.</p></div></div>
+  <div class="corpo">
+    <table>
+      <tr><th>Item</th><th>Premissa adotada</th><th>Onde trocar</th></tr>
+      <tr><td>Nome da marca</td><td><strong>Elo Digital</strong> — da própria lista de candidatos do documento. Curto, memorável, diz o que o negócio faz (criar o elo entre a pessoa e a tecnologia) e não sugere assistência autorizada.</td><td class="num">CONFIG.nome + textos</td></tr>
+      <tr><td>Posicionamento</td><td>Consultor de tecnologia pessoal e presença digital — não "técnico de informática", conforme a recomendação central do documento.</td><td class="num">herói e rodapé</td></tr>
+      <tr><td>Região</td><td>Presencial em Curitiba e Região Metropolitana; remoto para todo o Brasil.</td><td class="num">CONFIG.regiao + rodapé + JSON-LD</td></tr>
+      <tr><td>Domínio</td><td><span class="mono">elodigital.com.br</span> usado nas metatags e no JSON-LD. <strong>Verificar disponibilidade de domínio, perfis sociais e conflito de marca antes de fechar.</strong></td><td class="num">&lt;head&gt; e JSON-LD</td></tr>
+      <tr><td>Plano recorrente para pessoas</td><td>Criei o <strong>Sempre Conectado</strong> (suporte recorrente para famílias e profissionais liberais). Não está na lista de produtos do documento, mas está no modelo de negócio dele ("RECORRENTE: suporte para famílias"). Espelha o Empresa Conectada e fecha a trilha de continuidade.</td><td class="num">array PLANOS</td></tr>
+      <tr><td>Terceiro público: quem cuida</td><td>Incluí o perfil <strong>"estou resolvendo para meu pai ou minha mãe"</strong> no herói e no motor. Não está no documento original — veio do benchmark (seção 09) e é, nas referências internacionais, o comprador principal deste serviço.</td><td class="num">PERFIS + DORES</td></tr>
+      <tr><td>Preços</td><td>Nenhum preço publicado no site. O documento não define tabela, e publicar número inventado seria o erro mais caro possível. A seção 07 traz o benchmark para você definir.</td><td class="num">—</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 02 -->
+<section class="wrap bloco" id="s02">
+  <div class="abre"><span class="n">02</span><div><h2>Tese do site e arquitetura de conversão</h2>
+  <p class="lead">Um site institucional comum lista serviços e espera que o visitante se identifique sozinho. Quem tem medo de tecnologia não se identifica — ele desiste. Por isso a tese aqui é outra.</p></div></div>
+  <div class="corpo">
+    <div class="cx cx--volt">
+      <h3>Tese</h3>
+      <p style="margin-top:8px">O visitante deve sair com uma crença: <strong>"existe alguém que entende o meu caso específico e vai me explicar o que eu preciso — sem me fazer sentir burro e sem me pedir senha."</strong></p>
+    </div>
+    <p><strong>Ação primária única:</strong> completar o diagnóstico. Toda CTA primária da página leva a ele; o WhatsApp direto existe como caminho secundário para quem já decidiu. O diagnóstico não é um formulário de captura — ele entrega valor antes de pedir qualquer coisa, e só vira contato se a pessoa quiser.</p>
+    <div class="grade3" style="margin-top:6px">
+      <div class="cx"><h4>Dois caminhos no primeiro scroll</h4><p class="sm mut" style="margin-top:6px">Pessoa/família e negócio, como pede o documento. Cada caminho pré-preenche o diagnóstico e reduz a primeira decisão a um clique.</p></div>
+      <div class="cx"><h4>Conforto de leitura no cabeçalho</h4><p class="sm mut" style="margin-top:6px">A/A+/A++ e alto contraste. Para o público 60+ é função; para todos os outros é a prova visível de que o atendimento pensa em quem tem dificuldade.</p></div>
+      <div class="cx"><h4>Segurança antes do preço</h4><p class="sm mut" style="margin-top:6px">O protocolo de senhas aparece na faixa do herói e ganha seção própria. É a objeção nº 1 do setor — tratada como ativo de marca, não como letra miúda.</p></div>
+    </div>
+    <p class="sm mut">Ordem das seções: herói → diagnóstico → catálogo ranqueado → planos → método → confiança → oficinas → dúvidas → fecho. O diagnóstico vem antes do catálogo de propósito: quem responde vê a lista já ordenada para si.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section class="wrap bloco" id="s03">
+  <div class="abre"><span class="n">03</span><div><h2>O motor de recomendação</h2>
+  <p class="lead">Quatro perguntas produzem uma nota de afinidade de 0 a 100 para cada um dos oito serviços, um plano recomendado, uma trilha de continuidade e uma classificação de prioridade do contato. Tudo roda no navegador — nenhum dado sai do dispositivo sem clique.</p></div></div>
+  <div class="corpo">
+    <h3>A fórmula</h3>
+    <pre><span class="c">// para cada serviço</span>
+bruto = 0,5 (base)
+      + peso_do_perfil          <span class="c">// 0 a 2,4</span>
+      + Σ pesos das dores marcadas  <span class="c">// 0 a 3 por dor</span>
+      + peso_do_ecossistema     <span class="c">// 0 a 1</span>
+      + peso_da_urgência        <span class="c">// 0 a 1</span>
+      + peso_da_modalidade      <span class="c">// 0 a 0,5</span>
+
+ideal = 0,5 + 2,4 + (as N maiores dores desse serviço, N = nº de dores marcadas) + 1 + 1 + 0,5
+
+afinidade = arredonda(bruto / ideal × 100), limitada entre 18% e 97%</pre>
+    <p class="sm mut">O denominador é o teto <em>daquele serviço para aquela quantidade de dores</em> — não o teto absoluto. É por isso que a nota não estoura em 100% para todo mundo e um serviço fora do contexto cai para a casa dos 20–40%.</p>
+
+    <h3 style="margin-top:28px">Exemplos reais de saída</h3>
+    <table>
+      <tr><th>Cenário respondido</th><th>Nº 1 do ranking</th><th>Plano</th><th>Prioridade</th></tr>
+      <tr><td>Pessoa · iPhone novo + quer aprender · Apple · presencial · esta semana</td><td>Aulas individuais <span class="mono">(82%)</span></td><td>Tecnologia Sem Medo</td><td class="num">B</td></tr>
+      <tr><td>Pessoa · arquivos bagunçados + aparelhos não conversam + medo de golpe · misto · presencial · este mês</td><td>Vida digital organizada <span class="mono">(97%)</span></td><td>Vida Digital Organizada</td><td class="num">B</td></tr>
+      <tr><td>Profissional liberal · não tem site + quer Google · Apple · remoto · este mês</td><td>Criação de sites <span class="mono">(89%)</span></td><td>Site Profissional</td><td class="num">C</td></tr>
+      <tr><td>Pequeno negócio · site velho + parado + quer Google · Windows · remoto · esta semana</td><td>Manutenção e acompanhamento <span class="mono">(86%)</span></td><td>Site Profissional</td><td class="num">A</td></tr>
+      <tr><td>Equipe · equipamentos + treinar + sem site + socorro · misto · presencial · urgente</td><td>Empresa conectada <span class="mono">(95%)</span></td><td>Empresa Conectada</td><td class="num">A</td></tr>
+    </table>
+
+    <h3 style="margin-top:28px">Classificação de prioridade (chega junto na mensagem)</h3>
+    <p>Prioridade = peso da urgência (urgente 3 · esta semana 2 · este mês 1 · pesquisando 0) + número de dores (máx. 3) + 1 se for negócio ou equipe. <strong>A ≥ 6 · B 4–5 · C ≤ 3.</strong> Serve para você organizar a agenda quando chegarem cinco mensagens no mesmo dia — o cliente não vê a lógica, só a letra no fim da mensagem.</p>
+
+    <h3 style="margin-top:28px">Como editar sem quebrar nada</h3>
+    <ul>
+      <li><strong>Novo serviço:</strong> acrescente um objeto no array <code>SERVICOS</code> com <code>perfil</code>, <code>eco</code>, <code>urg</code> e <code>modo</code>. O catálogo, o ranking e os planos se ajustam sozinhos.</li>
+      <li><strong>Nova dor:</strong> acrescente em <code>DORES</code> com <code>p</code> (perfis que a veem) e <code>w</code> (peso por serviço, 0 a 3). Só aparece para os perfis listados.</li>
+      <li><strong>Reordenar prioridades comerciais:</strong> aumente o peso do serviço no perfil que você quer atrair. Aumentar acima de 2,4 desequilibra a normalização — não faça.</li>
+      <li><strong>Regra de honestidade:</strong> a nota é afinidade calculada, nunca promessa de resultado. O texto abaixo do catálogo diz isso explicitamente. Não troque essa frase por linguagem de venda.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 04 -->
+<section class="wrap bloco" id="s04">
+  <div class="abre"><span class="n">04</span><div><h2>Ciência comportamental aplicada</h2>
+  <p class="lead">Cada decisão de persuasão da página nomeia o princípio que a sustenta — e onde a evidência tem limite, o recurso não foi usado.</p></div></div>
+  <div class="corpo">
+    <table>
+      <tr><th>Princípio</th><th>Onde aparece</th></tr>
+      <tr><td>Fluência de processamento</td><td>Uma ideia por seção, corpo em 18px, benefício antes de especificação, zero jargão. O que é fácil de processar é percebido como mais confiável.</td></tr>
+      <tr><td>Ancoragem</td><td>Valor apresentado antes de qualquer preço; o plano-âncora Empresa Conectada calibra a percepção do que é "grande" no portfólio.</td></tr>
+      <tr><td>Dominância assimétrica</td><td>Três planos por aba com o do meio destacado em tinta invertida — arquitetura de escolha clássica, sem ocultar as alternativas.</td></tr>
+      <tr><td>Prova social</td><td>Seção estruturada e pronta, <strong>deliberadamente vazia até você fornecer depoimentos reais</strong>. Ver seção 06.</td></tr>
+      <tr><td>Redução de fricção</td><td>Diagnóstico sem cadastro, sem e-mail, sem login. A mensagem do WhatsApp chega escrita e revisável antes do envio.</td></tr>
+      <tr><td>Peak-end</td><td>O pico é o resultado do diagnóstico; o fim é o compromisso de segurança e a facilidade do primeiro contato.</td></tr>
+    </table>
+    <div class="cx cx--esc" style="margin-top:18px">
+      <h4>O que foi recusado de propósito</h4>
+      <p class="sm mut" style="margin-top:8px">Sem contador regressivo falso, sem "restam 2 vagas", sem depoimento fictício, sem número de clientes inventado, sem promessa de primeiro lugar no Google, sem preço riscado. O público principal deste negócio inclui pessoas idosas — usar escassez fabricada aqui não é agressividade comercial, é exploração de vulnerabilidade. Escassez só entra no site quando for verdadeira (agenda realmente lotada, turma com vagas contadas).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 05 -->
+<section class="wrap bloco" id="s05">
+  <div class="abre"><span class="n">05</span><div><h2>Publicação: configuração, deploy e SEO</h2>
+  <p class="lead">O site é um único arquivo, sem servidor, sem banco e sem dependência externa além das fontes. Publica em qualquer hospedagem.</p></div></div>
+  <div class="corpo">
+    <h3>1. O único bloco a editar</h3>
+    <pre>var CONFIG = {
+  whatsapp: <span class="c">""</span>,   <span class="c">// obrigatório: só dígitos, ex.: "5541999998888"</span>
+  nome: <span class="c">"Elo Digital"</span>,
+  regiao: <span class="c">"Curitiba e Região Metropolitana"</span>
+};</pre>
+    <p class="sm mut">Enquanto <code>whatsapp</code> estiver vazio, os botões não abrem link quebrado — exibem um aviso de configuração pendente. Preencha antes de publicar.</p>
+    <pre>var PRECOS = { p1:<span class="c">""</span>, p2:<span class="c">""</span>, p3:<span class="c">""</span>, p8:<span class="c">""</span>, p4:<span class="c">""</span>, p5:<span class="c">""</span>, p6:<span class="c">""</span> };
+<span class="c">// preencha assim quando definir a tabela: p1: "R$ 390"</span></pre>
+    <p class="sm mut">Cada plano exibe <em>"a partir de R$ X"</em> quando o valor existe e <em>"orçamento após o diagnóstico"</em> quando está vazio. Preço de partida visível é o item que mais separa as referências profissionais das amadoras (seção 09) — publique assim que a tabela estiver fechada.</p>
+
+    <h3 style="margin-top:26px">2. Deploy</h3>
+    <ul>
+      <li><strong>Mais simples:</strong> arraste <code>index.html</code> e <code>og-image.png</code> para o Netlify Drop ou para a pasta pública da hospedagem. Pronto.</li>
+      <li><strong>Recomendado:</strong> repositório no GitHub + Vercel. Domínio próprio, HTTPS automático e histórico de versões — útil quando o site virar portfólio dos seus próprios serviços.</li>
+      <li>Aponte o domínio, confirme o certificado de segurança e teste em um celular real antes de divulgar.</li>
+    </ul>
+
+    <h3 style="margin-top:26px">3. Ajustes de SEO após definir o domínio</h3>
+    <ul>
+      <li>Trocar <code>elodigital.com.br</code> por seu domínio real em: <code>canonical</code>, <code>og:url</code>, <code>og:image</code> (precisa ser URL absoluta) e nos três <code>@id</code> do JSON-LD.</li>
+      <li>Já entregue: title e description únicos, Open Graph e Twitter Card completos, JSON-LD <code>ProfessionalService</code> com catálogo dos 8 serviços, <code>FAQPage</code> com 6 perguntas, favicon SVG, headings semânticos e HTML acessível.</li>
+      <li>Criar o Perfil da Empresa no Google com as mesmas informações do JSON-LD (nome, área atendida, serviços). É o canal de aquisição local com melhor retorno para este tipo de negócio.</li>
+      <li>Publicar <code>robots.txt</code> e <code>sitemap.xml</code> (duas linhas cada, para uma página só).</li>
+    </ul>
+
+    <h3 style="margin-top:26px">4. Qualidade já verificada</h3>
+    <ul>
+      <li>Responsivo de 380px a 1440px; nenhum componente quebra na escala de texto A++.</li>
+      <li>Contraste AA no modo padrão e reforçado no modo alto contraste; foco de teclado visível; <code>prefers-reduced-motion</code> respeitado; link de pular para o conteúdo.</li>
+      <li>Zero dependência de JavaScript externo, zero rastreador de terceiros por padrão — se você adicionar analytics, precisará de aviso de cookies conforme a LGPD.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 -->
+<section class="wrap bloco" id="s06">
+  <div class="abre"><span class="n">06</span><div><h2>O que ainda depende de você</h2>
+  <p class="lead">Cinco pendências. Nenhuma impede a publicação, exceto a primeira.</p></div></div>
+  <div class="corpo">
+    <table>
+      <tr><th>Pendência</th><th>Por quê</th><th>Status</th></tr>
+      <tr><td>Número do WhatsApp Business</td><td>Sem ele, nenhuma CTA converte.</td><td><span class="selo selo--alerta">Bloqueia publicação</span></td></tr>
+      <tr><td>Foto profissional sua</td><td>Marca pessoal em serviço de confiança: rosto reduz insegurança mais que qualquer texto. Reservar espaço na seção Confiança.</td><td><span class="selo selo--alerta">Alta prioridade</span></td></tr>
+      <tr><td>2 a 4 depoimentos reais</td><td>Prova social é o item que mais falta hoje. Peça autorização por escrito para publicar nome e cidade.</td><td><span class="selo">Assim que houver</span></td></tr>
+      <tr><td>Portfólio de sites</td><td>Mesmo que sejam 2 projetos, com print e link. Sem portfólio, o eixo empresarial fica menos crível que o eixo pessoal.</td><td><span class="selo">Assim que houver</span></td></tr>
+      <tr><td>Política de privacidade e termos</td><td>O documento já prevê. Necessária se você adicionar formulário ou analytics.</td><td><span class="selo">Antes de campanhas</span></td></tr>
+    </table>
+    <p style="margin-top:18px">O bloco de depoimentos já tem marcação reservada no código-fonte (comentário <code>SLOT DE PROVA SOCIAL</code>, seção Confiança). Estrutura pronta para colar:</p>
+    <pre>&lt;div class="comp"&gt;
+  &lt;span class="comp__t"&gt;"frase curta e específica do cliente"&lt;/span&gt;
+  &lt;span class="comp__d"&gt;Nome · cidade · serviço contratado&lt;/span&gt;
+&lt;/div&gt;</pre>
+    <p class="sm mut">Depoimento útil é específico: "ele transferiu 12 anos de fotos do meu celular antigo e me ensinou a achar tudo" convence; "excelente profissional" não convence ninguém.</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section class="wrap bloco" id="s07">
+  <div class="abre"><span class="n">07</span><div><h2>Precificação: benchmark de mercado</h2>
+  <p class="lead">Nenhum destes números é seu preço. São faixas praticadas no mercado brasileiro, pesquisadas em 03.08.2026, para você ancorar a sua tabela com informação em vez de intuição.</p></div></div>
+  <div class="corpo">
+    <span class="selo selo--alerta">Estimativas de mercado · não há tabela oficial no Brasil</span>
+    <table style="margin-top:14px">
+      <tr><th>Serviço</th><th>Faixa praticada</th><th>Fonte e data</th></tr>
+      <tr><td>Atendimento técnico domiciliar (hora)</td><td class="num">R$ 40 – 250</td><td>Cronoshare, jan/2026 — em São Paulo, R$ 100 a 250; no Rio, R$ 90 a 225</td></tr>
+      <tr><td>Aula particular de informática (hora)</td><td class="num">R$ 40 – 56</td><td>Profes / Superprof, consultado em 03.08.2026</td></tr>
+      <tr><td>Site institucional profissional</td><td class="num">R$ 2.500 – 15.000</td><td>Levolu, mai/2026; Studio Artemis, mar/2026</td></tr>
+      <tr><td>Site institucional — média para PMEs de serviço</td><td class="num">R$ 3.000 – 8.000</td><td>AZZ Agência, mai/2026</td></tr>
+      <tr><td>Landing page / página única</td><td class="num">R$ 900 – 2.500</td><td>Freelancer.com.br, 2026</td></tr>
+      <tr><td>Manutenção mensal de site (terceirizada)</td><td class="num">R$ 200 – 500 /mês</td><td>AZZ Agência, mai/2026</td></tr>
+      <tr><td>Hospedagem compartilhada (renovação real)</td><td class="num">R$ 24 – 65 /mês</td><td>Agência SEO Digital, jul/2026</td></tr>
+      <tr><td>Valor-hora de freelancer web</td><td class="num">R$ 45 – 200+</td><td>Freelancer.com.br, 2026</td></tr>
+    </table>
+
+    <h3 style="margin-top:28px">Como transformar isso na sua tabela</h3>
+    <ul>
+      <li><strong>Não venda hora, venda resultado fechado.</strong> "Primeiros Passos: aparelho novo pronto para usar, R$ X" é comparável e decidível. "R$ Y a hora" transforma você em commodity e coloca o cliente com medo do relógio.</li>
+      <li><strong>Posicione acima do piso.</strong> A faixa de R$ 40/h é de quem só liga o computador. Sua proposta de valor — didática, paciência, acompanhamento, especialização Apple — sustenta o terço superior da faixa. Preço baixo, neste setor, é lido como risco.</li>
+      <li><strong>Deslocamento é linha separada.</strong> Visita técnica com valor próprio e raio de atendimento definido evita prejuízo silencioso em cliente distante.</li>
+      <li><strong>Recorrência é o produto principal.</strong> Sempre Conectado e manutenção de site sustentam o mês; o serviço pontual é a porta de entrada. Cada projeto pontual deve terminar com uma oferta de continuidade — a trilha do diagnóstico já prepara essa conversa.</li>
+      <li><strong>Custos que precisam entrar na conta antes do lucro:</strong> hospedagem e domínio, deslocamento, ferramentas, impostos e as horas não faturáveis (orçamento, proposta, atendimento pré-venda). Some tudo antes de definir a hora-base.</li>
+      <li><strong>Revalide anualmente.</strong> Estas faixas envelhecem; a pesquisa acima tem data e deve ser refeita antes de reajustes.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 08 -->
+<section class="wrap bloco" id="s08">
+  <div class="abre"><span class="n">08</span><div><h2>Indicadores e próximos passos</h2>
+  <p class="lead">O documento pede validação por demanda real. Estes são os números que dizem se o posicionamento está certo.</p></div></div>
+  <div class="corpo">
+    <div class="grade2">
+      <div class="cx">
+        <h4>Indicadores do site</h4>
+        <ul class="sm" style="margin-top:10px">
+          <li>Diagnósticos iniciados ÷ visitantes</li>
+          <li>Diagnósticos concluídos ÷ iniciados</li>
+          <li>Mensagens de WhatsApp enviadas ÷ diagnósticos concluídos</li>
+          <li>Serviços mais recomendados pelo motor</li>
+        </ul>
+      </div>
+      <div class="cx">
+        <h4>Indicadores do negócio</h4>
+        <ul class="sm" style="margin-top:10px">
+          <li>Conversão de contato em cliente</li>
+          <li>Ticket médio por serviço</li>
+          <li>Clientes recorrentes ÷ total</li>
+          <li>Taxa de indicação</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cx cx--volt" style="margin-top:16px">
+      <h4>O cruzamento que importa</h4>
+      <p class="sm" style="margin-top:8px">Compare <strong>o que o motor mais recomenda</strong> com <strong>o que você mais vende</strong>. Se o motor indica sites e você fecha aulas, o posicionamento do site está desalinhado com a sua demanda real — e os pesos da seção 03 devem ser recalibrados. Esse cruzamento, sozinho, já é a validação de mercado que o documento pede.</p>
+    </div>
+    <h3 style="margin-top:26px">Próximos passos</h3>
+    <ol class="sm" style="padding-left:20px;line-height:1.9">
+      <li>Confirmar nome e verificar domínio, perfis sociais e conflito de marca.</li>
+      <li>Preencher <code>CONFIG.whatsapp</code>, publicar e testar em um celular real.</li>
+      <li>Definir a tabela de preços a partir da seção 07 e criar o Perfil da Empresa no Google.</li>
+      <li>Rodar a primeira oficina ("Tecnologia sem medo para 60+") e colher os primeiros depoimentos autorizados.</li>
+      <li>Após 30 dias, cruzar recomendações do motor com vendas fechadas e recalibrar os pesos.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 09 -->
+<section class="wrap bloco" id="s09">
+  <div class="abre"><span class="n">09</span><div><h2>Benchmark de referências e o que mudou</h2>
+  <p class="lead">Estudei quem opera este serviço em escala: HelloTech e Geek Squad (suporte domiciliar de massa nos EUA), Candoo Tech (suporte remoto desenhado especificamente para idosos) e guias comparativos de 2026 sobre suporte técnico para pais idosos. Quatro padrões se repetem — e três deles não estavam no site.</p></div></div>
+  <div class="corpo">
+    <table>
+      <tr><th>O que as referências fazem</th><th>O que mudou aqui</th></tr>
+      <tr><td><strong>Falam com quem paga, não só com quem usa.</strong> A Candoo posiciona metade da comunicação para "adult children and caregivers" — o filho que mora longe é quem contrata.</td><td>Terceiro caminho no herói ("para meu pai ou minha mãe"), perfil próprio no motor com duas dores exclusivas (morar longe; querer que a pessoa não dependa da família), bloco "contrate para outra pessoa", pergunta no FAQ e resumo por escrito para quem acompanha de longe.</td></tr>
+      <tr><td><strong>Vendem assinatura, não visita.</strong> HelloTech Home e Geek Squad Total Tech giram em torno de US$ 199/ano; a Candoo vende membership anual com suporte ilimitado. O avulso é porta de entrada.</td><td>O plano <strong>Sempre Conectado</strong> ganhou o que faltava para ser assinatura de verdade: check-up anual dos aparelhos, do backup e da rede (a ideia do "Home Technology Checkup" da HelloTech) e relatório para a família.</td></tr>
+      <tr><td><strong>Preço de partida antes do contato</strong> e a promessa de orçamento antes da visita. É o principal redutor de ansiedade do setor.</td><td>Estrutura de preço pronta em cada plano (<code>PRECOS</code>) e seção "Como funciona" em três passos com o orçamento prévio explícito. Falta você fechar a tabela — ver seção 07.</td></tr>
+      <tr><td><strong>Golpe é assunto de capa, não rodapé.</strong> A Candoo lidera com "stay safe from scams"; guias de 2026 tratam a checagem do prestador como principal critério de escolha.</td><td>Seção própria <em>"Como reconhecer um golpe de falso suporte técnico"</em> com cinco sinais, o que fazer se já aconteceu e o dado da Fundação Seade (jun/2026): 82% das pessoas 60+ no estado de São Paulo já sofreram tentativa de golpe virtual. É autoridade, é SEO e é a ponte natural para a aula de segurança.</td></tr>
+    </table>
+
+    <div class="cx cx--esc" style="margin-top:18px">
+      <h4>A vantagem que nenhuma delas tem — e que o site agora explora</h4>
+      <p class="sm mut" style="margin-top:8px">A crítica recorrente aos grandes (Geek Squad, HelloTech) é o rodízio de técnicos: cada visita é uma pessoa nova, com paciência variável, que não conhece o histórico. Guias de 2026 dizem isso com todas as letras — um profissional constante que conhece o setup vale mais que o mais barato disponível. Um operador solo não compete com escala; compete exatamente aí. Explore isso na sua comunicação: <strong>"quem atende é sempre a mesma pessoa, e ela lembra do seu caso"</strong> é a frase que os grandes não conseguem dizer.</p>
+    </div>
+
+    <h3 style="margin-top:26px">Correções de usabilidade da mesma rodada</h3>
+    <ul>
+      <li>Menu funcional no celular (antes os links simplesmente sumiam abaixo de 1080px) e barra fixa inferior com as duas ações principais sempre à mão.</li>
+      <li>Diagnóstico agora pergunta a <strong>melhor janela de horário</strong> — a mensagem chega pronta para agendar, não só para conversar.</li>
+      <li>Bloco "Como funciona" em três passos logo após o herói: contato → orçamento antes → execução com ensino.</li>
+      <li>Contraste do texto terciário elevado de 4,13:1 para 5,4:1 (AA com folga no público 60+).</li>
+    </ul>
+
+    <p class="sm mut">Fontes consultadas em 03.08.2026: hellotech.com (planos e blog), candootech.com (home, FAQ, gift card), ClearGuide Tech — "Best Tech Support Options for Elderly Parents" (abr/2026), Jornal Empresas &amp; Negócios / Fundação Seade (jun/2026).</p>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="wrap bloco" id="s10">
+  <div class="abre"><span class="n">10</span><div><h2>Camada cinema: vídeo e movimento</h2>
+  <p class="lead">O site passou a ter estrutura de tiles full-bleed, três vídeos gerados sob medida e um sistema de movimento coreografado. Isso tem consequências operacionais — elas estão aqui.</p></div></div>
+  <div class="corpo">
+    <h3>Os três vídeos</h3>
+    <table>
+      <tr><th>Onde</th><th>Conteúdo</th><th>Função</th></tr>
+      <tr><td>Herói (tela cheia)</td><td>Mãos de uma senhora com o celular e as mãos de quem ensina ao lado, luz de manhã</td><td>Diz em 3 segundos o que o texto levaria um parágrafo para dizer: paciência, proximidade, dignidade.</td></tr>
+      <tr><td>Tile escuro — Vida digital</td><td>Mesa vista de cima: notebook, celular, tablet e fotografias impressas em ordem</td><td>Torna concreto um serviço abstrato ("organização digital" não tem imagem própria).</td></tr>
+      <tr><td>Tile papel — Presença digital</td><td>Dona de um pequeno negócio olhando o site no balcão da loja</td><td>Mostra o cliente-alvo do eixo empresarial se reconhecendo na cena.</td></tr>
+    </table>
+    <div class="cx cx--volt" style="margin-top:16px">
+      <h4>Antes de publicar: baixe e hospede os vídeos</h4>
+      <p class="sm" style="margin-top:8px">Hoje os três apontam para a CDN do Higgsfield. Isso funciona, mas você não controla esse endereço. Baixe os arquivos, comprima cada um para 1–2 MB (H.264 + WebM), gere uma imagem de primeiro quadro para o atributo <code>poster</code> e troque os <code>src</code> por caminhos locais (<code>/video/heroi.mp4</code>). Sem <code>poster</code>, quem está em rede lenta vê um retângulo escuro no lugar do herói.</p>
+    </div>
+
+    <h3 style="margin-top:26px">O movimento, e por que cada peça existe</h3>
+    <table>
+      <tr><th>Efeito</th><th>Razão</th></tr>
+      <tr><td>Revelação escalonada (70 ms por item, com desfoque saindo)</td><td>Dá ordem de leitura: o olho recebe um item por vez em vez de uma parede pronta.</td></tr>
+      <tr><td>Scrub do herói (vídeo afasta, texto sobe e some)</td><td>Transfere atenção do clima para o conteúdo sem exigir um clique.</td></tr>
+      <tr><td>Pontes em gradiente entre tiles</td><td>Onde a Apple corta seco, o papel morno pede passagem — a troca de superfície continua sendo o divisor, mas sem choque.</td></tr>
+      <tr><td><strong>FLIP na reordenação do catálogo</strong></td><td>O item mais importante da entrega: ao terminar o diagnóstico, os cartões <em>deslizam</em> para a nova ordem. A pessoa vê o site reagir a ela — a promessa do motor fica visível, não declarada.</td></tr>
+      <tr><td>Cabeçalho que recolhe ao descer</td><td>Devolve altura de tela na leitura e retorna no instante em que o usuário procura navegação.</td></tr>
+      <tr><td>Vídeos que só tocam em cena</td><td>Bateria e dados. Fora do viewport, pausam; nunca carregam antes da hora.</td></tr>
+    </table>
+    <p class="sm mut">Três desligamentos automáticos: <code>prefers-reduced-motion</code>, <code>saveData</code> e redes 2G. Nesses casos o site fica estático e íntegro — nenhum conteúdo depende de animação para existir. Isso não é acessório: parte do público tem sensibilidade a movimento, e vertigem é motivo real de abandono.</p>
+
+    <h3 style="margin-top:26px">Correções desta rodada</h3>
+    <ul>
+      <li><strong>Cabeçalho.</strong> "Para você" e "Para empresas" quebravam em duas linhas e espremiam a barra. Rótulos agora são <code>white-space:nowrap</code>, a barra desktop tem no máximo 5 itens (Golpes e Método vivem no menu) e o ponto de colapso subiu de 1080 px para 1180 px.</li>
+      <li><strong>Alto contraste.</strong> Antes trocava um bege por um branco e pouco mais — não cumpria a função. Agora é um modo completo: 21:1 de tinta sobre papel, cinzas de apoio eliminados, hairlines de 2px pretos, superfícies escuras em preto absoluto, véu de vídeo opaco, seleção em preto sólido, links sublinhados, foco de 4px e proibição de comunicar qualquer coisa apenas por opacidade.</li>
+      <li><strong>Motion de estado.</strong> Todo hover, cor e borda passou a usar 0,33 s com <code>cubic-bezier(.5, 0, 0, .75)</code> — o par de timing da ficha <code>tesla</code> da biblioteca DESIGN.md, que trata consistência de movimento como consistência de cor. A pressão do botão ficou de fora, em 120 ms: resposta ao toque não pode esperar um terço de segundo.</li>
+    </ul>
+
+    <h3 style="margin-top:26px">Referência de design</h3>
+    <p>A estrutura veio da ficha <code>apple</code> da biblioteca DESIGN.md: tiles full-bleed alternando claro e escuro com a troca de superfície como divisor, fotografia em movimento no papel principal, chrome que recua, <code>scale(.96)</code> como press-state universal e <strong>uma única sombra em todo o sistema</strong> — <code>rgba(0,0,0,.22) 3px 5px 30px</code>, reservada à mídia apoiada na superfície, nunca em cartão, botão ou texto. O que não foi copiado: a paleta, a tipografia e o azul de ação. Elo Digital continua em papel morno, verde-sinal e Bricolage Grotesque — o nível de acabamento é Apple, a identidade não.</p>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="wrap bloco" id="s11">
+  <div class="abre"><span class="n">11</span><div><h2>Sistema de motion</h2>
+  <p class="lead">O movimento passou a ser um sistema com tokens, não um punhado de efeitos. Quatro regras governam tudo: só <code>transform</code> e <code>opacity</code>; entradas em expo-out; escalonamento de 45–90 ms; e desligamento automático quando o usuário ou a rede pedem.</p></div></div>
+  <div class="corpo">
+    <h3>Tokens</h3>
+    <table>
+      <tr><th>Token</th><th>Valor</th><th>Uso</th></tr>
+      <tr><td class="num">--e-out</td><td class="num">cubic-bezier(.16, 1, .3, 1)</td><td>Toda entrada. Arranque rápido, pouso macio — é o que faz o movimento parecer físico em vez de robótico.</td></tr>
+      <tr><td class="num">--e-inout</td><td class="num">cubic-bezier(.65, 0, .35, 1)</td><td>Trocas de estado com ida e volta.</td></tr>
+      <tr><td class="num">--t-1 … --t-6</td><td class="num">120 · 180 · 240 · 380 · 520 · 760 ms</td><td>Nada no site passa de 760 ms. Feedback de clique fica em 120–180 ms.</td></tr>
+    </table>
+
+    <h3 style="margin-top:26px">Inventário do que se move — e por quê</h3>
+    <table>
+      <tr><th>Peça</th><th>Comportamento</th><th>Razão</th></tr>
+      <tr><td>Títulos</td><td>Fatiados em palavras; cada uma sobe de dentro da própria linha, 45 ms de intervalo</td><td>Cria ordem de leitura e dá ao título o peso de uma abertura de filme. É a animação mais visível do site.</td></tr>
+      <tr><td>Herói</td><td>Entra sozinho no carregamento; depois o vídeo se afasta e o texto sai conforme a rolagem</td><td>O site precisa se mover antes de qualquer rolagem — caso contrário parece estático nos primeiros 3 segundos.</td></tr>
+      <tr><td>Blocos</td><td>Sobem 30 px com fade, filhos escalonados em 70 ms; o filete do eyebrow cresce antes do texto</td><td>Transição entre blocos: cada seção se apresenta em vez de já estar lá.</td></tr>
+      <tr><td>Vídeos dos tiles</td><td>Paralaxe de ±3,5% via <code>animation-timeline: view()</code></td><td>CSS puro, sem JavaScript, rodando no compositor. Onde o navegador não suporta, o vídeo fica estático — nada quebra.</td></tr>
+      <tr><td>Botões</td><td>Varredura de luz da esquerda para a direita no hover, <code>scale(.97)</code> na pressão, ícone do WhatsApp gira 9°</td><td>Feedback tátil. O usuário sente que o botão respondeu antes de a página reagir.</td></tr>
+      <tr><td><strong>Diagnóstico</strong></td><td>Passos deslizam (saída à esquerda, entrada pela direita); a marca do check surge com escala</td><td>Dá direção espacial ao formulário: você avança, não recarrega.</td></tr>
+      <tr><td><strong>Resultado</strong></td><td>Cartões sobem escalonados, barras preenchem em 900 ms e <strong>o número conta de 0 até a nota</strong></td><td>O cálculo vira acontecimento. É o momento em que o motor deixa de ser promessa.</td></tr>
+      <tr><td>Catálogo</td><td>FLIP na reordenação; fade de 190 ms na troca de filtro</td><td>Continuidade espacial: o cartão que subiu é o mesmo cartão, e você vê o caminho.</td></tr>
+      <tr><td>Barra de leitura</td><td>Filete de 3 px no topo, atrelado à rolagem</td><td>Orientação em página longa, custo próximo de zero.</td></tr>
+    </table>
+
+    <h3 style="margin-top:26px">O botão de WhatsApp</h3>
+    <p>Passou a usar o verde de marca <span class="mono">#25D366</span> — o único ponto de saturação alta do site inteiro, exatamente para que ele seja a coisa mais visível da tela. Duas decisões importantes:</p>
+    <ul>
+      <li><strong>Tinta escura, não branca.</strong> O branco sobre esse verde dá 1,98:1 de contraste e reprova em qualquer critério de acessibilidade — inclusive no material da própria marca. Com a tinta <span class="mono">#062616</span> o botão chega a <strong>8,17:1</strong> e continua igualmente chamativo.</li>
+      <li><strong>Halo que para.</strong> Ao entrar em cena, o botão emite um anel de atenção três vezes e silencia. Loop infinito em elemento de conversão vira ruído: o olho se adapta, ignora, e ainda atrapalha quem lê com dificuldade.</li>
+    </ul>
+
+    <div class="cx cx--esc" style="margin-top:18px">
+      <h4>Por que o movimento pode parecer ausente — e o que foi corrigido</h4>
+      <p class="sm mut" style="margin-top:8px">Duas causas, e as duas deixam o site parecendo estático mesmo com todo o código no lugar. <strong>Primeira:</strong> a revelação dependia de <code>IntersectionObserver</code>. Em painéis de pré-visualização e molduras que se ajustam à altura do conteúdo, o observador considera a página inteira visível de uma vez — tudo se revela junto, antes de qualquer rolagem. O efeito acontece e ninguém vê. Agora a revelação usa a posição real de cada bloco na tela e, na primeira pintura, o que já está visível entra <strong>em cascata de 110 ms</strong>, então há movimento perceptível mesmo sem rolar. <strong>Segunda:</strong> se o sistema operacional estiver com "reduzir movimento" ligado (comum em celular, às vezes sem a pessoa saber), tudo é desligado. Isso continua sendo respeitado — é a preferência declarada do usuário e não se discute. Para verificar o site sem depender dessa configuração, use <code>?movimento=1</code> no fim da URL (e <code>?movimento=0</code> força o estado estático). É parâmetro de teste, não recurso de interface: quem visita o site não deve precisar decidir se quer animação.</p>
+    </div>
+
+    <h3 style="margin-top:26px">Contrato de acessibilidade e performance</h3>
+    <ul>
+      <li><code>prefers-reduced-motion: reduce</code> zera durações, mantém todo o conteúdo visível e desliga vídeo, paralaxe, FLIP e contagem. O desligamento é governado pelo atributo <code>data-motion</code> no <code>&lt;html&gt;</code>, não por uma media query cega — é isso que permite o parâmetro <code>?movimento=1</code> sobrepor a preferência em ambiente de teste, sem colocar mais um controle na cara do visitante.</li>
+      <li>A revelação não usa <code>IntersectionObserver</code>: usa posição na tela + <code>requestAnimationFrame</code>, com cascata inicial limitada a 3 s e varreduras de segurança aos 4 s e 8 s (nenhum bloco pode ficar invisível por falha de animação).</li>
+      <li>A altura considerada "em cena" é <code>min(innerHeight, visualViewport.height)</code> e, se ainda for maior que 1,3× a tela física, cai para a altura da tela — uma moldura que se ajusta ao conteúdo relata a página inteira como visível e destrói qualquer animação de entrada.</li>
+      <li><strong>A entrada não é evento único.</strong> Um bloco que sai bem para fora da tela volta ao estado inicial e anima de novo no retorno. Sem isso, toda a coreografia acontece nos primeiros segundos e o site parece estático para sempre depois — foi exatamente o que aconteceu em teste.</li>
+      <li><code>navigator.connection.saveData</code> e redes 2G recebem o mesmo tratamento — e nenhum vídeo é baixado.</li>
+      <li>Todos os <code>scroll</code> listeners são <code>passive</code> e passam por <code>requestAnimationFrame</code>: a rolagem nunca trava.</li>
+      <li>Nenhuma animação bloqueia interação. Clicar durante uma transição funciona.</li>
+      <li>Fontes de referência consultadas em 03.08.2026: guia de animações web (nov/2025), Frontend Horizon sobre View Transitions e scroll-driven animations (2026), CSSAWWWARDS sobre <code>animation-timeline</code> (2026) e o guia de scroll animations do Webflow (jul/2026).</li>
+    </ul>
+  </div>
+</section>
+
+<footer class="wrap rodape">
+  <span>Elo Digital · Guia de implantação · 03.08.2026</span>
+  <span class="mono">CLAU ELITE OS</span>
+</footer>
+</body>
+</html>
