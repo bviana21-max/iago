@@ -72,7 +72,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 **Texto principal**
 > Cansou de vizinho de cima e de condomínio que só sobe?
 >
-> Este sobrado no Uberaba tem dois andares só seus, portão fechado e condomínio de R$ 250 por mês. Cozinha com ilha, armários planejados em todos os ambientes, vaga na frente da porta e aceita pet.
+> Este sobrado no Uberaba tem dois andares só seus, em condomínio fechado, com taxa de R$ 250 por mês. Cozinha com ilha, armários planejados em todos os ambientes, vaga na frente da porta e aceita pet.
 >
 > R$ 550 mil, aceita financiamento. Agende sua visita pelo WhatsApp.
 >
