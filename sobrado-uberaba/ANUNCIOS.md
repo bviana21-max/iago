@@ -8,7 +8,7 @@ Fonte de todos os dados: anúncio público da ref. 4631 (R$ 550.000, antes R$ 57
 
 ## 1. Antes de ligar qualquer campanha
 
-1. **Preencha o bloco `LP_CONFIG`** no fim do `index.html`. Já preenchidos: `whatsapp` ((41) 98735-7898) e `corretor` (Nete Benicio). Falta o `creci` e os IDs dos pixels.
+1. **Preencha o bloco `LP_CONFIG`** no fim do `index.html`. Já preenchidos: `whatsapp` ((41) 98735-7898), `corretor` (Nete Benicio) e `creci` (CRECI-PR 55283). Faltam só os IDs dos pixels.
    - `whatsapp`: DDI + DDD + número, só dígitos (ex.: `5541999998888`). Sem isso, os botões só rolam até o formulário e o lead não chega a ninguém.
    - `corretor` e `creci`: aparecem no rodapé. O CRECI é obrigatório em anúncio de imóvel (regra do COFECI), na página e no texto do anúncio.
    - `metaPixelId`, `ga4Id`, `googleAdsId`, `googleAdsLeadLabel`, `googleAdsContatoLabel`: os pixels só carregam se o ID estiver preenchido.
@@ -62,7 +62,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 >
 > Semi-mobiliado e pronto para a sua mudança no Uberaba. Veja as 32 fotos reais e simule a parcela.
 >
-> Corretora responsável: Nete Benicio · CRECI [NÚMERO]
+> Corretora responsável: Nete Benicio · CRECI-PR 55283
 
 **Título**: Sobrado no Uberaba por R$ 550 mil
 **Descrição**: Condomínio fechado · R$ 250/mês
@@ -76,7 +76,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 >
 > R$ 550 mil, aceita financiamento. Agende sua visita pelo WhatsApp.
 >
-> Corretora responsável: Nete Benicio · CRECI [NÚMERO]
+> Corretora responsável: Nete Benicio · CRECI-PR 55283
 
 **Título**: Troque o elevador pela sua escada
 **Descrição**: Sobrado 2 quartos · R$ 550 mil
@@ -90,7 +90,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 >
 > R$ 550 mil. Veja as fotos e agende sua visita.
 >
-> Corretora responsável: Nete Benicio · CRECI [NÚMERO]
+> Corretora responsável: Nete Benicio · CRECI-PR 55283
 
 **Título**: Sobrado face norte no Uberaba
 **Descrição**: Semi-mobiliado · aceita pet
@@ -163,7 +163,7 @@ Fixe o título 1 na posição 1 para que todo anúncio comece dizendo o que é e
   - Simular Parcelas → `/sobrado-uberaba/#parcelas`
   - Agendar Visita → `/sobrado-uberaba/#visita`
   - Localização → `/sobrado-uberaba/#local`
-- **Frases de destaque**: Condomínio R$ 250/mês · Face Norte · Aceita Pet · Semi-Mobiliado · Aceita Financiamento · Condomínio Fechado
+- **Frases de destaque**: Condomínio R$ 250/mês · Face Norte · Aceita Pet · Semi-Mobiliado · Aceita Financiamento · Condomínio Fechado · Corretora CRECI-PR 55283
 - **Snippet estruturado** (cabeçalho "Comodidades"): Cozinha com ilha · Armários planejados · Aquecimento a gás · Portão eletrônico
 - **Imagens**: `quadrado-1200x1200.jpg` e `paisagem-1200x630.jpg`
 
@@ -178,6 +178,8 @@ Fixe o título 1 na posição 1 para que todo anúncio comece dizendo o que é e
 | `criativos/quadrado-1200x1200.jpg` | Google (imagens de Pesquisa e Display) e feed quadrado |
 | `criativos/paisagem-1200x630.jpg` | Google Display e coluna da direita do Facebook |
 | `og.jpg` | Prévia do link no WhatsApp e nas redes |
+
+Todos os criativos trazem o selo "Nete Benicio · CRECI-PR 55283" no canto da foto.
 
 ## 5. Rotina das duas primeiras semanas
 

@@ -891,7 +891,7 @@ fieldset.f-campo{border:0;margin:0;padding:0;min-width:0}
 window.LP_CONFIG = {
   whatsapp: '5541987357898', // DDI + DDD + número, só dígitos: (41) 98735-7898
   corretor: 'Nete Benicio',  // Nome do corretor ou da imobiliária responsável
-  creci: '',                 // Número do CRECI (obrigatório em anúncio de imóvel)
+  creci: 'CRECI-PR 55283',   // CRECI completo, como deve aparecer (obrigatório em anúncio de imóvel)
   metaPixelId: '',           // Pixel da Meta. Ex.: '123456789012345'
   ga4Id: '',                 // Google Analytics 4. Ex.: 'G-XXXXXXX'
   googleAdsId: '',           // Google Ads. Ex.: 'AW-123456789'
@@ -1047,7 +1047,7 @@ window.LP_CONFIG = {
   /* ---------- CRECI no rodapé ---------- */
   var creci = $('#rodape-creci');
   if(C.corretor || C.creci){
-    creci.textContent = 'Corretora responsável: ' + (C.corretor || '') + (C.creci ? ' · CRECI ' + C.creci : '');
+    creci.textContent = 'Corretora responsável: ' + (C.corretor || '') + (C.creci ? ' · ' + C.creci : '');
   } else {
     creci.textContent = 'Corretora responsável: preencha corretor e CRECI em LP_CONFIG.';
   }
