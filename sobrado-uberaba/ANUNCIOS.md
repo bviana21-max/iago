@@ -1,6 +1,6 @@
 # Sobrado Uberaba (ref. 4631): kit de anúncios
 
-Página: `sobrado-uberaba/index.html` · Criativos: `sobrado-uberaba/criativos/` · Imagem de compartilhamento: `sobrado-uberaba/og.jpg`
+Site: **https://sobradouberaba.com.br** (arquivo `sobrado-uberaba/index.html`) · Criativos: `sobrado-uberaba/criativos/` · Imagem de compartilhamento: `sobrado-uberaba/og.jpg`
 
 Fonte de todos os dados: anúncio público da ref. 4631 (R$ 550.000, antes R$ 570.000; condomínio R$ 250; IPTU R$ 90,23; 75,4 m² privativos; 2 quartos; 1 banheiro + lavabo; 1 vaga; face norte; semi-mobiliado; aceita pet; aceita financiamento). Nada foi inventado: não há depoimentos, prazos ou descontos além da redução de preço que consta no anúncio.
 
@@ -13,8 +13,8 @@ Fonte de todos os dados: anúncio público da ref. 4631 (R$ 550.000, antes R$ 57
    - `corretor` e `creci`: aparecem no rodapé. O CRECI é obrigatório em anúncio de imóvel (regra do COFECI), na página e no texto do anúncio.
    - `metaPixelId`, `ga4Id`, `googleAdsId`, `googleAdsLeadLabel`, `googleAdsContatoLabel`: os pixels só carregam se o ID estiver preenchido.
    - `webhook` (opcional): URL do Make, Zapier ou Google Apps Script para guardar cada lead numa planilha, além do WhatsApp.
-2. **Publique a pasta `sobrado-uberaba/`** no mesmo lugar onde o site deste repositório é servido. A página fica em `https://SEU-DOMINIO/sobrado-uberaba/`.
-3. **Troque `og.jpg` por URL absoluta** na tag `og:image` (ex.: `https://SEU-DOMINIO/sobrado-uberaba/og.jpg`). Sem isso, o link não mostra a foto quando compartilhado no WhatsApp.
+2. **Site publicado em `https://sobradouberaba.com.br`** (Hostinger). O pacote publicado tem só `index.html`, `og.jpg` e `fotos/`; os criativos e este kit ficam fora do ar. A imagem de compartilhamento já aponta para `https://sobradouberaba.com.br/og.jpg`.
+3. **SSL**: confirme no hPanel que o certificado SSL do domínio está ativo, para o site abrir com `https://`.
 4. **Teste no celular**: envie o formulário e confira se o WhatsApp abre com a mensagem pronta. Use o Meta Pixel Helper e o Google Tag Assistant para ver os eventos.
 5. **Fotos**: elas têm a marca d'água da imobiliária que fez o anúncio original. Use-as só se você tiver autorização (ou se for a própria imobiliária).
 
@@ -159,10 +159,10 @@ Fixe o título 1 na posição 1 para que todo anúncio comece dizendo o que é e
 ### Recursos (extensões)
 
 - **Sitelinks** (até 25 caracteres):
-  - Ver as 32 Fotos → `/sobrado-uberaba/#tour`
-  - Simular Parcelas → `/sobrado-uberaba/#parcelas`
-  - Agendar Visita → `/sobrado-uberaba/#visita`
-  - Localização → `/sobrado-uberaba/#local`
+  - Ver as 32 Fotos → `https://sobradouberaba.com.br/#tour`
+  - Simular Parcelas → `https://sobradouberaba.com.br/#parcelas`
+  - Agendar Visita → `https://sobradouberaba.com.br/#visita`
+  - Localização → `https://sobradouberaba.com.br/#local`
 - **Frases de destaque**: Condomínio R$ 250/mês · Face Norte · Aceita Pet · Semi-Mobiliado · Aceita Financiamento · Condomínio Fechado · Corretora CRECI-PR 55283
 - **Snippet estruturado** (cabeçalho "Comodidades"): Cozinha com ilha · Armários planejados · Aquecimento a gás · Portão eletrônico
 - **Imagens**: `quadrado-1200x1200.jpg` e `paisagem-1200x630.jpg`
