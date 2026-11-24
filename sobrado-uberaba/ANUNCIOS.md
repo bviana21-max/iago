@@ -8,7 +8,7 @@ Fonte de todos os dados: anúncio público da ref. 4631 (R$ 550.000, antes R$ 57
 
 ## 1. Antes de ligar qualquer campanha
 
-1. **Preencha o bloco `LP_CONFIG`** no fim do `index.html`:
+1. **Preencha o bloco `LP_CONFIG`** no fim do `index.html`. Já preenchidos: `whatsapp` ((41) 98735-7898) e `corretor` (Nete Benicio). Falta o `creci` e os IDs dos pixels.
    - `whatsapp`: DDI + DDD + número, só dígitos (ex.: `5541999998888`). Sem isso, os botões só rolam até o formulário e o lead não chega a ninguém.
    - `corretor` e `creci`: aparecem no rodapé. O CRECI é obrigatório em anúncio de imóvel (regra do COFECI), na página e no texto do anúncio.
    - `metaPixelId`, `ga4Id`, `googleAdsId`, `googleAdsLeadLabel`, `googleAdsContatoLabel`: os pixels só carregam se o ID estiver preenchido.
@@ -26,10 +26,10 @@ Fonte de todos os dados: anúncio público da ref. 4631 (R$ 550.000, antes R$ 57
 | Toca em qualquer botão de WhatsApp | `Contact` | `contact` + conversão `googleAdsContatoLabel` |
 | Envia o formulário de visita | `Lead` | `generate_lead` + conversão `googleAdsLeadLabel` |
 | Mexe no simulador (1ª vez) | `Simulador_usado` (custom) | `Simulador_usado` |
-| Envia a simulação ao corretor | `Simulacao_enviada` (custom) | `Simulacao_enviada` |
+| Envia a simulação à corretora | `Simulacao_enviada` (custom) | `Simulacao_enviada` |
 | Abre a galeria | `Galeria_aberta` (custom) | `Galeria_aberta` |
 
-A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o clique veio de anúncio com UTM. Assim o corretor sabe de onde veio cada lead, mesmo que o pixel falhe.
+A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o clique veio de anúncio com UTM. Assim a corretora sabe de onde veio cada lead, mesmo que o pixel falhe.
 
 ### Parâmetros de URL
 
@@ -62,7 +62,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 >
 > Semi-mobiliado e pronto para a sua mudança no Uberaba. Veja as 32 fotos reais e simule a parcela.
 >
-> Corretor responsável: [NOME] · CRECI [NÚMERO]
+> Corretora responsável: Nete Benicio · CRECI [NÚMERO]
 
 **Título**: Sobrado no Uberaba por R$ 550 mil
 **Descrição**: Condomínio fechado · R$ 250/mês
@@ -76,7 +76,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 >
 > R$ 550 mil, aceita financiamento. Agende sua visita pelo WhatsApp.
 >
-> Corretor responsável: [NOME] · CRECI [NÚMERO]
+> Corretora responsável: Nete Benicio · CRECI [NÚMERO]
 
 **Título**: Troque o elevador pela sua escada
 **Descrição**: Sobrado 2 quartos · R$ 550 mil
@@ -90,7 +90,7 @@ A mensagem do WhatsApp termina com `[ref. 4631 · meta/campanha]` quando o cliqu
 >
 > R$ 550 mil. Veja as fotos e agende sua visita.
 >
-> Corretor responsável: [NOME] · CRECI [NÚMERO]
+> Corretora responsável: Nete Benicio · CRECI [NÚMERO]
 
 **Título**: Sobrado face norte no Uberaba
 **Descrição**: Semi-mobiliado · aceita pet
@@ -154,7 +154,7 @@ Fixe o título 1 na posição 1 para que todo anúncio comece dizendo o que é e
 | 1 | Sobrado de 2 quartos em condomínio fechado no Uberaba. Face norte e cozinha com ilha. | 85 |
 | 2 | Semi-mobiliado: armários planejados, cooktop, forno e coifa. Aceita pet. | 72 |
 | 3 | R$ 550 mil e condomínio de R$ 250. Aceita financiamento. Simule a parcela no site. | 82 |
-| 4 | Veja as 32 fotos reais, simule o financiamento e fale com o corretor pelo WhatsApp. | 83 |
+| 4 | Veja as 32 fotos reais, simule o financiamento e fale com a corretora pelo WhatsApp. | 84 |
 
 ### Recursos (extensões)
 
