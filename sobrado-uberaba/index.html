@@ -893,7 +893,7 @@ window.LP_CONFIG = {
   whatsapp: '5541987357898', // DDI + DDD + número, só dígitos: (41) 98735-7898
   corretor: 'Nete Benicio',  // Nome do corretor ou da imobiliária responsável
   creci: 'CRECI-PR 55283',   // CRECI completo, como deve aparecer (obrigatório em anúncio de imóvel)
-  metaPixelId: '1436202622007881', // Pixel da Meta: Dados do Sobrado Uberaba
+  metaPixelId: '1169422702101786,1436202622007881', // Pixels da Meta separados por vírgula (conta de anúncios 1447702998948044 e conta NEST)
   ga4Id: '',                 // Google Analytics 4. Ex.: 'G-XXXXXXX'
   googleAdsId: '',           // Google Ads. Ex.: 'AW-123456789'
   googleAdsLeadLabel: '',    // Rótulo da conversão "Lead (formulário)"
@@ -924,7 +924,7 @@ window.LP_CONFIG = {
   function addScript(src){var s=document.createElement('script');s.async=true;s.src=src;document.head.appendChild(s);}
   if(C.metaPixelId){
     !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', C.metaPixelId);
+    String(C.metaPixelId).split(',').forEach(function(id){ id = id.trim(); if(id) fbq('init', id); });
     fbq('track','PageView');
     fbq('track','ViewContent',{content_name:'Sobrado Uberaba 4631',content_category:'imovel',value:PRECO,currency:'BRL'});
   }
